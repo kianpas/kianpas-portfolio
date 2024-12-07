@@ -9,7 +9,7 @@ interface Props {
 // API 호출 함수
 const getSinglePost = async (id: string): Promise<Post | null> => {
   try {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    const res = await fetch(`https://dummyjson.com/posts/${id}`);
     if (!res.ok) {
       return null;
     }
@@ -20,17 +20,29 @@ const getSinglePost = async (id: string): Promise<Post | null> => {
   }
 };
 
-const SinglePostPage = async ({ params }: Props) => {
+const SinglePostPage = async (props : Props) => {
+  //next15 방식
+  const params = await props.params;
+    
   const post = await getSinglePost(params.id);
 
   if (!post) {
-    return <div className="text-red-500">Failed to load the post.</div>;
+    return (
+      <div className="text-red-500 max-w-3xl mx-auto px-4 py-6">
+        <h1 className="text-2xl font-bold mb-4">Post Not Found</h1>
+        <p>
+          The post you are looking for does not exist or could not be loaded.
+        </p>
+      </div>
+    );
   }
   return (
     <div className="max-w-3xl mx-auto px-4 py-6">
       {/* 헤더 섹션 */}
       <header className="mb-6">
-        <h1 className="text-4xl font-bold text-gray-800 mb-2">{post.title}</h1>
+        <h1 className="text-4xl font-bold text-gray-800 mb-2">
+          {post.title || "Untitled Post"}
+        </h1>
         <p className="text-gray-500 text-sm">Posted on: 2024-01-01</p>
       </header>
 
