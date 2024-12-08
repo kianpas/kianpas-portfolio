@@ -1,27 +1,15 @@
 import { Post } from "@/types/post";
-import PostCard from "../components/postCard/PostCard";
-
-const getPosts = async (): Promise<Post[]> => {
-  const res = await fetch("https://dummyjson.com/posts?limit=10");
-
-  if (!res.ok) {
-    throw new Error(`API call failed with status ${res.status}`);
-  }
-
-  // const posts: Post[] = await res.json();
-  const data = await res.json();
-
-  return data.posts;
-};
+import { getPosts } from "@/services/posts";
+import PostCard from "@/components/postCard/PostCard";
 
 const BlogPage = async () => {
-  const posts: Post[] = await getPosts();
+  const posts = await getPosts(1);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-8">
+    <section className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Blog Posts</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {posts.map((post) => (
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post: Post) => (
           <PostCard key={post.id} post={post} />
         ))}
       </div>

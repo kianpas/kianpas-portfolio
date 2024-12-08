@@ -1,4 +1,5 @@
-import { Post } from "@/types/post";
+
+import { getSinglePost } from "@/services/posts";
 
 interface Props {
   params: {
@@ -6,24 +7,10 @@ interface Props {
   };
 }
 
-// API 호출 함수
-const getSinglePost = async (id: string): Promise<Post | null> => {
-  try {
-    const res = await fetch(`https://dummyjson.com/posts/${id}`);
-    if (!res.ok) {
-      return null;
-    }
-    return res.json();
-  } catch (error) {
-    console.error(`Error fetching post: ${error}`);
-    return null; // 네트워크 에러 시에도 null 반환
-  }
-};
-
-const SinglePostPage = async (props : Props) => {
+const SinglePostPage = async (props: Props) => {
   //next15 방식
   const params = await props.params;
-    
+
   const post = await getSinglePost(params.id);
 
   if (!post) {
