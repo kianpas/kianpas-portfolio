@@ -9,7 +9,7 @@ const Navbar = () => {
     <nav className="bg-white shadow-sm fixed top-0 w-full z-10 h-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         <div className="flex items-center">
-          <Link href="/" className="text-lg font-semibold text-gray-800">
+          <Link href="/" className="text-xl font-semibold text-gray-800">
             LOGO
           </Link>
         </div>
@@ -17,25 +17,25 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-6 text-gray-600">
           <Link
             href="/"
-            className="hover:text-gray-200 transition-colors duration-200"
+            className="text-xl hover:text-gray-200 transition-colors duration-200"
           >
             Home
           </Link>
           <Link
             href="/about"
-            className="hover:text-gray-200 transition-colors duration-200"
+            className="text-xl hover:text-gray-200 transition-colors duration-200"
           >
             About
           </Link>
           <Link
             href="/blog"
-            className="hover:text-gray-200 transition-colors duration-200"
+            className="text-xl hover:text-gray-200 transition-colors duration-200"
           >
             Blog
           </Link>
           {/* <Link
               href="/contact"
-              className="hover:text-gray-200 transition-colors duration-200"
+              className="text-xl hover:text-gray-200 transition-colors duration-200"
             >
               Contact
             </Link> */}

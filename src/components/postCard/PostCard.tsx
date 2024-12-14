@@ -2,7 +2,7 @@ import { Post } from "@/types/post";
 import Link from "next/link";
 
 const PostCard: React.FC<{ post: Post }> = ({ post }) => {
-  const { id, title, tags, reactions, views } = post; // 필요한 데이터 구조 분해
+  const { id, title, tags } = post; // 필요한 데이터 구조 분해
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
       {/* 카드 헤더 - 이미지 (샘플 이미지 사용) */}
@@ -29,12 +29,12 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
         </div>
 
         {/* 카드 하단 정보 */}
-        <div className="flex justify-between items-center text-sm text-gray-600">
+        {/* <div className="flex justify-between items-center text-sm text-gray-600">
           <p>
             Likes: {reactions.likes} | Dislikes: {reactions.dislikes}
           </p>
           <p>Views: {views}</p>
-        </div>
+        </div> */}
 
         {/* 자세히 보기 버튼 */}
         <Link

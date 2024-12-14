@@ -1,4 +1,3 @@
-
 import { getSinglePost } from "@/services/posts";
 
 interface Props {
@@ -24,7 +23,7 @@ const SinglePostPage = async (props: Props) => {
     );
   }
   return (
-    <div className="max-w-3xl mx-auto px-4 py-6">
+    <div className="max-w-3xl mx-auto px-4 py-6 bg-gray-50 rounded-lg">
       {/* 헤더 섹션 */}
       <header className="mb-6">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">
@@ -43,7 +42,12 @@ const SinglePostPage = async (props: Props) => {
         <div className="flex justify-between text-blue-500">
           {/* 이전 포스트 링크 */}
           {Number(params.id) > 1 ? (
-            <a href={`/blog/${Number(params.id) - 1}`}>&larr; Previous Post</a>
+            <a
+              href={`/blog/${Number(params.id) - 1}`}
+              className="hover:underline hover:text-blue-700"
+            >
+              &larr; Previous Post
+            </a>
           ) : (
             <span className="text-gray-400 cursor-not-allowed">
               &larr; Previous Post
@@ -51,7 +55,7 @@ const SinglePostPage = async (props: Props) => {
           )}
 
           {/* 다음 포스트 링크 */}
-          <a href={`/blog/${Number(params.id) + 1}`}>Next Post &rarr;</a>
+          <a href={`/blog/${Number(params.id) + 1}`} className="hover:underline hover:text-blue-700">Next Post &rarr;</a>
         </div>
       </footer>
     </div>

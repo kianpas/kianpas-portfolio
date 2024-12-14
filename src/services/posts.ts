@@ -22,9 +22,8 @@ export const getSinglePost = async (id: string) => {
 
   if (!res.ok) {
     throw new Error("Failed to fetch posts");
-
-    const data = await res.json();
-    return data.post;
-    
   }
+  const data = await res.json();
+  
+  return data;
 };
