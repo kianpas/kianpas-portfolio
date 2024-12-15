@@ -14,8 +14,25 @@
   }
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   /* color: var(--foreground); */
   /* background: var(--background); */
   font-family: Arial, Helvetica, sans-serif;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.5); /* Tailwind의 gray-400 색상 */
+  border-radius: 4px;
 }
