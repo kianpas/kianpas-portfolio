@@ -6,7 +6,7 @@ const BlogPage = async () => {
   const posts = await getPosts(1);
 
   return (
-    <section className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Posts</h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
         {posts.map((post: Post) => (
@@ -30,7 +30,7 @@ const BlogPage = async () => {
           Next
         </button> */}
       </div>
-    </section>
+    </div>
   );
 };
 
