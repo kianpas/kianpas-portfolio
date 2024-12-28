@@ -1,6 +1,6 @@
 const Home = () => {
   return (
-    <div>
+    <div className="container mx-auto px-4 py-8">
       <article>
         <h1>
           <span>Hello!</span>

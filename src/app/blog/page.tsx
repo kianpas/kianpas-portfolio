@@ -7,7 +7,11 @@ const BlogPage = async () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Posts</h1>
+      <div className="space-y-2 pb-8 pt-6 md:space-y-5">
+        <h1 className="text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+          Posts
+        </h1>
+      </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
         {posts.map((post: Post) => (
           <PostCard key={post.id} post={post} />
