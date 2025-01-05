@@ -21,7 +21,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
           {tags.map((tag, index) => (
             <span
               key={index}
-              className="text-xs text-blue-500 bg-blue-100 px-2 py-1 rounded"
+              className="text-xs text-blue-500  px-2 py-1 rounded"
             >
               {tag}
             </span>
@@ -41,7 +41,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
           href={`/blog/${id}`}
           className="mt-4 inline-block text-blue-500 hover:text-blue-600 hover:underline"
         >
-          Read More →
+          Read More
         </Link>
       </div>
     </div>
