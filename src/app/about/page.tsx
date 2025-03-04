@@ -1,4 +1,6 @@
-const AboutPage = async () => {
+import { Mail, GitGraph } from "lucide-react";
+
+const AboutPage = () => {
   return (
     <div className="mx-auto px-4 py-8">
       <div className="pb-8 md:pb-10">
@@ -10,8 +12,16 @@ const AboutPage = async () => {
         {/* 좌측 정보란 */}
         <div className="flex flex-col items-center space-y-1 pt-8">
           <h3 className="pb-2 text-2xl font-bold tracking-tight">이운산</h3>
-          <p className="text-gray-500 dark:text-gray-400 leading-tight">occupation</p>
-          <p className="text-gray-500 dark:text-gray-400 leading-tight">company</p>
+          <p className="text-gray-500 dark:text-gray-400 leading-tight">
+            occupation
+          </p>
+          <p className="text-gray-500 dark:text-gray-400 leading-tight">
+            company
+          </p>
+          <div className="flex space-x-3 pt-6">
+            <Mail />
+            <GitGraph />
+          </div>
         </div>
         {/* 본문 내용 */}
         <div className="prose max-w-none dark:prose-invert xl:col-span-2">
