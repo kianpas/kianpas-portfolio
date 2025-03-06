@@ -25,7 +25,7 @@ const AboutPage = () => {
         </div>
         {/* 본문 내용 */}
         <div className="prose max-w-none dark:prose-invert xl:col-span-2">
-          <h2>Hi</h2>
+          <h2 className="text-3xl font-bold">Hi</h2>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
             sequi ratione similique, corporis totam soluta. Autem at dicta omnis
