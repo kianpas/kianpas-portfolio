@@ -34,7 +34,7 @@ export const getSinglePost = async (id: string): Promise<Post> => {
     }
 
     const data = await res.json();
-    return data.posts;
+    return data;
   } catch (error) {
     console.error("Error fetching posts:", error);
     throw error;
