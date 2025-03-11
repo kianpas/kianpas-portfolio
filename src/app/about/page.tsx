@@ -1,4 +1,4 @@
-import { Mail, GitGraph } from "lucide-react";
+import { Mail, GitGraph, Smile } from "lucide-react";
 
 const AboutPage = () => {
   return (
@@ -11,6 +11,9 @@ const AboutPage = () => {
       <div className="xl:grid xl:grid-cols-3 xl:gap-x-8">
         {/* 좌측 정보란 */}
         <div className="flex flex-col items-center space-y-1 pt-8">
+          <div className="relative">
+            <Smile size={128} />
+          </div>
           <h3 className="pb-2 text-2xl font-bold tracking-tight">이운산</h3>
           <p className="text-gray-500 dark:text-gray-400 leading-tight">
             occupation
