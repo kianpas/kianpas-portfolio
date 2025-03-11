@@ -22,7 +22,7 @@ export const getPosts = async (page: number): Promise<Post[]> => {
   }
 };
 
-//단일 포스트F
+//단일 포스트
 export const getSinglePost = async (id: string): Promise<Post> => {
   try {
     const res = await fetch(`https://dummyjson.com/posts/${id}`, {
@@ -34,7 +34,7 @@ export const getSinglePost = async (id: string): Promise<Post> => {
     }
 
     const data = await res.json();
-    return data.posts;
+    return data;
   } catch (error) {
     console.error("Error fetching posts:", error);
     throw error;

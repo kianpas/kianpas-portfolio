@@ -38,7 +38,7 @@ const SinglePostPage = async (props: Props) => {
           <div className="lg:pr-4">
             <div className="lg:max-w-lg">
               {/* 제목 섹션 */}
-              <p className="text-base/7 font-semibold text-indigo-600">Deploy faster</p>
+              {/* <p className="text-base/7 font-semibold text-indigo-600">Deploy faster</p> */}
               <h1 className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
                 {title}
               </h1>
