@@ -31,7 +31,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <Navbar />
-        <main className="container mx-auto mt-16">{children}</main>
+        <main className="container mx-auto mt-16 px-4">{children}</main>
       </body>
     </html>
   );
