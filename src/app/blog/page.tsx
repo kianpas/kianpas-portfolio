@@ -10,9 +10,10 @@ const BlogPage = async ({
 }) => {
   // searchParams가 Promise일 수 있으므로, 명시적으로 await 처리
   const resolvedSearchParams = await Promise.resolve(searchParams);
-  const currentPage = resolvedSearchParams?.page
-    ? parseInt(resolvedSearchParams.page, 10)
-    : 1;
+  const currentPage =
+    resolvedSearchParams?.page && isNaN(parseInt(resolvedSearchParams.page, 10))
+      ? parseInt(resolvedSearchParams.page, 10)
+      : 1;
   const posts = await getPosts(currentPage);
 
   return (

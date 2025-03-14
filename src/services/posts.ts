@@ -8,7 +8,9 @@ export const getPosts = async (page: number): Promise<Post[]> => {
       {
         cache: "no-store", // 서버 렌더링에 적합한 캐싱 정책
       }
-    );
+    ).catch((error) => {
+      throw new Error(`Network error: ${error.message}`);
+    });
 
     if (!res.ok) {
       throw new Error(`Failed to fetch posts ${res.status} ${res.statusText}`);
@@ -27,6 +29,8 @@ export const getSinglePost = async (id: string): Promise<Post> => {
   try {
     const res = await fetch(`https://dummyjson.com/posts/${id}`, {
       cache: "no-store", // 서버 렌더링에 적합한 캐싱 정책
+    }).catch((error) => {
+      throw new Error(`Network error: ${error.message}`);
     });
 
     if (!res.ok) {
