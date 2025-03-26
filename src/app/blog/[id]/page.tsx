@@ -1,9 +1,17 @@
-import { getSinglePost } from "@/services/posts";
+import { getPosts, getSinglePost } from "@/services/posts";
 
 interface Props {
   params: {
     id: string; // `id`는 동적 라우팅에서 전달됨
   };
+}
+
+// ✅ 1. 정적 export용 ID 목록 제공
+export async function generateStaticParams() {
+  const posts = await getPosts(1); 
+  return posts.map((post) => ({
+    id: post.id,
+  }));
 }
 
 const SinglePostPage = async (props: Props) => {
