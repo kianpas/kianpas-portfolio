@@ -6,13 +6,13 @@ interface Props {
   };
 }
 
-// ✅ 1. 정적 export용 ID 목록 제공
-export async function generateStaticParams() {
-  const posts = await getPosts(1); 
-  return posts.map((post) => ({
-    id: post.id,
-  }));
-}
+// // ✅ 1. 정적 export용 ID 목록 제공
+// export async function generateStaticParams() {
+//   const posts = await getPosts(1); 
+//   return posts.map((post) => ({
+//     id: post.id,
+//   }));
+// }
 
 const SinglePostPage = async (props: Props) => {
   //next15 방식
