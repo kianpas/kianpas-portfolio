@@ -113,10 +113,23 @@ const SinglePostPage = async (props: Props) => {
 
         {/* Article Content */}
         <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
-          <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700"></dl>
+          <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
+            <dt className="sr-only">Authors</dt>
+            <dd>
+              <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
+                <li>111</li>
+              </ul>
+              <dl className="whitespace-nowrap text-sm font-medium leading-5">
+                <dt className="sr-only">Name</dt>
+                <dd className="text-gray-900 dark:text-gray-100">
+                  author
+                </dd>
+              </dl>
+            </dd>
+          </dl>
           <div className="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
             <div className="prose dark:prose-invert max-w-none pt-10 pb-8">
-              <h2 id="introduction" className="text-2xl font-bold">
+              <h2 id="introduction" className="text-lg font-semibold">
                 Introduction
               </h2>
               <p>{body}</p>
@@ -135,7 +148,7 @@ const SinglePostPage = async (props: Props) => {
           </ul> */}
 
           {/* Footer with navigation */}
-          {/* <footer className="pt-6 text-sm text-gray-700 dark:text-gray-300">
+          <footer className="pt-6 text-sm text-gray-700 dark:text-gray-300">
             <div className="flex justify-between">
               <div>
                 <div className="text-xs uppercase text-gray-500">
@@ -160,7 +173,7 @@ const SinglePostPage = async (props: Props) => {
                 </a>
               </div>
             </div>
-          </footer> */}
+          </footer>
         </div>
       </main>
     </section>
