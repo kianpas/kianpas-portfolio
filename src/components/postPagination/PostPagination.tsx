@@ -11,7 +11,7 @@ const PostPagination = ({ currentPage }: { currentPage: number }) => {
 
   return (
     <nav
-      className="isolate inline-flex -space-x-px rounded-md shadow-xs"
+      className="flex justify-between"
       aria-label="Pagination"
     >
       <button

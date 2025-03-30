@@ -5,7 +5,7 @@ const PostCardAlt: React.FC<{ post: Post }> = ({ post }) => {
   const { id, title, tags, body } = post; // 필요한 데이터 구조 분해
 
   //내용 60자리 이상 처리
-  const truncate = (str: string, maxLength: number = 60): string =>
+  const truncate = (str: string, maxLength: number = 160): string =>
     str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
 
   //60자리 처리 내용
@@ -13,10 +13,7 @@ const PostCardAlt: React.FC<{ post: Post }> = ({ post }) => {
 
   return (
     <li key={post.id} className="py-5">
-      <article
-        key={post.id}
-        className="flex max-w-xl flex-col items-start justify-between bg-white rounded-lg overflow-hidden transition-transform duration-200 hover:scale-105"
-      >
+      <article key={post.id} className="flex flex-col space-y-2 xl:space-y-0">
         <div className="flex items-center gap-x-4 text-xs">
           {/* <time dateTime={post.datetime} className="text-gray-500">
           {post.date}
@@ -31,72 +28,21 @@ const PostCardAlt: React.FC<{ post: Post }> = ({ post }) => {
             </a>
           ))}
         </div>
-        <div className="group relative">
+        <div className="space-y-3">
           {/* 포스트 제목 */}
-          <h3 className="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
+          <h2 className="text-2xl leading-8 font-bold tracking-tight">
             <Link href={`/blog/${id}`}>
-              <span className="absolute inset-0" />
+              <span className="text-gray-900 dark:text-gray-100" />
               {title}
             </Link>
-          </h3>
+          </h2>
           {/* 단축된 포스트 내용 */}
-          <p className="mt-5 line-clamp-3 text-sm/6 text-gray-700">
+          <div className="prose max-w-none text-gray-500 dark:text-gray-400">
             {truncatedBody}
-          </p>
-        </div>
-        <div className="relative mt-8 flex items-center gap-x-4">
-          <div className="text-sm/6">
-            <p className="font-semibold text-gray-900">
-              <span className="absolute inset-0" />
-              Lorem, ipsum.
-            </p>
-            <p className="text-gray-600">Lorem, ipsum dolor.</p>
           </div>
         </div>
       </article>
     </li>
-
-    // <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
-    //   {/* 카드 헤더 - 이미지 (샘플 이미지 사용) */}
-    //   {/* <img
-    //     src={`https://via.placeholder.com/300?text=${title}`}
-    //     alt={title}
-    //     className="w-full h-48 object-cover"
-    //   /> */}
-
-    //   {/* 카드 내용 */}
-    //   <div className="p-4">
-    //     <h2 className="text-xl font-semibold text-gray-800 mb-2">{title}</h2>
-
-    //     {/* 태그 */}
-    //     <div className="flex flex-wrap gap-2 mb-3">
-    //       {tags.map((tag, index) => (
-    //         <span
-    //           key={index}
-    //           className="text-xs text-blue-500  px-2 py-1 rounded"
-    //         >
-    //           {tag}
-    //         </span>
-    //       ))}
-    //     </div>
-
-    //     {/* 카드 하단 정보 */}
-    //     {/* <div className="flex justify-between items-center text-sm text-gray-600">
-    //       <p>
-    //         Likes: {reactions.likes} | Dislikes: {reactions.dislikes}
-    //       </p>
-    //       <p>Views: {views}</p>
-    //     </div> */}
-
-    //     {/* 자세히 보기 버튼 */}
-    //     <Link
-    //       href={`/blog/${id}`}
-    //       className="mt-4 inline-block text-blue-500 hover:text-blue-600 hover:underline"
-    //     >
-    //       Read More
-    //     </Link>
-    //   </div>
-    // </div>
   );
 };
 

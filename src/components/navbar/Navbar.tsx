@@ -7,7 +7,7 @@ const Navbar = () => {
   // 모바일시 햄버거 메뉴 클릭 여부
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="bg-white shadow-sm fixed top-0 w-full z-10 h-16">
+    <nav className="shadow-sm fixed top-0 w-full z-10 h-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         <div className="flex items-center">
           <Link href="/" className="text-xl font-semibold text-gray-800">
@@ -15,7 +15,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="hidden md:flex space-x-6 text-gray-600">
+        <div className="hidden md:flex space-x-6">
           <Link
             href="/"
             className="text-xl hover:text-gray-200 transition-colors duration-200"
@@ -23,23 +23,23 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            href="/about"
-            className="text-xl hover:text-gray-200 transition-colors duration-200"
-          >
-            About
-          </Link>
-          <Link
             href="/blog"
             className="text-xl hover:text-gray-200 transition-colors duration-200"
           >
             Blog
           </Link>
-          {/* <Link
-              href="/contact"
+          <Link
+              href="/project"
               className="text-xl hover:text-gray-200 transition-colors duration-200"
             >
-              Contact
-            </Link> */}
+              Project
+            </Link>
+          <Link
+            href="/about"
+            className="text-xl hover:text-gray-200 transition-colors duration-200"
+          >
+            About
+          </Link>
         </div>
 
         <div className="md:hidden">
@@ -82,16 +82,22 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/about"
-              className="block text-gray-800 hover:text-blue-500"
-            >
-              About
-            </Link>
-            <Link
               href="/blog"
               className="block text-gray-800 hover:text-blue-500"
             >
               Blog
+            </Link>
+            <Link
+              href="/project"
+              className="block text-gray-800 hover:text-blue-500"
+            >
+              Project
+            </Link>
+            <Link
+              href="/about"
+              className="block text-gray-800 hover:text-blue-500"
+            >
+              About
             </Link>
             <Link
               href="/login"
