@@ -19,6 +19,33 @@ const BlogPage = async ({
       : 1;
 
   const posts = await getPosts(currentPage);
+  const totalPages = posts?.length; // 페이지네이션에 필요할 수 있음
+
+  console.log("totalPages ==>", totalPages);
+
+  // 반환값으로 상태 판단
+  if (posts === null) {
+    // getPosts 내부에서 에러 발생
+    return <div>게시물을 불러오는 중 오류가 발생했습니다.</div>;
+  }
+
+  if (posts.length === 0) {
+    // 성공했지만 데이터가 없음
+    return (
+      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+        {/* 헤더 */}
+        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-6xl">
+            Posts
+          </h1>
+        </div>
+        <div className="py-16 text-center text-gray-500 dark:text-gray-400">
+          표시할 게시물이 없습니다.
+        </div>
+        {/* 페이지네이션은 0개일 때 표시 안 함 */}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -29,7 +56,7 @@ const BlogPage = async ({
             Posts
           </h1>
         </div>
-         {/* 포스트 목록 후보1*/}
+        {/* 포스트 목록 후보1*/}
         <div>
           <ul>
             {posts.map((post: Post) => (
@@ -43,10 +70,19 @@ const BlogPage = async ({
             <PostCard key={post.id} post={post} />
           ))}
         </div> */}
-        {/* 페이징 버튼 */}
+        {/* 페이징 버튼
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <PostPagination currentPage={currentPage} />
-        </div>
+        </div> */}
+
+        {totalPages &&
+          totalPages > 1 && ( // 전체 페이지 수가 1보다 클 때만 표시
+            <div className="pt-8 pb-12 flex justify-center">
+              {/* 페이지네이션 위아래 여백 및 가운데 정렬 */}
+              {/* totalPages 전달 */}
+              <PostPagination currentPage={currentPage} /> 
+            </div>
+          )}
       </div>
     </>
   );

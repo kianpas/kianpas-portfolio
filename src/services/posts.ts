@@ -1,7 +1,7 @@
 import { Post } from "@/types/post";
 
 //포스트 목록
-export const getPosts = async (page: number): Promise<Post[]> => {
+export const getPosts = async (page: number): Promise<Post[] | null> => {
   try {
     const res = await fetch(
       `https://dummyjson.com/posts?limit=10&skip=${(page - 1) * 10}`,
@@ -20,7 +20,8 @@ export const getPosts = async (page: number): Promise<Post[]> => {
     return data.posts;
   } catch (error) {
     console.error("Error fetching posts:", error);
-    throw error;
+    return null;
+    // throw error;
   }
 };
 
