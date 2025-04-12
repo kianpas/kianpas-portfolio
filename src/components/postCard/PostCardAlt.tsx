@@ -12,8 +12,8 @@ const PostCardAlt: React.FC<{ post: Post }> = ({ post }) => {
   const truncatedBody = truncate(body);
 
   return (
-    <li key={post.id} className="py-5">
-      <article key={post.id} className="flex flex-col space-y-2 xl:space-y-0">
+    <li className="py-5">
+      <article className="flex flex-col space-y-2 xl:space-y-0">
         <div className="flex items-center gap-x-4 text-xs">
           {/* <time dateTime={post.datetime} className="text-gray-500">
           {post.date}
@@ -22,7 +22,7 @@ const PostCardAlt: React.FC<{ post: Post }> = ({ post }) => {
             <a
               key={index}
               href=""
-              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600"
             >
               <span>{tag}</span>
             </a>
@@ -37,7 +37,7 @@ const PostCardAlt: React.FC<{ post: Post }> = ({ post }) => {
             </Link>
           </h2>
           {/* 단축된 포스트 내용 */}
-          <div className="prose max-w-none text-gray-500 dark:text-gray-400">
+          <div className="prose prose-sm sm:prose-base max-w-none text-gray-500 dark:text-gray-400">
             {truncatedBody}
           </div>
         </div>
