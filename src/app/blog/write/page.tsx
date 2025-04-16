@@ -1,16 +1,24 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import { useState } from "react";
+import '@uiw/react-md-editor/markdown-editor.css';
+import '@uiw/react-markdown-preview/markdown.css';
+
+// ✅ SSR 비활성화된 마크다운 에디터 동적 로딩
+const MDEditor = dynamic(() => import('@uiw/react-md-editor'), {
+  ssr: false,
+});
 
 const BlogWritePage = () => {
   const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [content, setContent] = useState<string | undefined>('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     console.log("제목:", title);
-    console.log("내용:", body);
+    console.log("내용:", content);
 
     // 추후 DB 저장 API 호출 예정
     // await fetch('/api/posts', { method: 'POST', body: JSON.stringify({ title, body }) })
@@ -34,13 +42,7 @@ const BlogWritePage = () => {
         </div>
         <div>
           <label className="block font-semibold mb-1">내용</label>
-          <textarea
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            rows={10}
-            className="w-full border border-gray-300 rounded px-3 py-2"
-            required
-          />
+          <MDEditor value={content} onChange={setContent} height={400} />
         </div>
         <button
           type="submit"

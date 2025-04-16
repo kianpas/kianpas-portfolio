@@ -4,19 +4,20 @@ import PostCard from "@/components/postCard/PostCard";
 import PostCardAlt from "@/components/postCard/PostCardAlt";
 import PostPagination from "@/components/postPagination/PostPagination";
 
-const BlogPage = async ({
-  searchParams,
-}: {
-  searchParams?: { page?: string };
+const BlogPage = async (props: {
+  params: Promise<{ slug: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) => {
   // searchParams가 Promise일 수 있으므로, 명시적으로 await 처리
-  const resolvedSearchParams = await Promise.resolve(searchParams);
+  // const resolvedSearchParams = await Promise.resolve(searchParams);
+  const resolvedSearchParams = await props.searchParams;
+  console.log("resolvedSearchParams == ", resolvedSearchParams);
 
-  const currentPage =
-    resolvedSearchParams?.page &&
-    !isNaN(parseInt(resolvedSearchParams.page, 10))
-      ? parseInt(resolvedSearchParams.page, 10)
-      : 1;
+  const currentPage = 1;
+  //   resolvedSearchParams?.page &&
+  //   !isNaN(parseInt(resolvedSearchParams.page, 10))
+  //     ? parseInt(resolvedSearchParams.page, 10)
+  //     : 1;
 
   const posts = await getPosts(currentPage);
   const totalPages = posts?.length; // 페이지네이션에 필요할 수 있음
