@@ -15,9 +15,7 @@ const PostCardAlt: React.FC<{ post: Post }> = ({ post }) => {
     <li className="py-5">
       <article className="flex flex-col space-y-2 xl:space-y-0">
         <div className="flex items-center gap-x-4 text-xs">
-          {/* <time dateTime={post.datetime} className="text-gray-500">
-          {post.date}
-        </time> */}
+          <time className="text-gray-500">2025-04-20</time>
           {tags.map((tag, index) => (
             <a
               key={index}
@@ -37,7 +35,7 @@ const PostCardAlt: React.FC<{ post: Post }> = ({ post }) => {
             </Link>
           </h2>
           {/* 단축된 포스트 내용 */}
-          <div className="prose prose-sm sm:prose-base max-w-none text-gray-500 dark:text-gray-400">
+          <div className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
             {truncatedBody}
           </div>
         </div>
