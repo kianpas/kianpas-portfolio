@@ -1,7 +1,7 @@
 import { Post } from "@/types/post";
 import { getPosts } from "@/services/posts";
-import PostCard from "@/components/postCard/PostCard";
-import PostCardAlt from "@/components/postCard/PostCardAlt";
+// import PostCard from "@/components/postCard/PostCardSecond";
+import PostCardAlt from "@/components/postCard/PostCard";
 import PostPagination from "@/components/postPagination/PostPagination";
 
 const BlogPage = async (props: {

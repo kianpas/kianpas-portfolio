@@ -2,8 +2,17 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+  const NAV_ITEMS = [
+    { label: "Home", href: "/" },
+    { label: "Blog", href: "/blog" },
+    { label: "Project", href: "/project" },
+    { label: "About", href: "/about" },
+  ];
+
+  const pathname = usePathname();
   // 모바일시 햄버거 메뉴 클릭 여부
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -15,31 +24,21 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="hidden md:flex space-x-6">
-          <Link
-            href="/"
-            className="text-xl hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200"
-          >
-            Home
-          </Link>
-          <Link
-            href="/blog"
-            className="text-xl hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200"
-          >
-            Blog
-          </Link>
-          <Link
-              href="/project"
-              className="text-xl hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200"
+        {/* Desktop */}
+        <div className="hidden md:flex space-x-8">
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={
+                pathname === item.href
+                  ? "text-blue-600 dark:text-blue-400 font-medium"
+                  : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              }
             >
-              Project
+              {item.label}
             </Link>
-          <Link
-            href="/about"
-            className="text-xl hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200"
-          >
-            About
-          </Link>
+          ))}
         </div>
 
         <div className="md:hidden">
@@ -78,33 +77,15 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-white dark:bg-gray-900 shadow-md">
           <div className="px-4 pt-2 pb-4 space-y-2">
-            <Link href="/" className="block text-gray-800 dark:text-white hover:text-blue-500">
-              Home
-            </Link>
-            <Link
-              href="/blog"
-              className="block text-gray-800 dark:text-white hover:text-blue-500"
-            >
-              Blog
-            </Link>
-            <Link
-              href="/project"
-              className="block text-gray-800 dark:text-white hover:text-blue-500"
-            >
-              Project
-            </Link>
-            <Link
-              href="/about"
-              className="block text-gray-800 dark:text-white hover:text-blue-500"
-            >
-              About
-            </Link>
-            <Link
-              href="/login"
-              className="block text-gray-800 dark:text-white hover:text-blue-500"
-            >
-              Login
-            </Link>
+          {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="block text-gray-800 dark:text-gray-100 hover:text-blue-500 transition-colors"
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
         </div>
       )}
