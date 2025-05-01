@@ -1,7 +1,6 @@
 import { Post } from "@/types/post";
 import { getPosts } from "@/services/posts";
-// import PostCard from "@/components/postCard/PostCardSecond";
-import PostCardAlt from "@/components/postCard/PostCard";
+import PostCard from "@/components/postCard/PostCard";
 import PostPagination from "@/components/postPagination/PostPagination";
 
 const BlogPage = async (props: {
@@ -61,22 +60,11 @@ const BlogPage = async (props: {
         <div>
           <ul>
             {posts.map((post: Post) => (
-              <PostCardAlt key={post.id} post={post} />
+              <PostCard key={post.id} post={post} />
             ))}
           </ul>
         </div>
-        {/* 포스트 목록 후보2*/}
-        {/* <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:pt-16 lg:mx-0 lg:max-w-none sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post: Post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
-        </div> */}
-        {/* 페이징 버튼
-        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <PostPagination currentPage={currentPage} />
-        </div> */}
-
-        {totalPages &&
+          {totalPages &&
           totalPages > 1 && ( // 전체 페이지 수가 1보다 클 때만 표시
             <div className="pt-8 pb-12 flex justify-center">
               {/* 페이지네이션 위아래 여백 및 가운데 정렬 */}
