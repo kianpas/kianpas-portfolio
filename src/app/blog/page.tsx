@@ -4,19 +4,14 @@ import PostCard from "@/components/postCard/PostCard";
 import PostPagination from "@/components/postPagination/PostPagination";
 
 const BlogPage = async (props: {
-  params: Promise<{ slug: string }>
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   // searchParams가 Promise일 수 있으므로, 명시적으로 await 처리
-  // const resolvedSearchParams = await Promise.resolve(searchParams);
   const resolvedSearchParams = await props.searchParams;
   console.log("resolvedSearchParams == ", resolvedSearchParams);
 
   const currentPage = 1;
-  //   resolvedSearchParams?.page &&
-  //   !isNaN(parseInt(resolvedSearchParams.page, 10))
-  //     ? parseInt(resolvedSearchParams.page, 10)
-  //     : 1;
 
   const posts = await getPosts(currentPage);
   const totalPages = posts?.length; // 페이지네이션에 필요할 수 있음
@@ -64,12 +59,12 @@ const BlogPage = async (props: {
             ))}
           </ul>
         </div>
-          {totalPages &&
+        {totalPages &&
           totalPages > 1 && ( // 전체 페이지 수가 1보다 클 때만 표시
             <div className="pt-8 pb-12 flex justify-center">
               {/* 페이지네이션 위아래 여백 및 가운데 정렬 */}
               {/* totalPages 전달 */}
-              <PostPagination currentPage={currentPage} /> 
+              <PostPagination currentPage={currentPage} />
             </div>
           )}
       </div>

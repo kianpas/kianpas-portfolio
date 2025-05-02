@@ -29,16 +29,3 @@ body {
     @apply bg-gray-900 text-white;
   }
 }
-
-/* body::-webkit-scrollbar {
-  width: 8px;
-}
-
-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: rgba(100, 116, 139, 0.5); 
-  border-radius: 4px;
-} */
