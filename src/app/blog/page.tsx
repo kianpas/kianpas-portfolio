@@ -5,13 +5,32 @@ import PostPagination from "@/components/postPagination/PostPagination";
 
 const BlogPage = async (props: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ page?: string | string[] }>;
 }) => {
   // searchParams가 Promise일 수 있으므로, 명시적으로 await 처리
-  const resolvedSearchParams = await props.searchParams;
+  const resolvedSearchParams = await props.searchParams ?? {};
   console.log("resolvedSearchParams == ", resolvedSearchParams);
 
-  const currentPage = 1;
+  //기본값 페이지
+  let currentPage = 1;
+  const pageParam = resolvedSearchParams?.page;
+
+
+  //pageParam이 존재하고 문자열인 경우
+  if(pageParam && typeof pageParam === 'string') {
+    const parsedPage = parseInt(pageParam, 10);
+      // 유효한 숫자이고 0보다 큰지 확인
+      if (!isNaN(parsedPage) && parsedPage > 0) {
+        currentPage = parsedPage;
+      } else {
+        console.warn(`잘못된 'page' 파라미터: "${pageParam}". 기본값 1로 설정합니다.`);
+        // 선택 사항: 잘못된 파라미터가 오면 1페이지로 리다이렉트할 수도 있음
+      }
+    } else if (pageParam !== undefined) {
+      // pageParam이 배열이거나 다른 예상치 못한 타입인 경우 처리
+      console.warn(`예상치 못한 'page' 파라미터 타입: ${typeof pageParam}. 기본값 1로 설정합니다.`);
+  }
+
 
   const posts = await getPosts(currentPage);
   const totalPages = posts?.length; // 페이지네이션에 필요할 수 있음
