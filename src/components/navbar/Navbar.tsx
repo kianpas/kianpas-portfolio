@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const NAV_ITEMS = [
@@ -12,7 +12,6 @@ const Navbar = () => {
     { label: "About", href: "/about" },
   ];
 
-  const pathname = usePathname();
   // 모바일시 햄버거 메뉴 클릭 여부
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -30,11 +29,7 @@ const Navbar = () => {
             <Link
               key={item.href}
               href={item.href}
-              className={
-                pathname === item.href
-                  ? "text-blue-600 dark:text-blue-400 font-medium"
-                  : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              }
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               {item.label}
             </Link>
@@ -77,7 +72,7 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-white dark:bg-gray-900 shadow-md">
           <div className="px-4 pt-2 pb-4 space-y-2">
-          {NAV_ITEMS.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
