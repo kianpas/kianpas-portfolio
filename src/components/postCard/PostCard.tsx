@@ -16,7 +16,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
       <article className="flex flex-col space-y-2 xl:space-y-0">
         <div className="flex items-center gap-x-4 text-xs">
           <time className="text-gray-500">2025-04-20</time>
-          {tags.map((tag, index) => (
+          {/* {tags.map((tag, index) => (
             <a
               key={index}
               href=""
@@ -24,7 +24,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
             >
               <span>{tag}</span>
             </a>
-          ))}
+          ))} */}
         </div>
         <div className="space-y-3">
           {/* 포스트 제목 */}

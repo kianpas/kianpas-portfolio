@@ -13,25 +13,34 @@ const BlogPage = async (props: {
   console.log("resolvedSearchParams == ", resolvedSearchParams);
 
   //기본값 페이지
-  let currentPage = 1;
+  // let currentPage = 1;
   const pageParam = resolvedSearchParams?.page;
 
   //pageParam이 존재하고 문자열인 경우
-  if (pageParam && typeof pageParam === "string") {
-    const parsedPage = parseInt(pageParam, 10);
-    // 유효한 숫자이고 0보다 큰지 확인
-    if (!isNaN(parsedPage) && parsedPage > 0) {
-      currentPage = parsedPage;
-    } else {
-      console.warn(
-        `잘못된 'page' 파라미터: "${pageParam}". 기본값 1로 설정합니다.`
-      );
-      // 선택 사항: 잘못된 파라미터가 오면 1페이지로 리다이렉트할 수도 있음
-    }
-  } else if (pageParam !== undefined) {
-    // pageParam이 배열이거나 다른 예상치 못한 타입인 경우 처리
+  // if (pageParam && typeof pageParam === "string") {
+  //   const parsedPage = parseInt(pageParam, 10);
+  //   // 유효한 숫자이고 0보다 큰지 확인
+  //   if (!isNaN(parsedPage) && parsedPage > 0) {
+  //     currentPage = parsedPage;
+  //   } else {
+  //     console.warn(
+  //       `잘못된 'page' 파라미터: "${pageParam}". 기본값 1로 설정합니다.`
+  //     );
+  //     // 선택 사항: 잘못된 파라미터가 오면 1페이지로 리다이렉트할 수도 있음
+  //   }
+  // } else if (pageParam !== undefined) {
+  //   // pageParam이 배열이거나 다른 예상치 못한 타입인 경우 처리
+  //   console.warn(
+  //     `예상치 못한 'page' 파라미터 타입: ${typeof pageParam}. 기본값 1로 설정합니다.`
+  //   );
+  // }
+
+  const parsedPage = Number(pageParam); // Number()는 빈 문자열, null, undefined를 0으로 변환
+  const currentPage = !isNaN(parsedPage) && parsedPage > 0 ? parsedPage : 1;
+  // 경고 메시지는 개발 환경에서만 출력되도록 할 수 있습니다.
+  if (process.env.NODE_ENV === 'development' && pageParam && currentPage === 1) {
     console.warn(
-      `예상치 못한 'page' 파라미터 타입: ${typeof pageParam}. 기본값 1로 설정합니다.`
+      `Invalid 'page' parameter: "${pageParam}". Defaulting to page 1.`
     );
   }
 
@@ -72,7 +81,12 @@ const BlogPage = async (props: {
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-6xl">
             Posts
           </h1>
-          <Link href={"/blog/write"}>Write</Link>
+          <Link
+            href="/blog/write"
+            className="inline-flex items-center justify-center rounded-md bg-primary-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:bg-primary-600 dark:hover:bg-primary-700"
+          >
+            Write
+          </Link>
         </div>
         {/* 포스트 목록 후보1*/}
         <div>
