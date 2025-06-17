@@ -1,4 +1,5 @@
 import { getSinglePost } from "@/services/posts";
+import { notFound } from "next/navigation";
 
 interface Props {
   params: {
@@ -11,6 +12,10 @@ const SinglePostPage = async (props: Props) => {
   const params = await props.params;
 
   const post = await getSinglePost(params.id);
+
+  if (!post) {
+    notFound();
+  }
 
   const { title, body } = post;
 
@@ -65,35 +70,34 @@ const SinglePostPage = async (props: Props) => {
               <p>{body}</p>
             </div>
           </div>
-
-          {/* Footer with navigation */}
-          <footer className="pt-6 text-sm text-gray-700 dark:text-gray-300">
-            <div className="flex justify-between">
-              <div>
-                <div className="text-xs uppercase text-gray-500">
-                  Previous Article
-                </div>
-                <a
-                  href="#"
-                  className="text-blue-600 dark:text-blue-400 hover:underline"
-                >
-                  ← 이전 글 제목
-                </a>
-              </div>
-              <div className="text-right">
-                <div className="text-xs uppercase text-gray-500">
-                  Next Article
-                </div>
-                <a
-                  href="#"
-                  className="text-blue-600 dark:text-blue-400 hover:underline"
-                >
-                  다음 글 제목 →
-                </a>
-              </div>
-            </div>
-          </footer>
         </div>
+        {/* Footer with navigation */}
+        <footer className="pt-6 text-sm text-gray-700 dark:text-gray-300">
+          <div className="flex justify-between">
+            <div>
+              <div className="text-xs uppercase text-gray-500">
+                Previous Article
+              </div>
+              <a
+                href="#"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                ← 이전 글 제목
+              </a>
+            </div>
+            <div className="text-right">
+              <div className="text-xs uppercase text-gray-500">
+                Next Article
+              </div>
+              <a
+                href="#"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                다음 글 제목 →
+              </a>
+            </div>
+          </div>
+        </footer>
       </main>
     </section>
   );
