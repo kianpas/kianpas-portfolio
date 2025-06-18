@@ -16,44 +16,28 @@ const BlogPage = async (props: {
   // let currentPage = 1;
   const pageParam = resolvedSearchParams?.page;
 
-  //pageParam이 존재하고 문자열인 경우
-  // if (pageParam && typeof pageParam === "string") {
-  //   const parsedPage = parseInt(pageParam, 10);
-  //   // 유효한 숫자이고 0보다 큰지 확인
-  //   if (!isNaN(parsedPage) && parsedPage > 0) {
-  //     currentPage = parsedPage;
-  //   } else {
-  //     console.warn(
-  //       `잘못된 'page' 파라미터: "${pageParam}". 기본값 1로 설정합니다.`
-  //     );
-  //     // 선택 사항: 잘못된 파라미터가 오면 1페이지로 리다이렉트할 수도 있음
-  //   }
-  // } else if (pageParam !== undefined) {
-  //   // pageParam이 배열이거나 다른 예상치 못한 타입인 경우 처리
-  //   console.warn(
-  //     `예상치 못한 'page' 파라미터 타입: ${typeof pageParam}. 기본값 1로 설정합니다.`
-  //   );
-  // }
-
   const parsedPage = Number(pageParam); // Number()는 빈 문자열, null, undefined를 0으로 변환
   const currentPage = !isNaN(parsedPage) && parsedPage > 0 ? parsedPage : 1;
   // 경고 메시지는 개발 환경에서만 출력되도록 할 수 있습니다.
-  if (process.env.NODE_ENV === 'development' && pageParam && currentPage === 1) {
+  if (
+    process.env.NODE_ENV === "development" &&
+    pageParam &&
+    currentPage === 1
+  ) {
     console.warn(
       `Invalid 'page' parameter: "${pageParam}". Defaulting to page 1.`
     );
   }
 
-  const posts = await getPosts(currentPage);
-  const totalPages = posts?.length; // 페이지네이션에 필요할 수 있음
-
-  console.log("totalPages ==>", totalPages);
+  const response = await getPosts(currentPage);
 
   // 반환값으로 상태 판단
-  if (posts === null) {
+  if (response === null) {
     // getPosts 내부에서 에러 발생
     return <div>게시물을 불러오는 중 오류가 발생했습니다.</div>;
   }
+
+  const { posts, totalPages } = response;
 
   if (posts.length === 0) {
     // 성공했지만 데이터가 없음
@@ -101,7 +85,10 @@ const BlogPage = async (props: {
             <div className="pt-8 pb-12 flex justify-center">
               {/* 페이지네이션 위아래 여백 및 가운데 정렬 */}
               {/* totalPages 전달 */}
-              <PostPagination currentPage={currentPage} />
+              <PostPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+              />
             </div>
           )}
       </div>
