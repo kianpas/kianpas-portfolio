@@ -37,7 +37,7 @@ const Navbar = () => {
         </div>
 
         <div className="md:hidden">
-          <button
+          <button aria-label="mobile-btn"
             onClick={() => setIsOpen(!isOpen)}
             className="text-gray-600 dark:text-gray-300 focus:outline-none"
           >

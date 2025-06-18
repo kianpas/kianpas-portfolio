@@ -1,5 +1,6 @@
 import { getSinglePost } from "@/services/posts";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
 interface Props {
   params: {
@@ -78,23 +79,23 @@ const SinglePostPage = async (props: Props) => {
               <div className="text-xs uppercase text-gray-500">
                 Previous Article
               </div>
-              <a
+              <Link
                 href="#"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
                 ← 이전 글 제목
-              </a>
+              </Link>
             </div>
             <div className="text-right">
               <div className="text-xs uppercase text-gray-500">
                 Next Article
               </div>
-              <a
+              <Link
                 href="#"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
                 다음 글 제목 →
-              </a>
+              </Link>
             </div>
           </div>
         </footer>
