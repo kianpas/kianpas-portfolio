@@ -1,5 +1,8 @@
 import { Post } from "@/types/post";
 import { getPosts } from "@/services/posts";
+
+import { getSortedPostsData } from "@/services/posts";
+
 import PostCard from "@/components/postCard/PostCard";
 import PostPagination from "@/components/postPagination/PostPagination";
 import Link from "next/link";
@@ -39,6 +42,8 @@ const BlogPage = async (props: {
 
   const { posts, totalPages } = response;
 
+  const allPostData = getSortedPostsData();
+
   if (posts.length === 0) {
     // 성공했지만 데이터가 없음
     return (
@@ -75,8 +80,13 @@ const BlogPage = async (props: {
         {/* 포스트 목록 후보1*/}
         <div>
           <ul>
-            {posts.map((post: Post) => (
-              <PostCard key={post.id} post={post} />
+            {allPostData.map((post) => (
+              <PostCard
+                key={post.id}
+                id={post.id}
+                title={post.title}
+                date={post.date}
+              />
             ))}
           </ul>
         </div>

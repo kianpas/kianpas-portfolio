@@ -1,26 +1,21 @@
 import { Post } from "@/types/post";
 import Link from "next/link";
 
-interface PostCardProps {
-  id: string;
-  title: string;
-  date: string;
-}
+const PostCardAlt: React.FC<{ post: Post }> = ({ post }) => {
+  const { id, title, tags, body } = post; // 필요한 데이터 구조 분해
 
-const PostCard = ({ id, title, date }: PostCardProps) => {
-  
   //내용 60자리 이상 처리
   const truncate = (str: string, maxLength: number = 160): string =>
     str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
 
   //60자리 처리 내용
-  // const truncatedBody = truncate(body);
+  const truncatedBody = truncate(body);
 
   return (
     <li className="py-5">
       <article className="flex flex-col space-y-2 xl:space-y-0">
         <div className="flex items-center gap-x-4 text-xs">
-          <time className="text-gray-500">{date}</time>
+          <time className="text-gray-500">2025-04-20</time>
           {/* {tags.map((tag, index) => (
             <a
               key={index}
@@ -40,13 +35,13 @@ const PostCard = ({ id, title, date }: PostCardProps) => {
             </Link>
           </h2>
           {/* 단축된 포스트 내용 */}
-          {/* <div className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
+          <div className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
             {truncatedBody}
-          </div> */}
+          </div>
         </div>
       </article>
     </li>
   );
 };
 
-export default PostCard;
+export default PostCardAlt;

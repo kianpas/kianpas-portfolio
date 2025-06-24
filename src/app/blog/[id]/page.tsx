@@ -1,5 +1,6 @@
 import { getSinglePost } from "@/services/posts";
 import { notFound } from "next/navigation";
+import { getPostData } from "@/services/posts";
 import Link from "next/link";
 
 interface Props {
@@ -12,15 +13,17 @@ const SinglePostPage = async (props: Props) => {
   //next15 방식
   const params = await props.params;
 
-  const post = await getSinglePost(params.id);
+  // const post = await getSinglePost(params.id);
 
-  if (!post) {
+   const postData = await getPostData(params.id); 
+
+  if (!postData) {
     notFound();
   }
 
-  const { title, body } = post;
+  // const { title, body } = post;
 
-  if (!post) {
+  if (!postData) {
     return (
       <div className="text-red-500 max-w-3xl mx-auto px-4 py-6">
         <h1 className="text-2xl font-bold mb-4">Post Not Found</h1>
@@ -40,11 +43,11 @@ const SinglePostPage = async (props: Props) => {
               <dt className="sr-only">Published on</dt>
               <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                 {/* Date here */}
-                <time dateTime="2023-01-01">January 1, 2023</time>
+                <time dateTime="2023-01-01">{postData.date}</time>
               </dd>
             </dl>
             <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10">
-              {title}
+              {postData.title}
             </h1>
           </div>
         </header>
@@ -68,7 +71,8 @@ const SinglePostPage = async (props: Props) => {
               <h2 id="introduction" className="text-lg font-semibold">
                 Introduction
               </h2>
-              <p>{body}</p>
+              {/* <p>{body}</p> */}
+                <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
             </div>
           </div>
         </div>
