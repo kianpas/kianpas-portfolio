@@ -1,11 +1,27 @@
 import { Post } from "@/types/post";
 import { getPosts } from "@/services/posts";
 
-import { getSortedPostsData } from "@/services/posts";
+import { getPaginatedPosts, getSortedPostsData } from "@/services/posts";
 
 import PostCard from "@/components/postCard/PostCard";
 import PostPagination from "@/components/postPagination/PostPagination";
 import Link from "next/link";
+
+// 페이지당 보여줄 포스트 수
+const POSTS_PER_PAGE = 10;
+
+// 1. 빌드 시점에 미리 생성할 페이지 경로들을 생성합니다. (e.g., /blog/1, /blog/2)
+export async function generateStaticParams() {
+  const allPosts = getSortedPostsData();
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+
+  // [{ page: '1' }, { page: '2' }, ...] 형태의 배열 생성
+  const paths = Array.from({ length: totalPages }, (_, i) => ({
+    page: (i + 1).toString(),
+  }));
+
+  return paths;
+}
 
 const BlogPage = async (props: {
   params: Promise<{ slug: string }>;
@@ -20,19 +36,15 @@ const BlogPage = async (props: {
   const pageParam = resolvedSearchParams?.page;
 
   const parsedPage = Number(pageParam); // Number()는 빈 문자열, null, undefined를 0으로 변환
-  const currentPage = !isNaN(parsedPage) && parsedPage > 0 ? parsedPage : 1;
+  const cPage = !isNaN(parsedPage) && parsedPage > 0 ? parsedPage : 1;
   // 경고 메시지는 개발 환경에서만 출력되도록 할 수 있습니다.
-  if (
-    process.env.NODE_ENV === "development" &&
-    pageParam &&
-    currentPage === 1
-  ) {
+  if (process.env.NODE_ENV === "development" && pageParam && cPage === 1) {
     console.warn(
       `Invalid 'page' parameter: "${pageParam}". Defaulting to page 1.`
     );
   }
 
-  const response = await getPosts(currentPage);
+  const response = await getPosts(cPage);
 
   // 반환값으로 상태 판단
   if (response === null) {
@@ -40,9 +52,18 @@ const BlogPage = async (props: {
     return <div>게시물을 불러오는 중 오류가 발생했습니다.</div>;
   }
 
-  const { posts, totalPages } = response;
+  // const { posts, totalPages } = response;
 
   const allPostData = getSortedPostsData();
+
+  const pageNumber = cPage;
+
+  const { posts, totalPages, currentPage } = getPaginatedPosts(
+    pageNumber,
+    POSTS_PER_PAGE
+  );
+
+  console.log(posts, totalPages, currentPage);
 
   if (posts.length === 0) {
     // 성공했지만 데이터가 없음
@@ -90,17 +111,13 @@ const BlogPage = async (props: {
             ))}
           </ul>
         </div>
-        {totalPages &&
-          totalPages > 1 && ( // 전체 페이지 수가 1보다 클 때만 표시
-            <div className="pt-8 pb-12 flex justify-center">
-              {/* 페이지네이션 위아래 여백 및 가운데 정렬 */}
-              {/* totalPages 전달 */}
-              <PostPagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-              />
-            </div>
-          )}
+        {totalPages && (
+          <div className="pt-8 pb-12 flex justify-center">
+            {/* 페이지네이션 위아래 여백 및 가운데 정렬 */}
+            {/* totalPages 전달 */}
+            <PostPagination currentPage={currentPage} totalPages={totalPages} />
+          </div>
+        )}
       </div>
     </>
   );
