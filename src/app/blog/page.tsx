@@ -1,11 +1,11 @@
-import { Post } from "@/types/post";
+// import { Post } from "@/types/post";
 import { getPosts } from "@/services/posts";
 
 import { getPaginatedPosts, getSortedPostsData } from "@/services/posts";
 
 import PostCard from "@/components/postCard/PostCard";
 import PostPagination from "@/components/postPagination/PostPagination";
-import Link from "next/link";
+// import Link from "next/link";
 
 // 페이지당 보여줄 포스트 수
 const POSTS_PER_PAGE = 10;

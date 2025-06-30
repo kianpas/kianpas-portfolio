@@ -2,7 +2,7 @@ import { Post } from "@/types/post";
 import Link from "next/link";
 
 const PostCardAlt: React.FC<{ post: Post }> = ({ post }) => {
-  const { id, title, tags, body } = post; // 필요한 데이터 구조 분해
+  const { id, title, body } = post; // 필요한 데이터 구조 분해
 
   //내용 60자리 이상 처리
   const truncate = (str: string, maxLength: number = 160): string =>

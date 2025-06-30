@@ -1,4 +1,4 @@
-import { Post } from "@/types/post";
+// import { Post } from "@/types/post";
 import Link from "next/link";
 
 interface PostCardProps {
@@ -8,10 +8,9 @@ interface PostCardProps {
 }
 
 const PostCard = ({ id, title, date }: PostCardProps) => {
-  
   //내용 60자리 이상 처리
-  const truncate = (str: string, maxLength: number = 160): string =>
-    str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
+  // const truncate = (str: string, maxLength: number = 160): string =>
+  //   str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
 
   //60자리 처리 내용
   // const truncatedBody = truncate(body);

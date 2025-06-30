@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 const ArrowIcon = ({ direction }: { direction: "left" | "right" }) => (
