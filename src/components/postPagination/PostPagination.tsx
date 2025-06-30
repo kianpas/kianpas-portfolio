@@ -36,7 +36,7 @@ const PostPagination = ({
   const hasNextPage = currentPage < totalPages;
 
   // 버튼 비활성화 시 적용될 공통 클래스
-  const disabledClass = "pointer-events-none text-gray-400 dark:text-gray-600";
+  // const disabledClass = "pointer-events-none text-gray-400 dark:text-gray-600";
 
   return (
     <nav aria-label="Pagination">

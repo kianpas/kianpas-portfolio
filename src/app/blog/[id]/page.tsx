@@ -1,4 +1,4 @@
-import { getSinglePost} from "@/services/posts";
+// import { getSinglePost} from "@/services/posts";
 import { notFound } from "next/navigation";
 import { getPostData, getAllPostIds  } from "@/services/posts";
 import Link from "next/link";
