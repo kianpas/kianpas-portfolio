@@ -1,27 +1,25 @@
 // import { getSinglePost} from "@/services/posts";
 import { notFound } from "next/navigation";
-import { getPostData, getAllPostIds  } from "@/services/posts";
+import { getPostData, getAllPostIds } from "@/services/posts";
 import Link from "next/link";
 
-interface Props {
-  params: {
-    id: string; // `id`는 동적 라우팅에서 전달됨
-  };
-}
+type PageProps = {
+  params: { id: string };
+};
 
 // 1. 빌드 시점에 미리 생성할 페이지들의 경로를 알려주는 함수
 export async function generateStaticParams() {
   const paths = getAllPostIds();
   // paths는 [{ params: { slug: 'a-first-post' } }, ...] 형태가 됩니다.
-  return paths.map(path => ({ id: path.params.id }));
+  return paths.map((path) => ({ id: path.params.id }));
 }
 
-const SinglePostPage = async (props: Props) => {
+const SinglePostPage = async (props: PageProps) => {
   //next15 방식
-  const params = await props.params;
+  const { id } = await props.params;
 
   // getPostData는 이제 이전/다음 글 정보도 함께 가져온다고 가정합니다.
-  const { postData, prevPost, nextPost } = await getPostData(params.id);
+  const { postData, prevPost, nextPost } = await getPostData(id);
 
   if (!postData) {
     notFound();
@@ -111,7 +109,7 @@ const SinglePostPage = async (props: Props) => {
     //     </footer>
     //   </main>
     // </section>
-     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+    <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       {/* 1. 헤더: 제목과 메타정보 */}
       <header className="mb-8 text-center">
         {/* 태그 (선택 사항이지만 추천) */}
@@ -131,7 +129,7 @@ const SinglePostPage = async (props: Props) => {
         </h1>
         <div className="flex items-center justify-center space-x-4 text-base text-gray-500 dark:text-gray-400">
           {/* 작성자 정보 (동적으로 변경) */}
-          <span>{postData.author || 'Your Name'}</span>
+          <span>{postData.author || "Your Name"}</span>
           <span className="select-none">·</span>
           <time dateTime={postData.date}>{postData.date}</time>
           <span className="select-none">·</span>
