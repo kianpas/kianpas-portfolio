@@ -4,9 +4,8 @@ import { getPostData, getAllPostIds } from "@/services/posts";
 import Link from "next/link";
 
 type PageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
-
 // 1. 빌드 시점에 미리 생성할 페이지들의 경로를 알려주는 함수
 export async function generateStaticParams() {
   const paths = getAllPostIds();
@@ -14,9 +13,9 @@ export async function generateStaticParams() {
   return paths.map((path) => ({ id: path.params.id }));
 }
 
-const SinglePostPage = async (props: PageProps) => {
+const SinglePostPage = async ({ params }: PageProps) => {
   //next15 방식
-  const { id } = await props.params;
+  const { id } = await params;
 
   // getPostData는 이제 이전/다음 글 정보도 함께 가져온다고 가정합니다.
   const { postData, prevPost, nextPost } = await getPostData(id);
