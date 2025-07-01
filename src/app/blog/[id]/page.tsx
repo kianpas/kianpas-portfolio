@@ -37,77 +37,6 @@ const SinglePostPage = async ({ params }: PageProps) => {
     );
   }
   return (
-    // <section className="bg-white dark:bg-gray-900 py-10">
-    //   <main className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
-    //     {/* Title and Meta */}
-    //     <header className="mb-10">
-    //       <div className="space-y-1">
-    //         <dl>
-    //           <dt className="sr-only">Published on</dt>
-    //           <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-    //             {/* Date here */}
-    //             <time dateTime="2023-01-01">{postData.date}</time>
-    //           </dd>
-    //         </dl>
-    //         <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10">
-    //           {postData.title}
-    //         </h1>
-    //       </div>
-    //     </header>
-
-    //     {/* Article Content */}
-    //     <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
-    //       <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
-    //         <dt className="sr-only">Authors</dt>
-    //         <dd>
-    //           <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
-    //             <li>111</li>
-    //           </ul>
-    //           <dl className="whitespace-nowrap text-sm font-medium leading-5">
-    //             <dt className="sr-only">Name</dt>
-    //             <dd className="text-gray-900 dark:text-gray-100">author</dd>
-    //           </dl>
-    //         </dd>
-    //       </dl>
-    //       <div className="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
-    //         <div className="prose dark:prose-invert max-w-none pt-10 pb-8">
-    //           <h2 id="introduction" className="text-lg font-semibold">
-    //             Introduction
-    //           </h2>
-    //           {/* <p>{body}</p> */}
-    //             <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-    //         </div>
-    //       </div>
-    //     </div>
-    //     {/* Footer with navigation */}
-    //     <footer className="pt-6 text-sm text-gray-700 dark:text-gray-300">
-    //       <div className="flex justify-between">
-    //         <div>
-    //           <div className="text-xs uppercase text-gray-500">
-    //             Previous Article
-    //           </div>
-    //           <Link
-    //             href="#"
-    //             className="text-blue-600 dark:text-blue-400 hover:underline"
-    //           >
-    //             ← 이전 글 제목
-    //           </Link>
-    //         </div>
-    //         <div className="text-right">
-    //           <div className="text-xs uppercase text-gray-500">
-    //             Next Article
-    //           </div>
-    //           <Link
-    //             href="#"
-    //             className="text-blue-600 dark:text-blue-400 hover:underline"
-    //           >
-    //             다음 글 제목 →
-    //           </Link>
-    //         </div>
-    //       </div>
-    //     </footer>
-    //   </main>
-    // </section>
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       {/* 1. 헤더: 제목과 메타정보 */}
       <header className="mb-8 text-center">
@@ -145,6 +74,44 @@ const SinglePostPage = async ({ params }: PageProps) => {
 
       {/* 3. 푸터: 이전/다음 글 네비게이션 */}
       <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex flex-col sm:flex-row justify-between gap-8">
+          {prevPost ? (
+            <Link
+              href={`/blog/${prevPost.id}`}
+              className="block p-4 border rounded-lg hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 transition-colors w-full"
+            >
+              <div className="text-xs uppercase text-gray-500">Previous</div>
+              <span className="text-blue-600 dark:text-blue-400 font-semibold">
+                &larr; {prevPost.title}
+              </span>
+            </Link>
+          ) : (
+            <div /> // 레이아웃 유지를 위한 빈 div
+          )}
+          {nextPost ? (
+            <Link
+              href={`/blog/${nextPost.id}`}
+              className="block p-4 border rounded-lg hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 transition-colors w-full text-right"
+            >
+              <div className="text-xs uppercase text-gray-500">Next</div>
+              <span className="text-blue-600 dark:text-blue-400 font-semibold">
+                {nextPost.title} &rarr;
+              </span>
+            </Link>
+          ) : (
+            <div /> // 레이아웃 유지를 위한 빈 div
+          )}
+        </div>
+        <div className="pt-8 text-center">
+          <Link
+            href="/blog"
+            className="text-blue-600 hover:underline dark:text-blue-400"
+          >
+            &larr; Back to all posts
+          </Link>
+        </div>
+      </footer>
+      {/* <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
         <div className="flex flex-col sm:flex-row justify-between gap-4">
           {prevPost ? (
             <Link href={`/blog/${prevPost.id}`} className="block text-left">
@@ -167,7 +134,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
             <div /> // 다음 글이 없을 때 공간 차지
           )}
         </div>
-      </footer>
+      </footer> */}
     </article>
   );
 };

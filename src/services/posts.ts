@@ -29,7 +29,13 @@ export const getSortedPostsData = () => {
     // 데이터와 ID를 합쳐서 반환합니다.
     return {
       id,
-      ...(matterResult.data as { title: string; date: string; author: string }),
+      ...(matterResult.data as {
+        title: string;
+        date: string;
+        author: string;
+        summary: string;
+        tags: string[];
+      }),
     };
   });
 

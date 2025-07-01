@@ -1,6 +1,3 @@
-// import { Post } from "@/types/post";
-import { getPosts } from "@/services/posts";
-
 import { getPaginatedPosts, getSortedPostsData } from "@/services/posts";
 
 import PostCard from "@/components/postCard/PostCard";
@@ -44,17 +41,7 @@ const BlogPage = async (props: {
     );
   }
 
-  const response = await getPosts(cPage);
-
-  // 반환값으로 상태 판단
-  if (response === null) {
-    // getPosts 내부에서 에러 발생
-    return <div>게시물을 불러오는 중 오류가 발생했습니다.</div>;
-  }
-
-  // const { posts, totalPages } = response;
-
-  const allPostData = getSortedPostsData();
+  // const allPostData = getSortedPostsData();
 
   const pageNumber = cPage;
 
@@ -98,15 +85,17 @@ const BlogPage = async (props: {
             Write
           </Link>*/}
         </div>
-        {/* 포스트 목록 후보1*/}
+        {/* 포스트 목록*/}
         <div>
           <ul>
-            {allPostData.map((post) => (
+            {posts.map((post) => (
               <PostCard
                 key={post.id}
                 id={post.id}
                 title={post.title}
                 date={post.date}
+                summary={post.summary}
+                tags={post.tags}
               />
             ))}
           </ul>
