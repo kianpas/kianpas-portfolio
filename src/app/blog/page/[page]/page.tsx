@@ -24,7 +24,12 @@ export async function generateStaticParams() {
 //   params: { page: string };
 // }
 
-const BlogPage = async ({ params }: { params: { page: string } }) => {
+type PageProps = {
+  params: { page: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+const BlogPage = async ({ params }: PageProps) => {
   // URL의 동적 세그먼트([page])로부터 페이지 번호를 가져옵니다.
   const pageNumber = parseInt(params.page, 10) || 1;
 
