@@ -20,11 +20,11 @@ export async function generateStaticParams() {
   return paths;
 }
 
-interface BlogPageProps {
-  params: { page: string };
-}
+// interface BlogPageProps {
+//   params: { page: string };
+// }
 
-const BlogPage = async ({ params }: BlogPageProps) => {
+const BlogPage = async ({ params }: { params: { page: string } }) => {
   // URL의 동적 세그먼트([page])로부터 페이지 번호를 가져옵니다.
   const pageNumber = parseInt(params.page, 10) || 1;
 
