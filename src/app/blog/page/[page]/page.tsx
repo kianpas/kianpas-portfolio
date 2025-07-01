@@ -25,13 +25,14 @@ export async function generateStaticParams() {
 // }
 
 type PageProps = {
-  params: { page: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ page: string }>;
 };
 
 const BlogPage = async ({ params }: PageProps) => {
   // URL의 동적 세그먼트([page])로부터 페이지 번호를 가져옵니다.
-  const pageNumber = parseInt(params.page, 10) || 1;
+  const { page } = await params;
+  console.log("page => ", page);
+  const pageNumber = parseInt(page, 10) || 1;
 
   // 페이지 번호가 숫자가 아니거나 1보다 작으면 404 페이지를 보여줍니다.
   if (isNaN(pageNumber) || pageNumber < 1) {
@@ -43,7 +44,7 @@ const BlogPage = async ({ params }: PageProps) => {
     POSTS_PER_PAGE
   );
 
-  console.log(posts, totalPages, currentPage);
+  console.log("totalPages, currentPage => ", totalPages, currentPage);
 
   if (posts.length === 0 && pageNumber > 1) {
     // 성공했지만 데이터가 없음

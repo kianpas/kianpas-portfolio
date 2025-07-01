@@ -14,7 +14,7 @@ const PostCard = ({ id, title, date, tags, summary }: PostCardProps) => {
     <li className="py-6">
       <article>
         <Link
-          href={`/blog/${id}`}
+          href={`/blog/post/${id}`}
           className="group block rounded-xl p-5 -m-5 transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-gray-800/50"
         >
           <div className="space-y-3">

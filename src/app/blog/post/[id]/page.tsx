@@ -77,7 +77,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
         <div className="flex flex-col sm:flex-row justify-between gap-8">
           {prevPost ? (
             <Link
-              href={`/blog/${prevPost.id}`}
+              href={`/blog/post/${prevPost.id}`}
               className="block p-4 border rounded-lg hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 transition-colors w-full"
             >
               <div className="text-xs uppercase text-gray-500">Previous</div>
@@ -90,7 +90,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
           )}
           {nextPost ? (
             <Link
-              href={`/blog/${nextPost.id}`}
+              href={`/blog/post/${nextPost.id}`}
               className="block p-4 border rounded-lg hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 transition-colors w-full text-right"
             >
               <div className="text-xs uppercase text-gray-500">Next</div>
@@ -101,14 +101,6 @@ const SinglePostPage = async ({ params }: PageProps) => {
           ) : (
             <div /> // 레이아웃 유지를 위한 빈 div
           )}
-        </div>
-        <div className="pt-8 text-center">
-          <Link
-            href="/blog"
-            className="text-blue-600 hover:underline dark:text-blue-400"
-          >
-            &larr; Back to all posts
-          </Link>
         </div>
       </footer>
       {/* <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">

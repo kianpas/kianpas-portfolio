@@ -7,7 +7,7 @@ import Link from "next/link";
 const Navbar = () => {
   const NAV_ITEMS = [
     { label: "Home", href: "/" },
-    { label: "Blog", href: "/blog" },
+    { label: "Blog", href: "/blog/page/1" },
     { label: "Project", href: "/project" },
     { label: "About", href: "/about" },
   ];
@@ -37,7 +37,8 @@ const Navbar = () => {
         </div>
 
         <div className="md:hidden">
-          <button aria-label="mobile-btn"
+          <button
+            aria-label="mobile-btn"
             onClick={() => setIsOpen(!isOpen)}
             className="text-gray-600 dark:text-gray-300 focus:outline-none"
           >
