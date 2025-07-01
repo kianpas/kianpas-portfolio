@@ -43,7 +43,7 @@ const PostPagination = ({
       <div className="flex justify-between items-center mt-10">
         {hasPrevPage ? (
           <Link
-            href={`/blog/${currentPage - 1}`}
+            href={`/blog/page/${currentPage - 1}`}
             className="relative inline-flex items-center rounded-md px-2 py-2 text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <ArrowIcon direction="left" />
@@ -60,7 +60,7 @@ const PostPagination = ({
 
         {hasNextPage ? (
           <Link
-            href={`/blog/${currentPage + 1}`}
+            href={`/blog/page/${currentPage + 1}`}
             className="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <ArrowIcon direction="right" />
