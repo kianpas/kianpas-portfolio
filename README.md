@@ -1,21 +1,22 @@
 # kianpas-portfolio
 
-## Getting Started
+Next.js 기반의 개인 포트폴리오 웹사이트입니다. 저의 프로젝트와 블로그 게시물들을 확인하실 수 있습니다.
 
-First, run the development server:
+## 🚀 기술 스택
+
+- **프레임워크**: Next.js
+- **언어**: TypeScript
+- **스타일링**: Tailwind CSS
+- **컨텐츠**: Markdown
+
+## ✨ 시작하기
+
+먼저, 개발 서버를 실행해주세요:
 
 ```bash
 npm run dev
-# or
+# 또는
 yarn dev
-# or
+# 또는
 pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
