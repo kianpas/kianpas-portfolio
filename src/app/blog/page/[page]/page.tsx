@@ -82,14 +82,7 @@ const BlogPage = async ({ params }: PageProps) => {
       <div>
         <ul>
           {posts.map((post) => (
-            <PostCard
-              key={post.id}
-              id={post.id}
-              title={post.title}
-              date={post.date}
-              summary={post.summary}
-              tags={post.tags}
-            />
+            <PostCard key={post.id} post={post} />
           ))}
         </ul>
       </div>

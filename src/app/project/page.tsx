@@ -1,17 +1,16 @@
-
+import { projects } from "@/data/projects";
+import ProjectCard from "@/components/projectCard/ProjectCard";
 
 const ProjectPage = () => {
   return (
-    <>
-        <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        {/* 헤더 */}
-        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-6xl">
-            Projects
-          </h1>
-        </div>
-      </div>
-    </>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold mb-8">프로젝트</h1>
+      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </ul>
+    </div>
   );
 };
 

@@ -1,15 +1,9 @@
-// import { Post } from "@/types/post";
+import { Post } from "@/types/post";
 import Link from "next/link";
 
-interface PostCardProps {
-  id: string;
-  title: string;
-  date: string;
-  tags?: string[];
-  summary?: string;
-}
+const PostCard: React.FC<{ post: Post }> = ({ post }) => {
+  const { id, title, date, tags, summary } = post;
 
-const PostCard = ({ id, title, date, tags, summary }: PostCardProps) => {
   return (
     <li className="py-6">
       <article>
