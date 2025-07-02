@@ -1,6 +1,6 @@
 ---
 title: '나의 두번째 포스트'
-date: '2024-05-21'
+date: '2026-05-21'
 author: '홍길동'
 summary: '이 포스트는 Next.js와 Tailwind CSS를 사용하여 블로그를 만드는 과정을 담고 있습니다. 기본적인 설정부터 시작하여 동적 라우팅까지 다룹니다.'
 tags: ['Next.js', 'TailwindCSS', 'WebDev']
