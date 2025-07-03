@@ -29,22 +29,27 @@ const Navbar = () => {
   const getLinkClassName = (href: string, isMobile: boolean = false) => {
     const isActive =
       pathname === href ||
-      (href.startsWith("/blog") && pathname.startsWith("/blog"));
+      (pathname.startsWith("/blog") && href.startsWith("/blog")) ||
+      (pathname.startsWith("/project") && href.startsWith("/project"));
 
-    const baseClasses = isMobile
-      ? "block py-4 text-2xl text-center"
-      : "text-gray-700 dark:text-gray-300 transition-colors";
-    const activeClasses = isMobile
-      ? "text-blue-500 dark:text-blue-400"
-      : "text-blue-600 dark:text-blue-400";
-    const hoverClasses = "hover:text-blue-600 dark:hover:text-blue-400";
+    if (isMobile) {
+      return `block py-4 text-2xl text-center font-bold ${
+        isActive
+          ? "text-gray-900 dark:text-white"
+          : "text-gray-700 dark:text-gray-300"
+      }`;
+    }
 
-    return `${baseClasses} ${isActive ? activeClasses : hoverClasses}`;
+    return `font-bold transition-colors pb-1 border-b-2 ${
+      isActive
+        ? "text-gray-900 dark:text-gray-100 border-transparent"
+        : "text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-gray-100"
+    }`;
   };
 
   return (
     <header className="bg-white/80 dark:bg-gray-900/80 shadow-sm fixed top-0 w-full z-50 h-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
         <div className="flex items-center">
           <Link href="/" className="text-xl font-semibold">
             BLOG
