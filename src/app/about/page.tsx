@@ -1,5 +1,5 @@
 import { FaEnvelope , FaGithub, FaQq  } from "react-icons/fa6";
-import { siteMetadata } from "@/data/metadata"; // 데이터 가져오기
+import { siteMetadata } from "@/data/metadata";
 
 const AboutPage = () => {
   return (
@@ -58,9 +58,8 @@ const AboutPage = () => {
           </p>
 
           <p>
-            이곳에 기록된 저의 경험과 삽질(?)이 누군가에게는 작은 도움이 되기를
-            바랍니다. 기술에 대한 이야기, 커피 한 잔과 함께 나누는 것을
-            좋아합니다. 편하게 연락 주세요!
+            이곳에 기록된 저의 경험이 누군가에게는 작은 도움이 되기를
+            바랍니다.
           </p>
         </div>
       </div>
