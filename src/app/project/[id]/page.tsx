@@ -31,7 +31,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
 
         <div className="space-y-6">
-          <div className="flex flex-wrap items-center gap-x-4 text-xs">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
             {tags.map((tag, index) => (
               <span
                 key={index}

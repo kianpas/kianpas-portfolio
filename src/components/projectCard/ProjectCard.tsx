@@ -20,7 +20,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           </div>
         </Link>
         <div className="space-y-2">
-          <div className="flex items-center gap-x-4 text-xs">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
             {tags.map((tag, index) => (
               <span
                 key={index}
