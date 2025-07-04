@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 const Navbar = () => {
   const NAV_ITEMS = [
     { label: "Home", href: "/" },
-    { label: "Blog", href: "/blog/page/1" },
+    { label: "Blog", href: "/blog" },
     { label: "Project", href: "/project" },
     { label: "About", href: "/about" },
   ];
@@ -27,10 +27,9 @@ const Navbar = () => {
   }, [isOpen]);
 
   const getLinkClassName = (href: string, isMobile: boolean = false) => {
+    //  pathname이 해당 href로 시작하면 활성화
     const isActive =
-      pathname === href ||
-      (pathname.startsWith("/blog") && href.startsWith("/blog")) ||
-      (pathname.startsWith("/project") && href.startsWith("/project"));
+      href === "/" ? pathname === href : pathname.startsWith(href);
 
     if (isMobile) {
       return `block py-4 text-2xl text-center font-bold ${
@@ -40,10 +39,10 @@ const Navbar = () => {
       }`;
     }
 
-    return `font-bold transition-colors pb-1 border-b-2 ${
+    return `font-bold transition-colors pb-1 ${
       isActive
-        ? "text-gray-900 dark:text-gray-100 border-transparent"
-        : "text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-gray-100"
+        ? "text-gray-900 dark:text-gray-100"
+        : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
     }`;
   };
 
@@ -61,7 +60,7 @@ const Navbar = () => {
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
-              href={item.href}
+              href={item.href === "/blog" ? "/blog/page/1" : item.href}
               className={getLinkClassName(item.href)}
             >
               {item.label}
