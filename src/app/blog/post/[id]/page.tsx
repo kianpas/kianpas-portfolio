@@ -1,4 +1,3 @@
-// import { getSinglePost} from "@/services/posts";
 import { notFound } from "next/navigation";
 import { getPostData, getAllPostIds } from "@/services/posts";
 import Link from "next/link";
@@ -42,15 +41,15 @@ const SinglePostPage = async ({ params }: PageProps) => {
       <header className="mb-8 text-center">
         {/* 태그 (선택 사항이지만 추천) */}
         <div className="mb-4">
-          {/* {postData.tags?.map((tag) => (
+          {postData.tags?.map((tag) => (
             <Link
               key={tag}
-              href={`/tags/${tag}`}
+              href={`/blog/tag/${tag}`}
               className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline mr-2"
             >
               #{tag}
             </Link>
-          ))} */}
+          ))}
         </div>
         <h1 className="text-3xl md:text-5xl font-extrabold leading-tight tracking-tighter text-gray-900 dark:text-gray-100 mb-4">
           {postData.title}
@@ -103,30 +102,6 @@ const SinglePostPage = async ({ params }: PageProps) => {
           )}
         </div>
       </footer>
-      {/* <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <div className="flex flex-col sm:flex-row justify-between gap-4">
-          {prevPost ? (
-            <Link href={`/blog/${prevPost.id}`} className="block text-left">
-              <div className="text-xs uppercase text-gray-500">Previous</div>
-              <span className="text-blue-600 dark:text-blue-400 hover:underline">
-                ← {prevPost.title}
-              </span>
-            </Link>
-          ) : (
-            <div /> // 이전 글이 없을 때 공간 차지
-          )}
-          {nextPost ? (
-            <Link href={`/blog/${nextPost.id}`} className="block text-right">
-              <div className="text-xs uppercase text-gray-500">Next</div>
-              <span className="text-blue-600 dark:text-blue-400 hover:underline">
-                {nextPost.title} →
-              </span>
-            </Link>
-          ) : (
-            <div /> // 다음 글이 없을 때 공간 차지
-          )}
-        </div>
-      </footer> */}
     </article>
   );
 };

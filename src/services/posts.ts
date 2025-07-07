@@ -7,6 +7,8 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 
+const POSTS_PER_PAGE = 10; // 페이지당 포스트 수를 상수로 정의 (기존에 없다면 추가)
+
 // 'posts' 디렉토리의 경로를 설정합니다.
 const postsDirectory = path.join(process.cwd(), "src", "posts");
 
@@ -50,6 +52,42 @@ export const getSortedPostsData = () => {
   });
 };
 
+// 모든 태그 목록을 가져오는 함수
+export const getAllCategories = () => {
+  const allPosts = getSortedPostsData();
+  const category = new Set(allPosts.flatMap((post) => post.category));
+  return Array.from(category);
+};
+
+// 특정 태그를 포함하는 포스트 목록을 가져오는 함수
+export const getPostsByCategory = (categoryName: string) => {
+  const allPosts = getSortedPostsData();
+  return allPosts.filter((post) => post.tags.includes(categoryName));
+};
+
+// 모든 태그 목록을 가져오는 함수
+export const getAllTags = () => {
+  const allPosts = getSortedPostsData();
+  const tags = new Set(allPosts.flatMap((post) => post.tags));
+  return Array.from(tags);
+};
+
+// 특정 태그를 포함하는 포스트 목록을 가져오는 함수
+export const getPostsByTag = (
+  tagName: string,
+  page: number = 1,
+  limit: number = 10
+) => {
+  const allPosts = getSortedPostsData().filter((post) =>
+    post.tags.includes(tagName)
+  );
+  const totalPosts = allPosts.length;
+  const totalPages = Math.ceil(totalPosts / limit);
+  const currentPage = Math.max(1, Math.min(page, totalPages));
+  const startIndex = (currentPage - 1) * limit;
+  const posts = allPosts.slice(startIndex, startIndex + limit);
+  return { posts, totalPosts, totalPages, currentPage };
+};
 
 interface PaginatedPostsResult {
   posts: ReturnType<typeof getSortedPostsData>; // 포스트 데이터 배열
@@ -134,7 +172,13 @@ export const getPostData = async (id: string) => {
     id,
     contentHtml,
     readingTime,
-    ...(matterResult.data as { title: string; date: string; author?: string }),
+    ...(matterResult.data as {
+      title: string;
+      date: string;
+      author?: string;
+      tags?: string[];
+      category?: string;
+    }),
   };
 
   return {
@@ -142,71 +186,4 @@ export const getPostData = async (id: string) => {
     prevPost,
     nextPost,
   };
-};
-
-
-const POSTS_PER_PAGE = 10; // 페이지당 포스트 개수를 상수로 정의
-
-export interface PostsResponse {
-  posts: Post[];
-  totalPages: number;
-  totalPosts: number; // 전체 포스트 수도 유용할 수 있으니 추가
-}
-
-//포스트 목록
-export const getPosts = async (page: number): Promise<PostsResponse | null> => {
-  try {
-    const skip = (page - 1) * POSTS_PER_PAGE;
-    const limit = POSTS_PER_PAGE;
-    const res = await fetch(
-      `https://dummyjson.com/posts?limit=${limit}&skip=${skip}`,
-      {
-        cache: "no-store", // 서버 렌더링에 적합한 캐싱 정책
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch posts ${res.status} ${res.statusText}`);
-    }
-
-    const data = await res.json();
-    // 2. dummyjson의 반환 구조를 보고 타입 단언을 해줄 수 있습니다.
-    // data는 { posts: Post[], total: number, skip: number, limit: number } 형태를 가집니다.
-    const posts: Post[] = data.posts;
-    const totalPosts: number = data.total;
-
-    // 3. totalPages 계산
-    const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
-
-    // 4. 새로운 구조의 객체로 반환
-    return {
-      posts,
-      totalPages,
-      totalPosts,
-    };
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-    return null;
-  }
-};
-
-//단일 포스트
-export const getSinglePost = async (id: string): Promise<Post> => {
-  try {
-    const res = await fetch(`https://dummyjson.com/posts/${id}`, {
-      cache: "no-store", // 서버 렌더링에 적합한 캐싱 정책
-    }).catch((error) => {
-      throw new Error(`Network error: ${error.message}`);
-    });
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch posts ${res.status} ${res.statusText}`);
-    }
-
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-    throw error;
-  }
 };
