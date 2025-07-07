@@ -1,5 +1,3 @@
-import { Post } from "@/types/post";
-
 //마크다운 라이브러리
 import fs from "fs";
 import path from "path";
@@ -7,7 +5,7 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 
-const POSTS_PER_PAGE = 10; // 페이지당 포스트 수를 상수로 정의 (기존에 없다면 추가)
+// const POSTS_PER_PAGE = 10; // 페이지당 포스트 수를 상수로 정의 (기존에 없다면 추가)
 
 // 'posts' 디렉토리의 경로를 설정합니다.
 const postsDirectory = path.join(process.cwd(), "src", "posts");
