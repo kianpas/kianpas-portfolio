@@ -4,5 +4,6 @@ export interface Post {
   date: string;
   tags?: string[];
   summary?: string;
+  category: string;
 }
 

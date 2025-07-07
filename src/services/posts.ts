@@ -35,6 +35,7 @@ export const getSortedPostsData = () => {
         author: string;
         summary: string;
         tags: string[];
+        category: string;
       }),
     };
   });
@@ -48,6 +49,7 @@ export const getSortedPostsData = () => {
     }
   });
 };
+
 
 interface PaginatedPostsResult {
   posts: ReturnType<typeof getSortedPostsData>; // 포스트 데이터 배열
@@ -141,6 +143,7 @@ export const getPostData = async (id: string) => {
     nextPost,
   };
 };
+
 
 const POSTS_PER_PAGE = 10; // 페이지당 포스트 개수를 상수로 정의
 

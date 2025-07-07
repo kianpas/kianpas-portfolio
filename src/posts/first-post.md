@@ -4,6 +4,7 @@ date: '2025-07-02'
 author: 'kianpas'
 summary: '이 포스트는 Next.js와 Tailwind CSS를 사용하여 만든 이 블로그에 대한 구성을 간단히 기록했습니다.'
 tags: ['Next.js', 'TailwindCSS', 'React', 'TypeScript', 'Markdown']
+category: 'frontend'
 ---
 
 ## 안녕하세요! 첫 포스트에 오신 것을 환영합니다.

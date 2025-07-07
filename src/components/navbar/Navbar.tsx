@@ -13,7 +13,12 @@ const Navbar = () => {
   ];
 
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -25,6 +30,8 @@ const Navbar = () => {
       document.body.style.overflow = "auto";
     };
   }, [isOpen]);
+
+   if (!mounted) return null;
 
   const getLinkClassName = (href: string, isMobile: boolean = false) => {
     //  pathname이 해당 href로 시작하면 활성화
@@ -72,7 +79,7 @@ const Navbar = () => {
         <div className="md:hidden">
           <button
             aria-label="메뉴 열기"
-            aria-expanded={isOpen}
+            aria-expanded={!!isOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsOpen(!isOpen)}
             className="text-gray-600 dark:text-gray-300 focus:outline-none p-2 z-50 relative"
