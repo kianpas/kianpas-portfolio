@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 
 const ArrowIcon = ({ direction }: { direction: "left" | "right" }) => (
@@ -35,8 +33,17 @@ const PostPagination = ({
   const hasPrevPage = currentPage > 1;
   const hasNextPage = currentPage < totalPages;
 
-  // 버튼 비활성화 시 적용될 공통 클래스
-  // const disabledClass = "pointer-events-none text-gray-400 dark:text-gray-600";
+  // 보여줄 페이지 번호 범위 계산 (예: currentPage 기준 앞뒤로 2개씩)
+  const getPageNumbers = () => {
+    const delta = 2;
+    const start = Math.max(1, currentPage - delta);
+    const end = Math.min(totalPages, currentPage + delta);
+    const pages = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
 
   return (
     <nav aria-label="Pagination">
@@ -53,15 +60,27 @@ const PostPagination = ({
             <ArrowIcon direction="left" />
           </span>
         )}
-
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
+        <div className="hidden sm:flex sm:gap-1">
+          {/* 페이지 번호 버튼 */}
+          {getPageNumbers().map((pageNum) => (
+            <Link
+              key={pageNum}
+              href={`/blog/page/${pageNum}`}
+              className={`px-3 py-1 rounded-md border ${
+                pageNum === currentPage
+                  ? "bg-gray-200 dark:bg-gray-700 font-bold"
+                  : "hover:bg-gray-100 dark:hover:bg-gray-800"
+              }`}
+            >
+              {pageNum}
+            </Link>
+          ))}
+        </div>
 
         {hasNextPage ? (
           <Link
             href={`/blog/page/${currentPage + 1}`}
-            className="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="relative inline-flex items-center rounded-md px-2 py-2 text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <ArrowIcon direction="right" />
           </Link>
