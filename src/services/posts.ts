@@ -70,12 +70,20 @@ export const getAllTags = () => {
   return Array.from(tags);
 };
 
+interface OnePagePostsResult {
+  posts: ReturnType<typeof getSortedPostsData>; // 포스트 데이터 배열
+  totalPosts: number;
+  totalPages: number;
+  currentPage: number;
+  hasMore: boolean;
+}
+
 // 특정 태그를 포함하는 포스트 목록을 가져오는 함수
 export const getPostsByTag = (
   tagName: string,
   page: number = 1,
   limit: number = 10
-) => {
+): OnePagePostsResult => {
   const allPosts = getSortedPostsData().filter((post) =>
     post.tags.includes(tagName)
   );
@@ -83,8 +91,21 @@ export const getPostsByTag = (
   const totalPages = Math.ceil(totalPosts / limit);
   const currentPage = Math.max(1, Math.min(page, totalPages));
   const startIndex = (currentPage - 1) * limit;
+
+  //데이터 없는 경우
+  if (page > totalPages) {
+    return { posts: [], totalPosts, totalPages, currentPage, hasMore: false };
+  }
+
   const posts = allPosts.slice(startIndex, startIndex + limit);
-  return { posts, totalPosts, totalPages, currentPage };
+
+  return {
+    posts,
+    totalPosts,
+    totalPages,
+    currentPage,
+    hasMore: page < totalPages,
+  };
 };
 
 interface PaginatedPostsResult {
