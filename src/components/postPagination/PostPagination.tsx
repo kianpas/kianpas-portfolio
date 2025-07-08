@@ -33,24 +33,51 @@ const PostPagination = ({
   const hasPrevPage = currentPage > 1;
   const hasNextPage = currentPage < totalPages;
 
-  // 보여줄 페이지 번호 범위 계산 (예: currentPage 기준 앞뒤로 2개씩)
-  const getPageNumbers = () => {
-    const delta = 2;
-    const start = Math.max(1, currentPage - delta);
-    const end = Math.min(totalPages, currentPage + delta);
+  // 페이지 번호와 생략 부호를 생성하는 로직
+  // [1, "...", 4, 5, 6, "...", 10]
+  // [1, 2, 3, "...", 10]
+  const getPagination = () => {
     const pages = [];
-    for (let i = start; i <= end; i++) {
-      pages.push(i);
+    const sideWidth = 1; // 현재 페이지 양쪽에 보여줄 페이지 수
+    const ellipsis = "...";
+    if (totalPages <= 5) {
+      // 전체 페이지가 5개 이하일 경우 모두 표시
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1); //첫 페이지 무조건 표시
+
+      if (currentPage > sideWidth + 2) {
+        pages.push(ellipsis);
+      }
+
+      const startPage = Math.max(2, currentPage - sideWidth);
+      const endPage = Math.min(totalPages - 1, currentPage + sideWidth);
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+
+      if (currentPage < totalPages - sideWidth - 1) {
+        pages.push(ellipsis);
+      }
+
+      pages.push(totalPages); //마지막 페이지 무조건 표시
+
     }
     return pages;
   };
 
+  const pageNumbers = getPagination();
+
   return (
     <nav aria-label="Pagination">
-      <div className="flex justify-between items-center mt-10">
+      <div className="flex justify-center items-center mt-10 gap-x-4">
         {hasPrevPage ? (
           <Link
             href={`/blog/page/${currentPage - 1}`}
+            aria-disabled={!hasPrevPage}
             className="relative inline-flex items-center rounded-md px-2 py-2 text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <ArrowIcon direction="left" />
@@ -62,24 +89,35 @@ const PostPagination = ({
         )}
         <div className="hidden sm:flex sm:gap-1">
           {/* 페이지 번호 버튼 */}
-          {getPageNumbers().map((pageNum) => (
-            <Link
-              key={pageNum}
-              href={`/blog/page/${pageNum}`}
-              className={`px-3 py-1 rounded-md border ${
-                pageNum === currentPage
-                  ? "bg-gray-200 dark:bg-gray-700 font-bold"
-                  : "hover:bg-gray-100 dark:hover:bg-gray-800"
-              }`}
-            >
-              {pageNum}
-            </Link>
-          ))}
+          {pageNumbers.map((pageNum, index) =>
+            pageNum === "..." ? (
+              <span
+                key={`ellipsis-${index}`}
+                className="px-3 py-1 text-gray-500"
+              >
+                ...
+              </span>
+            ) : (
+              <Link
+                key={pageNum}
+                href={`/blog/page/${pageNum}`}
+                aria-current={pageNum === currentPage ? "page" : undefined}
+                className={`px-3 py-1 rounded-md border ${
+                  pageNum === currentPage
+                    ? "bg-gray-200 dark:bg-gray-700 font-bold"
+                    : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                }`}
+              >
+                {pageNum}
+              </Link>
+            )
+          )}
         </div>
 
         {hasNextPage ? (
           <Link
             href={`/blog/page/${currentPage + 1}`}
+            aria-disabled={!hasNextPage}
             className="relative inline-flex items-center rounded-md px-2 py-2 text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <ArrowIcon direction="right" />
@@ -91,69 +129,6 @@ const PostPagination = ({
         )}
       </div>
     </nav>
-
-    //   <div className="flex justify-between gap-1">
-    //     {/* Previous Button */}
-    //     <Link
-    //       href={createPageURL(currentPage - 1)}
-    //       className={`relative inline-flex items-center rounded-md px-2 py-2 text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 ${
-    //         currentPage <= 1 ? disabledClass : ""
-    //       }`}
-    //       aria-disabled={currentPage <= 1}
-    //       tabIndex={currentPage <= 1 ? -1 : undefined}
-    //     >
-    //       <span className="sr-only">Previous</span>
-    //       <ArrowIcon direction="left" />
-    //     </Link>
-
-    //     {/* Page Numbers */}
-    //     <div className="hidden sm:flex sm:gap-1">
-    //       {allPages.map((page, index) => {
-    //         const isActive = page === currentPage;
-
-    //         // page가 '...' (Ellipsis)인 경우
-    //         if (page === "...") {
-    //           return (
-    //             <span
-    //               key={`ellipsis-${index}`}
-    //               className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200"
-    //             >
-    //               ...
-    //             </span>
-    //           );
-    //         }
-
-    //         // page가 숫자인 경우
-    //         return (
-    //           <Link
-    //             key={page}
-    //             href={createPageURL(page)}
-    //             className={`relative inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold ${
-    //               isActive
-    //                 ? "z-10 bg-indigo-600 text-white" // 활성 상태 스타일
-    //                 : "text-gray-900 dark:text-gray-100 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800" // 기본 상태 스타일
-    //             }`}
-    //             aria-current={isActive ? "page" : undefined}
-    //           >
-    //             {page}
-    //           </Link>
-    //         );
-    //       })}
-    //     </div>
-
-    //     {/* Next Button */}
-    //     <Link
-    //       href={createPageURL(currentPage + 1)}
-    //       className={`relative inline-flex items-center rounded-md px-2 py-2 text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 ${
-    //         currentPage >= totalPages ? disabledClass : ""
-    //       }`}
-    //       aria-disabled={currentPage >= totalPages}
-    //       tabIndex={currentPage >= totalPages ? -1 : undefined}
-    //     >
-    //       <span className="sr-only">Next</span>
-    //       <ArrowIcon direction="right" />
-    //     </Link>
-    //   </div>
   );
 };
 

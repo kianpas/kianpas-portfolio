@@ -25,17 +25,13 @@ const PostList: React.FC<PostListProps> = ({
 
     setLoading(true);
     const res = await fetch(`/api/posts?tag=${name}&page=${page + 1}`);
-    console.log("res = > ", res);
+
     if (!res.ok) {
-      const text = await res.text(); // 실패 응답 본문 보기
-      console.error("Fetch failed:", text);
       setLoading(false);
       return;
     }
 
     const data = await res.json();
-    console.log("data = > ", data);
-    console.log("data.posts", data.posts);
     setPosts((prev) => [...prev, ...data.posts]);
     setPage((prev) => prev + 1);
     setHasMore(data.hasMore);
