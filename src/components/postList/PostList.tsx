@@ -18,7 +18,7 @@ const PostList: React.FC<PostListProps> = ({
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(page < totalPage);
 
   const handleLoadMore = async () => {
     if (loading || page >= totalPage) return;

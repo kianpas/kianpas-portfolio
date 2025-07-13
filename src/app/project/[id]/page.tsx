@@ -21,7 +21,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="aspect-video relative overflow-hidden rounded-lg mb-8">
+                <div className="aspect-video relative overflow-hidden rounded-lg mb-8 border border-gray-200 dark:border-gray-700">
           <Image
             src={imageUrl}
             alt={`${title} 이미지`}

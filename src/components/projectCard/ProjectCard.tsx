@@ -10,7 +10,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     <li className="py-5">
       <article className="flex flex-col space-y-4">
         <Link href={`/project/${id}`}>
-          <div className="aspect-video relative overflow-hidden rounded-lg">
+                    <div className="aspect-video relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
             <Image
               src={imageUrl}
               alt={`${title} 이미지`}
@@ -21,7 +21,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
         </Link>
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
-            {tags.map((tag, index) => (
+                        {tags.slice(0, 4).map((tag, index) => (
               <span
                 key={index}
                 className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600"

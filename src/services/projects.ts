@@ -1,4 +1,3 @@
-
 import { Project } from "@/types/project";
 import fs from "fs";
 import path from "path";
@@ -8,7 +7,7 @@ import html from "remark-html";
 
 const projectsDirectory = path.join(process.cwd(), "src", "projects");
 
-export const getSortedProjectsData = () => {
+export const getSortedProjectsData = (page: number = 1, limit: number = 6) => {
   const fileNames = fs.readdirSync(projectsDirectory);
   const allProjectsData = fileNames.map((fileName) => {
     const id = fileName.replace(/\.md$/, "");
@@ -21,6 +20,7 @@ export const getSortedProjectsData = () => {
       ...(matterResult.data as {
         title: string;
         description: string;
+        date: string;
         imageUrl: string;
         projectUrl: string;
         tags: string[];
@@ -28,7 +28,25 @@ export const getSortedProjectsData = () => {
     };
   });
 
-  return allProjectsData;
+  // 날짜별로 프로젝트 정렬 (최신순)
+  const sortedProjects = allProjectsData.sort((a, b) => {
+    if (a.date < b.date) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+
+  const totalProjects = sortedProjects.length;
+  const totalPages = Math.ceil(totalProjects / limit);
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+
+  return {
+    projects: sortedProjects.slice(startIndex, endIndex),
+    totalProjects,
+    totalPages,
+  };
 };
 
 export const getAllProjectIds = () => {
