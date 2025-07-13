@@ -1,11 +1,7 @@
 import { getSortedProjectsData } from "@/services/projects";
 import ProjectList from "@/components/projectList/ProjectList";
 
-type PageProps = {
-  params: Promise<{ page: string }>;
-};
-
-const ProjectPage = async ({ params }: PageProps) => {
+const ProjectPage = () => {
   const { projects, totalPages } = getSortedProjectsData(1, 6);
   return (
     <div className="container mx-auto px-4 py-8">
