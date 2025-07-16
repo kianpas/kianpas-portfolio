@@ -1,7 +1,11 @@
 import { Post } from "@/types/post";
 import Link from "next/link";
 
-const PostCard: React.FC<{ post: Post }> = ({ post }) => {
+type PostCardProps = {
+  post: Post;
+};
+
+const PostCard = ({ post }: PostCardProps) => {
   const { id, title, date, tags, summary } = post;
 
   return (

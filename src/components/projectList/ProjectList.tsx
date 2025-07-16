@@ -9,10 +9,7 @@ interface ProjectListProps {
   totalPage: number;
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({
-  initialProjects,
-  totalPage,
-}) => {
+const ProjectList = ({ initialProjects, totalPage }: ProjectListProps) => {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);

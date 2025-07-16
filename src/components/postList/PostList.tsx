@@ -10,11 +10,7 @@ interface PostListProps {
   totalPage: number;
 }
 
-const PostList: React.FC<PostListProps> = ({
-  initialPosts,
-  name,
-  totalPage,
-}) => {
+const PostList = ({ initialPosts, name, totalPage }: PostListProps) => {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
