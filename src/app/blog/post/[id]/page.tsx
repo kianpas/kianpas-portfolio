@@ -85,7 +85,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
               </span>
             </Link>
           ) : (
-            <div /> // 레이아웃 유지를 위한 빈 div
+            <div className="p-4 w-full" /> // 레이아웃 유지를 위한 빈 div
           )}
           {nextPost ? (
             <Link
@@ -98,7 +98,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
               </span>
             </Link>
           ) : (
-            <div /> // 레이아웃 유지를 위한 빈 div
+            <div className="p-4 w-full" /> // 레이아웃 유지를 위한 빈 div
           )}
         </div>
       </footer>
