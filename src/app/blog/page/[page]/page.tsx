@@ -76,7 +76,7 @@ const BlogPage = async ({ params }: PageProps) => {
         </ul>
       </div>
       {totalPages && (
-        <div className="pt-8 pb-12 flex justify-center">
+        <div className="py-12">
           {/* 페이지네이션 위아래 여백 및 가운데 정렬 */}
           <PostPagination currentPage={currentPage} totalPages={totalPages} />
         </div>

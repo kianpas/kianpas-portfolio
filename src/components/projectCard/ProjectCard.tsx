@@ -12,23 +12,33 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
   return (
     <li className="py-5">
-      <article className="flex flex-col space-y-4">
+      <article className="group">
         <Link href={`/project/${id}`}>
-          <div className="aspect-video relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
+          <div
+            className="aspect-video relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 
+                          group-hover:border-primary-300 dark:group-hover:border-primary-600 
+                          transition-colors duration-200"
+          >
             <Image
               src={imageUrl}
               alt={`${title} 이미지`}
               fill
-              className="object-cover"
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
           </div>
         </Link>
-        <div className="space-y-2">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
+
+        {/* 콘텐츠 섹션 */}
+        <div className="space-y-3 mt-4">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-2 text-xs">
             {tags.slice(0, 4).map((tag, index) => (
               <span
                 key={index}
-                className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600"
+                className="rounded-full bg-gray-100 dark:bg-gray-700 px-3 py-1.5 font-medium 
+                text-gray-700 dark:text-gray-300
+                group-hover:bg-primary-100 dark:group-hover:bg-primary-900/30 
+                group-hover:text-primary-700 dark:group-hover:text-primary-300 
+                transition-colors duration-200"
               >
                 {tag}
               </span>
