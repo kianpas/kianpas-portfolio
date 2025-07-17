@@ -10,13 +10,14 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Base colors
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)'],
-        mono: ['var(--font-geist-mono)'],
-      }
+        sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'Menlo', 'Monaco', 'monospace'],
+      },
     },
   },
   plugins: [
