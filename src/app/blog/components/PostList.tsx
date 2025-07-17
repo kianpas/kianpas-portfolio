@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Post } from "@/types/post";
-import PostCard from "@/components/postCard/PostCard";
+import PostCard from "@/app/blog/components/PostCard";
 
 interface PostListProps {
   initialPosts: Post[];

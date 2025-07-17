@@ -1,7 +1,7 @@
 import { getPaginatedPosts, getSortedPostsData } from "@/services/posts";
 import { notFound } from "next/navigation";
-import PostCard from "@/components/postCard/PostCard";
-import PostPagination from "@/components/postPagination/PostPagination";
+import PostCard from "@/app/blog/components/PostCard";
+import PostPagination from "@/app/blog/components/PostPagination";
 
 // 페이지당 보여줄 포스트 수
 const POSTS_PER_PAGE = 10;

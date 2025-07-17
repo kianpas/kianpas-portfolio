@@ -1,5 +1,5 @@
 import { getPostsByTag } from "@/services/posts";
-import PostList from "@/components/postList/PostList";
+import PostList from "@/app/blog/components/PostList";
 
 type PageProps = {
   params: Promise<{ tagName: string }>;

@@ -1,5 +1,5 @@
 import { getSortedProjectsData } from "@/services/projects";
-import ProjectList from "@/components/projectList/ProjectList";
+import ProjectList from "@/app/project/components/ProjectList";
 
 const ProjectPage = () => {
   const { projects, totalPages } = getSortedProjectsData(1, 6);

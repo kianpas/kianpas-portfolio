@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Project } from "@/types/project";
-import ProjectCard from "@/components/projectCard/ProjectCard";
+import ProjectCard from "@/app/project/components/ProjectCard";
 
 interface ProjectListProps {
   initialProjects: Project[];
