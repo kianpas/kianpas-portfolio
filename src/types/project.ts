@@ -5,4 +5,6 @@ export interface Project {
   imageUrl: string;
   projectUrl: string;
   tags: string[];
+  type: "professional" | "personal";
+  date?: string;
 }

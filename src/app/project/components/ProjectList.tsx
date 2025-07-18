@@ -7,6 +7,7 @@ import ProjectCard from "@/app/project/components/ProjectCard";
 interface ProjectListProps {
   initialProjects: Project[];
   totalPage: number;
+  projectType: 'professional' | 'personal' | 'all';
 }
 
 const ProjectList = ({ initialProjects, totalPage }: ProjectListProps) => {

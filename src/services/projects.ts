@@ -24,6 +24,7 @@ export const getSortedProjectsData = (page: number = 1, limit: number = 6) => {
         imageUrl: string;
         projectUrl: string;
         tags: string[];
+        type: "professional" | "personal";
       }),
     };
   });
@@ -79,7 +80,33 @@ export const getProjectData = async (id: string) => {
     imageUrl: matterResult.data.imageUrl,
     projectUrl: matterResult.data.projectUrl,
     tags: matterResult.data.tags,
+    type: matterResult.data.type,
   };
 
   return projectData;
+};
+
+export const getProjectsByType = (
+  type: "professional" | "personal" | "all",
+  page: number = 1,
+  limit: number = 6
+) => {
+  const allProjects = getSortedProjectsData().projects;
+
+  //타입 필터링
+  const filteredProjects =
+    type === "all"
+      ? allProjects
+      : allProjects.filter((project) => project.type === type);
+
+  const totalProjects = filteredProjects.length;
+  const totalPages = Math.ceil(totalProjects / limit);
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+
+  return {
+    projects: filteredProjects.slice(startIndex, endIndex),
+    totalProjects,
+    totalPages,
+  };
 };
