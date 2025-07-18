@@ -7,11 +7,12 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     console.log("searchParams => ", searchParams);
     const tag = searchParams.get("tag") as string;
+    const decodedTag = decodeURIComponent(tag);
     console.log("tag => ", tag);
 
     const page = parseInt(searchParams.get("page") || "1", 10);
     console.log("page) => ", page);
-    const { posts, totalPages } = getPostsByTag(tag, page, 10);
+    const { posts, totalPages } = getPostsByTag(decodedTag, page, 10);
     console.log("posts, totalPages => ", posts[0].title, totalPages);
     return NextResponse.json({
       posts,

@@ -20,7 +20,8 @@ const PostList = ({ initialPosts, name, totalPage }: PostListProps) => {
     if (loading || page >= totalPage) return;
 
     setLoading(true);
-    const res = await fetch(`/api/posts?tag=${name}&page=${page + 1}`);
+    const encodedName = encodeURIComponent(name);
+    const res = await fetch(`/api/posts?tag=${encodedName}&page=${page + 1}`);
 
     if (!res.ok) {
       setLoading(false);
