@@ -8,7 +8,6 @@
   /* Base colors */
   --background: #ffffff;
   --foreground: #171717;
-
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,19 +18,56 @@
   }
 }
 
+/* 부드러운 테마 전환 */
+/* *,
+*::before,
+*::after {
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+} */
+
 html {
   overflow-y: scroll;
   scrollbar-gutter: stable;
+  color-scheme: light dark;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* 프리로드 상태에서 전환 효과 비활성화 */
+html.preload *,
+html.preload *::before,
+html.preload *::after {
+  transition: none !important;
 }
 
 body {
-  font-family: 'Pretendard', var(--font-geist-sans), system-ui, sans-serif;
-  @apply bg-white text-black;
-
+  font-family: "Pretendard", var(--font-geist-sans), system-ui, sans-serif;
+  background-color: white;
+  color: black;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    @apply bg-gray-900 text-white;
-  }
+html.dark body {
+  background-color: rgb(17 24 39); /* gray-900 */
+  color: white;
+}
+
+/* 부드러운 테마 전환 - 더 구체적으로 지정 */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* 초기 로딩 시 전환 효과 비활성화 */
+.preload,
+.preload *,
+.preload *::before,
+.preload *::after {
+  transition: none !important;
 }

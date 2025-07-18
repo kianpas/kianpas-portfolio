@@ -3,6 +3,15 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
+
+// 테마 토글을 동적 로딩으로 최적화
+const ThemeToggle = dynamic(() => import("./ThemeToggle"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse" />
+  ),
+});
 
 const Navbar = () => {
   const NAV_ITEMS = [
@@ -31,7 +40,7 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
-   if (!mounted) return null;
+  if (!mounted) return null;
 
   const getLinkClassName = (href: string, isMobile: boolean = false) => {
     //  pathname이 해당 href로 시작하면 활성화
@@ -75,40 +84,44 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button
-            aria-label="메뉴 열기"
-            aria-expanded={!!isOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-600 dark:text-gray-300 focus:outline-none p-2 z-50 relative"
-          >
-            <span className="sr-only">메인 메뉴 열기</span>
-            <svg
-              className="h-6 w-6"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+        {/* 우측 액션 영역 */}
+        <div className="flex items-center space-x-3">
+          <ThemeToggle />
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              aria-label="메뉴 열기"
+              aria-expanded={!!isOpen}
+              aria-controls="mobile-menu"
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-600 dark:text-gray-300 focus:outline-none p-2 z-50 relative"
             >
-              {isOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
+              <span className="sr-only">메인 메뉴 열기</span>
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {isOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
