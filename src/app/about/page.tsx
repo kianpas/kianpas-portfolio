@@ -80,23 +80,11 @@ const AboutPage = async () => {
               <div className="flex items-center gap-2">
                 <FaServer className="text-primary-500" size={16} />
                 <span className="text-sm text-gray-600 dark:text-gray-400">
-                  주력
+                  관심사
                 </span>
               </div>
               <span className="font-semibold text-gray-900 dark:text-gray-100">
-                Backend
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <div className="flex items-center gap-2">
-                <FaCode className="text-primary-500" size={16} />
-                <span className="text-sm text-gray-600 dark:text-gray-400">
-                  학습 중
-                </span>
-              </div>
-              <span className="font-semibold text-gray-900 dark:text-gray-100">
-                Frontend
+                풀스택
               </span>
             </div>
           </div>
@@ -169,7 +157,7 @@ const AboutPage = async () => {
 
               <div>
                 <h6 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Tools & Others
+                  도구 및 기타
                 </h6>
                 <div className="flex flex-wrap gap-2">
                   {skillsData.tools.map((tech) => (
@@ -189,27 +177,20 @@ const AboutPage = async () => {
           {/* GitHub 활동 */}
           <div className="not-prose mt-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
             <div className="flex items-center justify-between">
-              <h5 className="text-lg font-semibold">GitHub 프로필</h5>
+              <div>
+                <h5 className="text-lg font-semibold mb-1">GitHub</h5>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  프로젝트와 코드를 확인해보세요
+                </p>
+              </div>
               <Link
                 href={siteMetadata.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary-600 dark:text-primary-400 hover:underline flex items-center gap-1"
+                className="flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors"
               >
-                <span>프로필 방문하기</span>
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  />
-                </svg>
+                <FaGithub size={16} />
+                <span>방문하기</span>
               </Link>
             </div>
           </div>
