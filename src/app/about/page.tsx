@@ -3,7 +3,6 @@ import {
   FaGithub,
   FaQq,
   FaCalendar,
-  FaCode,
   FaServer,
 } from "react-icons/fa6";
 
