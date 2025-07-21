@@ -1,14 +1,40 @@
 import { Project } from "@/types/project";
 import Image from "next/image";
 import Link from "next/link";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaCalendarAlt  } from "react-icons/fa";
 
 type ProjectCardProps = {
   project: Project;
 };
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
-  const { id, title, description, imageUrl, projectUrl, tags } = project;
+  const {
+    id,
+    title,
+    description,
+    imageUrl,
+    projectUrl,
+    tags,
+    startDate,
+    endDate,
+  } = project;
+
+  // 날짜 포맷팅 함수
+  const formatDate = (dateStr: string) => {
+    if (!dateStr) return "";
+    const [year, month] = dateStr.split("-");
+    return `${year}.${month}`;
+  };
+
+  // 기간 표시 함수
+  const getDateRange = () => {
+    if (!startDate) return "";
+
+    const start = formatDate(startDate);
+    const end = endDate ? formatDate(endDate) : "진행 중";
+
+    return `${start} - ${end}`;
+  };
 
   return (
     <li className="py-5">
@@ -30,6 +56,16 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
         {/* 콘텐츠 섹션 */}
         <div className="space-y-3 mt-4">
+
+           {/* 프로젝트 기간 */}
+           {startDate && (
+            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+              <FaCalendarAlt size={14} className="text-primary-500" />
+              <span>{getDateRange()}</span>
+            </div>
+          )}
+
+          {/* 태그 섹션 */}
           <div className="flex flex-wrap items-center gap-x-2 gap-y-2 text-xs">
             {tags.slice(0, 4).map((tag, index) => (
               <span

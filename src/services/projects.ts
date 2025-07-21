@@ -25,6 +25,8 @@ export const getSortedProjectsData = (page: number = 1, limit: number = 6) => {
         projectUrl: string;
         tags: string[];
         type: "professional" | "personal";
+        startDate: string;
+        endDate: string;
       }),
     };
   });
