@@ -19,6 +19,8 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
     endDate,
   } = project;
 
+  const imageSrc = imageUrl || "/images/projects/default-project.png"
+
   // 날짜 포맷팅 함수
   const formatDate = (dateStr: string) => {
     if (!dateStr) return "";
@@ -46,7 +48,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
                           transition-colors duration-200"
           >
             <Image
-              src={imageUrl}
+              src={imageSrc}
               alt={`${title} 이미지`}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-300"
