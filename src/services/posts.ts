@@ -3,7 +3,11 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
-import html from "remark-html";
+import remarkRehype from "remark-rehype";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeStringify from "rehype-stringify";
+import { calculateReadingTime } from "@/utils/readingTime";
 
 // const POSTS_PER_PAGE = 10; // 페이지당 포스트 수를 상수로 정의 (기존에 없다면 추가)
 
@@ -26,9 +30,14 @@ export const getSortedPostsData = () => {
     // gray-matter를 사용하여 frontmatter를 파싱합니다.
     const matterResult = matter(fileContents);
 
+    // 읽기 시간 계산 (content 전체 사용)
+    const readingTime = calculateReadingTime(matterResult.content);
+
     // 데이터와 ID를 합쳐서 반환합니다.
     return {
       id,
+      content: matterResult.content, // content 추가
+      readingTime, // 읽기 시간 추가
       ...(matterResult.data as {
         title: string;
         date: string;
@@ -166,13 +175,20 @@ export const getPostData = async (id: string) => {
 
   // remark를 사용하여 Markdown을 HTML 문자열로 변환
   const processedContent = await remark()
-    .use(html)
+    .use(remarkRehype) // markdown을 HTML AST로 변환
+    .use(rehypeSlug) // 헤딩에 자동으로 ID 추가
+    .use(rehypeAutolinkHeadings, { 
+      behavior: 'wrap',
+      properties: {
+        className: ['heading-link']
+      }
+    }) // 헤딩에 링크 추가
+    .use(rehypeStringify) // HTML 문자열로 변환
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
-  // 읽는 시간 계산 (간단한 예시)
-  const wordCount = matterResult.content.split(/\s+/g).length;
-  const readingTime = Math.ceil(wordCount / 200); // 1분에 200단어 기준
+  // 읽는 시간 계산 (통일된 방식 사용)
+  const readingTime = calculateReadingTime(matterResult.content);
 
   // 모든 포스트를 날짜순으로 정렬
   const sortedPosts = getSortedPostsData(); // 이 함수는 모든 포스트 메타데이터를 정렬해서 반환한다고 가정

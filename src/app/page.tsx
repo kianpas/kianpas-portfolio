@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getSortedPostsData } from "@/services/posts";
+import { formatReadingTime } from "@/utils/readingTime";
 
 const Home = async () => {
   // 최근 포스트 3개 가져오기
@@ -82,7 +83,7 @@ const Home = async () => {
                       </time>
                     </div>
 
-                    {/* 읽기 시간 추가 (예상) */}
+                    {/* 읽기 시간 */}
                     <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
                       <svg
                         className="w-4 h-4"
@@ -97,7 +98,7 @@ const Home = async () => {
                           d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
-                      3분 읽기
+                      {formatReadingTime(post.readingTime)}
                     </div>
                   </div>
 

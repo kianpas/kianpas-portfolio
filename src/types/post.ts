@@ -1,9 +1,12 @@
 export interface Post {
- id: string;
+  id: string;
   title: string;
   date: string;
   tags?: string[];
   summary?: string;
   category: string;
+  content?: string;
+  readingTime: number;
+  author?: string;
 }
 

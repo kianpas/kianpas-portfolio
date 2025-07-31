@@ -27,9 +27,14 @@
 } */
 
 html {
-  overflow-y: scroll;
   scrollbar-gutter: stable;
   color-scheme: light dark;
+}
+
+/* Sticky 지원을 위한 추가 스타일 */
+body {
+  /* overflow-y: auto로 필요할 때만 스크롤바 표시 */
+  overflow-y: auto;
 }
 
 html.dark {

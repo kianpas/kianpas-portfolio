@@ -1,12 +1,13 @@
 import { Post } from "@/types/post";
 import Link from "next/link";
+import { formatReadingTime } from "@/utils/readingTime";
 
 type PostCardProps = {
   post: Post;
 };
 
 const PostCard = ({ post }: PostCardProps) => {
-  const { id, title, date, tags, summary } = post;
+  const { id, title, date, tags, summary, readingTime } = post;
 
   return (
     <li className="py-6">
@@ -16,7 +17,7 @@ const PostCard = ({ post }: PostCardProps) => {
           className="group block rounded-xl p-5 -m-5 transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-gray-800/50"
         >
           <div className="space-y-3">
-            <div className="flex items-center gap-4 mb-3 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex items-center justify-between mb-3 text-sm text-gray-500 dark:text-gray-400">
               <div className="flex items-center gap-2">
                 <svg
                   className="w-4 h-4 text-primary-500"
@@ -32,6 +33,24 @@ const PostCard = ({ post }: PostCardProps) => {
                 <time dateTime={date} className="font-medium">
                   {date}
                 </time>
+              </div>
+              
+              {/* 읽기 시간 */}
+              <div className="flex items-center gap-1">
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>{formatReadingTime(readingTime)}</span>
               </div>
             </div>
 

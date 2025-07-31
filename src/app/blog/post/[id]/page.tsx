@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
 import { getPostData, getAllPostIds } from "@/services/posts";
 import Link from "next/link";
+import ReadingProgress from "@/components/ReadingProgress";
+import TableOfContents from "@/components/TableOfContents";
+import { formatReadingTime } from "@/utils/readingTime";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -20,9 +23,11 @@ const SinglePostPage = async ({ params }: PageProps) => {
   }
 
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
-      {/* 헤더: 제목과 메타정보 */}
-      <header className="mb-12 text-center">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+      <ReadingProgress />
+
+      {/* 헤더: 제목과 메타정보 - 전체 너비 */}
+      <header className="mb-12 text-center max-w-4xl mx-auto">
         {/* 카테고리 배지 */}
         {postData.category && (
           <div className="mb-6">
@@ -92,7 +97,9 @@ const SinglePostPage = async ({ params }: PageProps) => {
                 clipRule="evenodd"
               />
             </svg>
-            <span className="font-medium">{postData.readingTime} min read</span>
+            <span className="font-medium">
+              {formatReadingTime(postData.readingTime)}
+            </span>
           </div>
         </div>
 
@@ -116,21 +123,77 @@ const SinglePostPage = async ({ params }: PageProps) => {
         )}
       </header>
 
-      {/* 본문 */}
-      <div className="relative">
-        {/* 읽기 진행률 표시 (선택적) */}
-        <div className="sticky top-4 z-10 mb-8">
-          <div className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full transition-all duration-300"
-              style={{ width: "0%" }}
-              id="reading-progress"
-            ></div>
+      {/* 모바일 목차 토글 버튼 */}
+      <div className="lg:hidden mb-6">
+        <details className="group">
+          <summary className="flex items-center gap-2 cursor-pointer p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+            <svg
+              className="w-4 h-4 text-gray-500 dark:text-gray-400 group-open:rotate-90 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+            <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+              목차
+            </span>
+          </summary>
+          <div className="mt-3">
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+              <div className="flex items-center gap-2 p-4 border-b border-gray-200 dark:border-gray-700">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                  />
+                </svg>
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                  목차
+                </h3>
+              </div>
+              <div className="p-4">
+                <TableOfContents
+                  content={postData.contentHtml}
+                  isMobile={true}
+                />
+              </div>
+            </div>
           </div>
-        </div>
+        </details>
+      </div>
 
-        <div
-          className="prose prose-lg dark:prose-invert max-w-none
+      {/* 본문과 목차를 나란히 배치 */}
+      <div className="flex gap-8">
+        {/* 메인 콘텐츠 */}
+        <article className="flex-1 max-w-4xl">
+          {/* 본문 */}
+          <div className="relative">
+            {/* 읽기 진행률 표시 (선택적) */}
+            <div className="sticky top-4 z-10 mb-8">
+              <div className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full transition-all duration-300"
+                  style={{ width: "0%" }}
+                  id="reading-progress"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              className="prose prose-lg dark:prose-invert max-w-none
                         prose-headings:font-bold prose-headings:tracking-tight 
                         prose-headings:text-gray-900 dark:prose-headings:text-gray-100
                         prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
@@ -149,119 +212,130 @@ const SinglePostPage = async ({ params }: PageProps) => {
                         dark:prose-blockquote:bg-primary-900/20 prose-blockquote:py-2 prose-blockquote:rounded-r-lg
                         prose-strong:font-bold prose-strong:text-gray-900 dark:prose-strong:text-gray-100
                         prose-ul:space-y-2 prose-ol:space-y-2"
-          dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-        />
-      </div>
+              dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+            />
+          </div>
 
-      {/* 이전/다음 글 네비게이션 */}
-      <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {prevPost ? (
-            <Link
-              href={`/blog/post/${prevPost.id}`}
-              className="group flex items-center gap-4 p-6 rounded-xl border border-gray-200 dark:border-gray-700 
+          {/* 이전/다음 글 네비게이션 */}
+          <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {prevPost ? (
+                <Link
+                  href={`/blog/post/${prevPost.id}`}
+                  className="group flex items-center gap-4 p-6 rounded-xl border border-gray-200 dark:border-gray-700 
                          hover:border-primary-300 dark:hover:border-primary-600 
                          hover:bg-primary-50 dark:hover:bg-primary-900/20 
                          transition-all duration-300 hover:shadow-md dark:hover:shadow-dark-md"
-            >
-              <div className="flex-shrink-0">
-                <div
-                  className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 
+                >
+                  <div className="flex-shrink-0">
+                    <div
+                      className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 
                                 flex items-center justify-center group-hover:bg-primary-200 
                                 dark:group-hover:bg-primary-800 transition-colors"
-                >
-                  <svg
-                    className="w-5 h-5 text-primary-600 dark:text-primary-400 transform 
+                    >
+                      <svg
+                        className="w-5 h-5 text-primary-600 dark:text-primary-400 transform 
                                   group-hover:-translate-x-1 transition-transform"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold tracking-wide mb-1">
-                  Previous Post
-                </div>
-                <div className="text-gray-900 dark:text-gray-100 font-semibold truncate">
-                  {prevPost.title}
-                </div>
-              </div>
-            </Link>
-          ) : (
-            <div />
-          )}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold tracking-wide mb-1">
+                      Previous Post
+                    </div>
+                    <div className="text-gray-900 dark:text-gray-100 font-semibold truncate">
+                      {prevPost.title}
+                    </div>
+                  </div>
+                </Link>
+              ) : (
+                <div />
+              )}
 
-          {nextPost ? (
-            <Link
-              href={`/blog/post/${nextPost.id}`}
-              className="group flex items-center gap-4 p-6 rounded-xl border border-gray-200 dark:border-gray-700 
+              {nextPost ? (
+                <Link
+                  href={`/blog/post/${nextPost.id}`}
+                  className="group flex items-center gap-4 p-6 rounded-xl border border-gray-200 dark:border-gray-700 
                          hover:border-primary-300 dark:hover:border-primary-600 
                          hover:bg-primary-50 dark:hover:bg-primary-900/20 
                          transition-all duration-300 hover:shadow-md dark:hover:shadow-dark-md text-right"
-            >
-              <div className="flex-1 min-w-0">
-                <div className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold tracking-wide mb-1">
-                  Next Post
-                </div>
-                <div className="text-gray-900 dark:text-gray-100 font-semibold truncate">
-                  {nextPost.title}
-                </div>
-              </div>
-              <div className="flex-shrink-0">
-                <div
-                  className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold tracking-wide mb-1">
+                      Next Post
+                    </div>
+                    <div className="text-gray-900 dark:text-gray-100 font-semibold truncate">
+                      {nextPost.title}
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <div
+                      className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 
                                 flex items-center justify-center group-hover:bg-primary-200 
                                 dark:group-hover:bg-primary-800 transition-colors"
-                >
-                  <svg
-                    className="w-5 h-5 text-primary-600 dark:text-primary-400 transform 
+                    >
+                      <svg
+                        className="w-5 h-5 text-primary-600 dark:text-primary-400 transform 
                                   group-hover:translate-x-1 transition-transform"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </Link>
-          ) : (
-            <div />
-          )}
-        </div>
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </Link>
+              ) : (
+                <div />
+              )}
+            </div>
 
-        {/* 블로그로 돌아가기 버튼 */}
-        <div className="mt-12 text-center">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 px-6 py-3 
+            {/* 블로그로 돌아가기 버튼 */}
+            <div className="mt-12 text-center">
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 px-6 py-3 
                        bg-primary-600 hover:bg-primary-700 
                        dark:bg-gradient-to-r dark:from-primary-600 dark:to-secondary-600 
                        dark:hover:from-primary-700 dark:hover:to-secondary-700 
                        font-semibold rounded-full shadow-lg hover:shadow-xl 
                        transition-all duration-300 hover:scale-105"
-          >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span>Back to Blog</span>
-          </Link>
-        </div>
-      </footer>
-    </article>
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <span>Back to Blog</span>
+              </Link>
+            </div>
+          </footer>
+      </article>
+
+        {/* 사이드바 - 목차 */}
+        <aside className="hidden lg:block w-72 flex-shrink-0">
+          <TableOfContents content={postData.contentHtml} />
+        </aside>
+      </div>
+    </div>
   );
 };
 

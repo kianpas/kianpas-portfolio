@@ -2,6 +2,7 @@ import { getPaginatedPosts, getSortedPostsData } from "@/services/posts";
 import { notFound } from "next/navigation";
 import PostCard from "@/app/blog/components/PostCard";
 import PostPagination from "@/app/blog/components/PostPagination";
+import SearchBar from "@/components/SearchBar";
 
 // 페이지당 보여줄 포스트 수
 const POSTS_PER_PAGE = 10;
@@ -62,10 +63,20 @@ const BlogPage = async ({ params }: PageProps) => {
   return (
     <div className="divide-y divide-gray-200 dark:divide-gray-700">
       {/* 헤더 */}
-      <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-        <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-6xl">
-          Posts
-        </h1>
+      <div className="space-y-6 pt-6 pb-8 md:space-y-8">
+        <div className="text-center">
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-6xl mb-4">
+            Posts
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            개발과 기술에 대한 생각들을 정리하고 공유합니다
+          </p>
+        </div>
+
+        {/* 검색바 */}
+        <div className="max-w-md mx-auto">
+          <SearchBar placeholder="글 제목, 내용, 태그로 검색..." />
+        </div>
       </div>
       {/* 포스트 목록*/}
       <div>
