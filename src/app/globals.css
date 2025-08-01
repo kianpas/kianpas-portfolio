@@ -4,75 +4,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 기본 색상 */
 :root {
-  /* Base colors */
   --background: #ffffff;
   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Base colors - Dark mode */
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
 
-/* 부드러운 테마 전환 */
-/* *,
-*::before,
-*::after {
-  transition: background-color 0.2s ease, border-color 0.2s ease,
-    color 0.2s ease;
-} */
-
+/* 기본 설정 */
 html {
   scrollbar-gutter: stable;
   color-scheme: light dark;
-}
-
-/* Sticky 지원을 위한 추가 스타일 */
-body {
-  /* overflow-y: auto로 필요할 때만 스크롤바 표시 */
-  overflow-y: auto;
-}
-
-html.dark {
-  color-scheme: dark;
-}
-
-/* 프리로드 상태에서 전환 효과 비활성화 */
-html.preload *,
-html.preload *::before,
-html.preload *::after {
-  transition: none !important;
 }
 
 body {
   font-family: "Pretendard", var(--font-geist-sans), system-ui, sans-serif;
   background-color: white;
   color: black;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  overflow-y: auto;
+}
+
+/* 다크 모드 */
+html.dark {
+  color-scheme: dark;
 }
 
 html.dark body {
-  background-color: rgb(17 24 39); /* gray-900 */
+  background-color: rgb(17 24 39);
   color: white;
-}
-
-/* 부드러운 테마 전환 - 더 구체적으로 지정 */
-.theme-transition,
-.theme-transition *,
-.theme-transition *::before,
-.theme-transition *::after {
-  transition: background-color 0.2s ease, border-color 0.2s ease,
-    color 0.2s ease;
-}
-
-/* 초기 로딩 시 전환 효과 비활성화 */
-.preload,
-.preload *,
-.preload *::before,
-.preload *::after {
-  transition: none !important;
 }
