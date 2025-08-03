@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { getPostData, getAllPostIds } from "@/services/posts";
 import Link from "next/link";
 import ReadingProgress from "@/components/ReadingProgress";
-import TableOfContents from "@/components/TableOfContents";
+import ImageOptimizer from "@/components/ImageOptimizer";
 import { formatReadingTime } from "@/utils/readingTime";
 
 type PageProps = {
@@ -25,6 +25,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       <ReadingProgress />
+      <ImageOptimizer />
 
       {/* 헤더: 제목과 메타정보 - 전체 너비 */}
       <header className="mb-12 text-center max-w-4xl mx-auto">
@@ -123,62 +124,10 @@ const SinglePostPage = async ({ params }: PageProps) => {
         )}
       </header>
 
-      {/* 모바일 목차 토글 버튼 */}
-      <div className="lg:hidden mb-6">
-        <details className="group">
-          <summary className="flex items-center gap-2 cursor-pointer p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-            <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-400 group-open:rotate-90 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-            <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-              목차
-            </span>
-          </summary>
-          <div className="mt-3">
-            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-              <div className="flex items-center gap-2 p-4 border-b border-gray-200 dark:border-gray-700">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 10h16M4 14h16M4 18h16"
-                  />
-                </svg>
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  목차
-                </h3>
-              </div>
-              <div className="p-4">
-                <TableOfContents
-                  content={postData.contentHtml}
-                  isMobile={true}
-                />
-              </div>
-            </div>
-          </div>
-        </details>
-      </div>
 
-      {/* 본문과 목차를 나란히 배치 */}
-      <div className="flex gap-8">
-        {/* 메인 콘텐츠 */}
-        <article className="flex-1 max-w-4xl">
+
+      {/* 메인 콘텐츠 - 중앙 배치 */}
+      <article className="max-w-4xl mx-auto fade-in">
           {/* 본문 */}
           <div className="relative">
             {/* 읽기 진행률 표시 (선택적) */}
@@ -329,12 +278,6 @@ const SinglePostPage = async ({ params }: PageProps) => {
             </div>
           </footer>
       </article>
-
-        {/* 사이드바 - 목차 */}
-        <aside className="hidden lg:block w-72 flex-shrink-0">
-          <TableOfContents content={postData.contentHtml} />
-        </aside>
-      </div>
     </div>
   );
 };

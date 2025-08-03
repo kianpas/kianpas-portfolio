@@ -39,3 +39,78 @@ html.dark body {
   background-color: rgb(17 24 39);
   color: white;
 }
+
+/* 코드 블록 스타일 */
+.prose pre {
+  border-radius: 0.75rem;
+  border: 1px solid rgb(229 231 235);
+}
+
+.prose.dark pre {
+  border-color: rgb(55 65 81);
+}
+
+/* 이미지 최적화 */
+.prose img {
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  max-width: 100%;
+  height: auto;
+  margin: 2rem auto;
+  display: block;
+  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.prose img:hover {
+  transform: scale(1.02);
+}
+
+.prose.dark img {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+}
+
+/* 페이지 애니메이션 */
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(243 244 246);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(156 163 175);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(107 114 128);
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: rgb(31 41 55);
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgb(75 85 99);
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgb(107 114 128);
+}
