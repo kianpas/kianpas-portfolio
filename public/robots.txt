@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://kianpas-portfolio.vercel.app
+
+# Sitemaps
+Sitemap: https://kianpas-portfolio.vercel.app/sitemap.xml
