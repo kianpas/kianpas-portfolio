@@ -5,7 +5,7 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import remarkRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
+
 import rehypeStringify from "rehype-stringify";
 import { calculateReadingTime } from "@/utils/readingTime";
 
@@ -176,13 +176,7 @@ export const getPostData = async (id: string) => {
   // remark를 사용하여 Markdown을 HTML 문자열로 변환
   const processedContent = await remark()
     .use(remarkRehype) // markdown을 HTML AST로 변환
-    .use(rehypeSlug) // 헤딩에 자동으로 ID 추가
-    .use(rehypeAutolinkHeadings, { 
-      behavior: 'wrap',
-      properties: {
-        className: ['heading-link']
-      }
-    }) // 헤딩에 링크 추가
+    .use(rehypeSlug) // 헤딩에 자동으로 ID 추가 (스크롤 위치 참조용)
     .use(rehypeStringify) // HTML 문자열로 변환
     .process(matterResult.content);
   const contentHtml = processedContent.toString();

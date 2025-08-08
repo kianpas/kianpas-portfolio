@@ -17,6 +17,32 @@
   }
 }
 
+/* Design System 테마 변수 - 실제 사용되는 변수들만 */
+:root {
+  /* Text Colors */
+  --ds-text-primary: #f7f8f8;
+  --ds-text-secondary: rgba(255, 255, 255, 0.7);
+  --ds-text-tertiary: #8a8f98;
+
+  /* Accent Colors */
+  --ds-accent-primary: #7170ff;
+
+  /* Button Colors */
+  --ds-btn-primary-bg: #e6e6e6;
+  --ds-btn-primary-color: #08090a;
+  --ds-btn-primary-hover: #d4d4d4;
+
+  /* Border Colors */
+  --ds-border-primary: rgba(255, 255, 255, 0.1);
+  --ds-border-secondary: rgba(255, 255, 255, 0.05);
+
+  /* Status Colors */
+  --ds-success: #00d084;
+  --ds-warning: #f59e0b;
+  --ds-error: #ef4444;
+  --ds-info: #3b82f6;
+}
+
 /* 기본 설정 */
 html {
   scrollbar-gutter: stable;
