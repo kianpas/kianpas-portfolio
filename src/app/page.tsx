@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { getSortedPostsData } from "@/services/posts";
 import { formatReadingTime } from "@/utils/readingTime";
-import { Button } from "@/app/design-system/components";
-import { Badge } from "@/app/design-system/components";
+import { Button, Badge } from "@/components/ui";
 
 const Home = async () => {
   // 최근 포스트 3개 가져오기

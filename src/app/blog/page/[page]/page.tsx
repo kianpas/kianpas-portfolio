@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import PostCard from "@/app/blog/components/PostCard";
 import PostPagination from "@/app/blog/components/PostPagination";
 import SearchBar from "@/components/SearchBar";
+import { Card } from "@/components/ui";
 
 // 페이지당 보여줄 포스트 수
 const POSTS_PER_PAGE = 10;
@@ -45,53 +46,76 @@ const BlogPage = async ({ params }: PageProps) => {
   if (posts.length === 0 && pageNumber > 1) {
     // 성공했지만 데이터가 없음
     return (
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        {/* 헤더 */}
-        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-6xl">
-            Posts
-          </h1>
+      <div className="min-h-screen">
+        {/* 배경 장식 */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl"></div>
         </div>
-        <div className="py-16 text-center text-gray-500 dark:text-gray-400">
-          표시할 게시물이 없습니다.
+
+        <div className="px-6 py-20">
+          <div className="max-w-4xl mx-auto">
+            {/* 헤더 */}
+            <div className="text-center mb-16">
+              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                Posts
+              </h1>
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                개발과 기술에 대한 생각들을 정리하고 공유합니다
+              </p>
+            </div>
+
+            <Card variant="elevated" className="text-center py-16">
+              <p className="text-gray-500 dark:text-gray-400">
+                표시할 게시물이 없습니다.
+              </p>
+            </Card>
+          </div>
         </div>
-        {/* 페이지네이션은 0개일 때 표시 안 함 */}
       </div>
     );
   }
 
   return (
-    <div className="divide-y divide-gray-200 dark:divide-gray-700">
-      {/* 헤더 */}
-      <div className="space-y-6 pt-6 pb-8 md:space-y-8">
-        <div className="text-center">
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-6xl mb-4">
-            Posts
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            개발과 기술에 대한 생각들을 정리하고 공유합니다
-          </p>
-        </div>
+    <div className="min-h-screen">
+      {/* 배경 장식 */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl"></div>
+      </div>
 
-        {/* 검색바 */}
-        <div className="max-w-md mx-auto">
-          <SearchBar placeholder="글 제목, 내용, 태그로 검색..." />
+      <div className="px-6 py-20">
+        <div className="max-w-4xl mx-auto">
+          {/* 헤더 */}
+          <div className="text-center mb-16">
+            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              Posts
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+              개발과 기술에 대한 생각들을 정리하고 공유합니다
+            </p>
+
+            {/* 검색바 */}
+            <div className="max-w-md mx-auto">
+              <SearchBar placeholder="글 제목, 내용, 태그로 검색..." />
+            </div>
+          </div>
+
+          {/* 포스트 목록 */}
+          <div className="space-y-6 mb-16">
+            {posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+
+          {/* 페이지네이션 */}
+          {totalPages && (
+            <div className="flex justify-center">
+              <PostPagination currentPage={currentPage} totalPages={totalPages} />
+            </div>
+          )}
         </div>
       </div>
-      {/* 포스트 목록*/}
-      <div>
-        <ul>
-          {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
-        </ul>
-      </div>
-      {totalPages && (
-        <div className="py-12">
-          {/* 페이지네이션 위아래 여백 및 가운데 정렬 */}
-          <PostPagination currentPage={currentPage} totalPages={totalPages} />
-        </div>
-      )}
     </div>
   );
 };

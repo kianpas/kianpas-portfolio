@@ -1,26 +1,33 @@
 import { Post } from "@/types/post";
 import Link from "next/link";
 import { formatReadingTime } from "@/utils/readingTime";
+import { Card, Badge } from "@/components/ui";
 
 type PostCardProps = {
   post: Post;
 };
 
 const PostCard = ({ post }: PostCardProps) => {
-  const { id, title, date, tags, summary, readingTime } = post;
+  const { id, title, date, tags, summary, readingTime, category } = post;
 
   return (
-    <li className="py-6">
-      <article>
-        <Link
-          href={`/blog/post/${id}`}
-          className="group block rounded-xl p-5 -m-5 transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-gray-800/50"
-        >
-          <div className="space-y-3">
-            <div className="flex items-center justify-between mb-3 text-sm text-gray-500 dark:text-gray-400">
-              <div className="flex items-center gap-2">
+    <Card 
+      variant="elevated" 
+      className="group hover:border-blue-300/50 dark:hover:border-blue-600/50 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
+    >
+      <Link href={`/blog/post/${id}`} className="block">
+        <div className="space-y-4">
+          {/* 메타데이터 */}
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-3">
+              {category && (
+                <Badge variant="info" size="sm">
+                  {category}
+                </Badge>
+              )}
+              <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
                 <svg
-                  className="w-4 h-4 text-primary-500"
+                  className="w-4 h-4"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -31,59 +38,88 @@ const PostCard = ({ post }: PostCardProps) => {
                   />
                 </svg>
                 <time dateTime={date} className="font-medium">
-                  {date}
+                  {new Date(date).toLocaleDateString("ko-KR", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
                 </time>
               </div>
-              
-              {/* 읽기 시간 */}
-              <div className="flex items-center gap-1">
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <span>{formatReadingTime(readingTime)}</span>
-              </div>
             </div>
+            
+            {/* 읽기 시간 */}
+            <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>{formatReadingTime(readingTime)}</span>
+            </div>
+          </div>
 
-            {/* 제목 */}
-            <h2 className="text-2xl font-bold leading-8 tracking-tight text-gray-900 dark:text-gray-100">
-              {title}
-            </h2>
-            {summary && (
-              <div className="prose max-w-none text-gray-500 dark:text-gray-400 line-clamp-3">
-                {summary}
-              </div>
-            )}
+          {/* 제목 */}
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 line-clamp-2">
+            {title}
+          </h2>
+
+          {/* 요약 */}
+          {summary && (
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-3">
+              {summary}
+            </p>
+          )}
+
+          {/* 태그와 읽기 버튼 */}
+          <div className="flex items-center justify-between pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
             {/* 태그 */}
             {tags && tags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {tags.map((tag) => (
+              <div className="flex gap-2">
+                {tags.slice(0, 3).map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 text-xs font-medium rounded-full 
-                             bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300
-                             group-hover:bg-primary-100 dark:group-hover:bg-primary-900/30 
-                             group-hover:text-primary-700 dark:group-hover:text-primary-300 
-                             transition-colors duration-200"
+                    className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-md"
                   >
                     #{tag}
                   </span>
                 ))}
+                {tags.length > 3 && (
+                  <span className="text-xs text-gray-400">
+                    +{tags.length - 3}
+                  </span>
+                )}
               </div>
             )}
+
+            {/* 읽기 버튼 */}
+            <div className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm group-hover:gap-3 transition-all duration-200">
+              읽어보기
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </div>
           </div>
-        </Link>
-      </article>
-    </li>
+        </div>
+      </Link>
+    </Card>
   );
 };
 
