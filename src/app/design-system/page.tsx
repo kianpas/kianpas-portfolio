@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Card, Input, Badge } from "./components";
+import { Button, Card, Input, Badge } from "@/components/ui";
 
 const DesignSystemPage = () => {
   const [activeTab, setActiveTab] = useState("overview");
