@@ -12,7 +12,6 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
     id,
     title,
     description,
-    imageUrl,
     projectUrl,
     tags,
     startDate,

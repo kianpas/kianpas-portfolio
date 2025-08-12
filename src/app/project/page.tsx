@@ -1,6 +1,5 @@
 import { getProjectsByType } from "@/services/projects";
 import ProjectList from "@/app/project/components/ProjectList";
-import { Badge } from "@/components/ui";
 
 const ProjectPage = () => {
   const professionalProjects = getProjectsByType("professional", 1, 6);
