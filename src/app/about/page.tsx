@@ -1,7 +1,6 @@
 import {
   FaEnvelope,
   FaGithub,
-  FaQq,
   FaCalendar,
   FaServer,
   FaBriefcase,
@@ -38,33 +37,27 @@ const AboutPage = async () => {
             <Card variant="elevated">
               <div className="grid md:grid-cols-3 gap-8 items-center">
                 {/* 프로필 이미지 */}
-                <div className="text-center">
-                  <div className="relative inline-block mb-4">
-                    <FaQq
-                      size={120}
-                      className="text-gray-400 dark:text-gray-600"
-                    />
-                    <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white dark:border-gray-800 flex items-center justify-center">
-                      <div className="w-3 h-3 bg-white rounded-full"></div>
-                    </div>
+                <div className="text-center flex flex-col items-center justify-center">
+                  <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4">
+                    {siteMetadata.author[0]}
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                     {siteMetadata.author}
                   </h2>
                   <Badge variant="info" size="md" className="mb-2">
                     {siteMetadata.occupation}
                   </Badge>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
                     {siteMetadata.company}
                   </p>
                 </div>
 
                 {/* 통계 정보 */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <div className="flex flex-col items-center justify-center space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center">
                     정보
                   </h3>
-                  <div className="space-y-3">
+                  <div className="space-y-3 w-full max-w-xs">
                     <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                       <div className="flex items-center gap-2">
                         <FaCalendar className="text-blue-500" size={16} />
@@ -92,31 +85,27 @@ const AboutPage = async () => {
                 </div>
 
                 {/* 연락처 및 링크 */}
-                <div className="text-center md:text-right">
+                <div className="flex flex-col items-center justify-center text-center">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                     연락처
                   </h3>
                   <div className="space-y-3">
-                    <div className="flex justify-center md:justify-end space-x-4">
-                      <Link
-                        href={`mailto:${siteMetadata.email}`}
-                        className="flex items-center gap-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
-                      >
-                        <FaEnvelope size={20} />
-                        <span className="text-sm">이메일</span>
-                      </Link>
-                    </div>
-                    <div className="flex justify-center md:justify-end">
-                      <Link
-                        href={siteMetadata.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
-                      >
-                        <FaGithub size={20} />
-                        <span className="text-sm">GitHub</span>
-                      </Link>
-                    </div>
+                    <Link
+                      href={`mailto:${siteMetadata.email}`}
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <FaEnvelope size={16} />
+                      <span className="text-sm">이메일</span>
+                    </Link>
+                    <Link
+                      href={siteMetadata.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <FaGithub size={16} />
+                      <span className="text-sm">GitHub</span>
+                    </Link>
                   </div>
                 </div>
               </div>

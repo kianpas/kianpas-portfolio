@@ -35,9 +35,6 @@ const ProjectPage = () => {
                 </h2>
                 <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
               </div>
-              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                회사에서 진행한 프로젝트들입니다
-              </p>
             </div>
             <ProjectList
               initialProjects={professionalProjects.projects}
@@ -56,9 +53,6 @@ const ProjectPage = () => {
                 </h2>
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               </div>
-              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                개인적으로 학습하며 진행한 프로젝트들입니다
-              </p>
             </div>
             <ProjectList
               initialProjects={personalProjects.projects}
