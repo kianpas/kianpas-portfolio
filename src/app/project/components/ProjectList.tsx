@@ -3,11 +3,12 @@
 import React, { useState } from "react";
 import { Project } from "@/types/project";
 import ProjectCard from "@/app/project/components/ProjectCard";
+import { Button } from "@/components/ui";
 
 interface ProjectListProps {
   initialProjects: Project[];
   totalPage: number;
-  projectType: 'professional' | 'personal' | 'all';
+  projectType: "professional" | "personal" | "all";
 }
 
 const ProjectList = ({ initialProjects, totalPage }: ProjectListProps) => {
@@ -36,20 +37,23 @@ const ProjectList = ({ initialProjects, totalPage }: ProjectListProps) => {
   };
   return (
     <>
-      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
-      </ul>
+      </div>
+
       {hasMore && (
-        <div className="flex justify-center py-8">
-          <button
+        <div className="flex justify-center">
+          <Button
+            variant="primary"
+            size="lg"
             onClick={handleLoadMore}
             disabled={loading}
-            className="rounded-lg bg-blue-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400"
+            loading={loading}
           >
-            {loading ? "로딩 중.." : "더보기"}
-          </button>
+            {loading ? "로딩 중..." : "더보기"}
+          </Button>
         </div>
       )}
     </>

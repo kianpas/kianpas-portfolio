@@ -66,10 +66,24 @@ export const getAllCategories = () => {
   return Array.from(category);
 };
 
-// 특정 태그를 포함하는 포스트 목록을 가져오는 함수
-export const getPostsByCategory = (categoryName: string) => {
+// 특정 카테고리의 포스트 목록을 가져오는 함수
+export const getPostsByCategory = (categoryName: string, page: number = 1, postsPerPage: number = 10) => {
   const allPosts = getSortedPostsData();
-  return allPosts.filter((post) => post.tags.includes(categoryName));
+  const filteredPosts = allPosts.filter((post) => post.category === categoryName);
+  
+  const totalPosts = filteredPosts.length;
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
+  const startIndex = (page - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const posts = filteredPosts.slice(startIndex, endIndex);
+
+  return {
+    posts,
+    totalPosts,
+    totalPages,
+    currentPage: page,
+    hasMore: page < totalPages,
+  };
 };
 
 // 모든 태그 목록을 가져오는 함수

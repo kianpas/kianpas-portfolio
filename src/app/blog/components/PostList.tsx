@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Post } from "@/types/post";
 import PostCard from "@/app/blog/components/PostCard";
+import { Button } from "@/components/ui";
 
 interface PostListProps {
   initialPosts: Post[];
@@ -37,22 +38,26 @@ const PostList = ({ initialPosts, name, totalPage }: PostListProps) => {
 
   return (
     <>
-      <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+      {/* 포스트 목록 - 카드 간격 추가 */}
+      <div className="space-y-6 mb-16">
         {posts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
-      </ul>
-      {/* 마지막 페이지가 아닐 경우 '더보기' 버튼을 표시합니다. */}
+      </div>
+      
+      {/* 더보기 버튼 */}
       {1 < totalPage && (
-        <div className="flex justify-center py-8">
+        <div className="flex justify-center">
           {hasMore && (
-            <button
+            <Button 
+              variant="primary" 
+              size="lg"
               onClick={handleLoadMore}
               disabled={loading}
-              className="rounded-lg bg-blue-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400"
+              loading={loading}
             >
-              {loading ? "로딩 중.." : "더보기"}
-            </button>
+              {loading ? "로딩 중..." : "더보기"}
+            </Button>
           )}
         </div>
       )}

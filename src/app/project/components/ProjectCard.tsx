@@ -1,7 +1,7 @@
 import { Project } from "@/types/project";
-import Image from "next/image";
 import Link from "next/link";
-import { FaGithub, FaCalendarAlt  } from "react-icons/fa";
+import { FaGithub, FaCalendarAlt, FaExternalLinkAlt } from "react-icons/fa";
+import { Card, Badge } from "@/components/ui";
 
 type ProjectCardProps = {
   project: Project;
@@ -18,8 +18,6 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
     startDate,
     endDate,
   } = project;
-
-  const imageSrc = imageUrl || "/images/projects/default-project.png"
 
   // 날짜 포맷팅 함수
   const formatDate = (dateStr: string) => {
@@ -39,69 +37,69 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   };
 
   return (
-    <li className="py-5">
-      <article className="group">
-        <Link href={`/project/${id}`}>
-          <div
-            className="aspect-video relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 
-                          group-hover:border-primary-300 dark:group-hover:border-primary-600 
-                          transition-colors duration-200"
-          >
-            <Image
-              src={imageSrc}
-              alt={`${title} 이미지`}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-        </Link>
-
-        {/* 콘텐츠 섹션 */}
-        <div className="space-y-3 mt-4">
-
-           {/* 프로젝트 기간 */}
-           {startDate && (
-            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-              <FaCalendarAlt size={14} className="text-primary-500" />
-              <span>{getDateRange()}</span>
-            </div>
-          )}
-
-          {/* 태그 섹션 */}
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-2 text-xs">
-            {tags.slice(0, 4).map((tag, index) => (
-              <span
-                key={index}
-                className="rounded-full bg-gray-100 dark:bg-gray-700 px-3 py-1.5 font-medium 
-                text-gray-700 dark:text-gray-300
-                group-hover:bg-primary-100 dark:group-hover:bg-primary-900/30 
-                group-hover:text-primary-700 dark:group-hover:text-primary-300 
-                transition-colors duration-200"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl leading-8 font-bold tracking-tight">
-              <Link href={`/project/${id}`}>
-                <span className="text-gray-900 dark:text-gray-100">
-                  {title}
-                </span>
-              </Link>
-            </h2>
+    <Card 
+      variant="elevated" 
+      className="group hover:border-blue-300/30 dark:hover:border-blue-600/30 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 h-full"
+    >
+      <div className="space-y-4 h-full flex flex-col">
+        {/* 헤더: 제목과 링크 */}
+        <div className="flex items-start justify-between gap-3">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 flex-1">
+            <Link href={`/project/${id}`} className="block">
+              {title}
+            </Link>
+          </h2>
+          
+          <div className="flex items-center gap-2 flex-shrink-0">
             {projectUrl && (
-              <Link href={projectUrl} target="_blank" rel="noopener noreferrer">
-                <FaGithub className="h-6 w-6 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100" />
+              <Link 
+                href={projectUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors"
+                title="GitHub 저장소"
+              >
+                <FaGithub className="h-5 w-5" />
               </Link>
             )}
-          </div>
-          <div className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-            {description}
+            <Link 
+              href={`/project/${id}`}
+              className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
+              title="프로젝트 상세보기"
+            >
+              <FaExternalLinkAlt className="h-4 w-4" />
+            </Link>
           </div>
         </div>
-      </article>
-    </li>
+
+        {/* 메타데이터 */}
+        {startDate && (
+          <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+            <FaCalendarAlt size={14} />
+            <span>{getDateRange()}</span>
+          </div>
+        )}
+
+        {/* 설명 */}
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed flex-1">
+          {description}
+        </p>
+
+        {/* 태그 */}
+        <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
+          {tags.slice(0, 5).map((tag, index) => (
+            <Badge key={index} variant="default" size="sm">
+              {tag}
+            </Badge>
+          ))}
+          {tags.length > 5 && (
+            <span className="text-xs text-gray-400 self-center">
+              +{tags.length - 5}
+            </span>
+          )}
+        </div>
+      </div>
+    </Card>
   );
 };
 

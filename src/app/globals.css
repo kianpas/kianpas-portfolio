@@ -17,30 +17,56 @@
   }
 }
 
-/* Design System 테마 변수 - 실제 사용되는 변수들만 */
+/* Design System 테마 변수 - 라이트 모드 */
 :root {
   /* Text Colors */
-  --ds-text-primary: #f7f8f8;
-  --ds-text-secondary: rgba(255, 255, 255, 0.7);
-  --ds-text-tertiary: #8a8f98;
+  --ds-text-primary: #111827;
+  --ds-text-secondary: #6b7280;
+  --ds-text-tertiary: #9ca3af;
 
   /* Accent Colors */
-  --ds-accent-primary: #7170ff;
+  --ds-accent-primary: #3b82f6;
 
   /* Button Colors */
-  --ds-btn-primary-bg: #e6e6e6;
-  --ds-btn-primary-color: #08090a;
-  --ds-btn-primary-hover: #d4d4d4;
+  --ds-btn-primary-bg: #3b82f6;
+  --ds-btn-primary-color: #ffffff;
+  --ds-btn-primary-hover: #2563eb;
+
+  /* Border Colors */
+  --ds-border-primary: #e5e7eb;
+  --ds-border-secondary: #f3f4f6;
+
+  /* Status Colors */
+  --ds-success: #10b981;
+  --ds-warning: #f59e0b;
+  --ds-error: #ef4444;
+  --ds-info: #3b82f6;
+}
+
+/* Design System 테마 변수 - 다크 모드 */
+html.dark {
+  /* Text Colors */
+  --ds-text-primary: #f9fafb;
+  --ds-text-secondary: rgba(255, 255, 255, 0.7);
+  --ds-text-tertiary: #9ca3af;
+
+  /* Accent Colors */
+  --ds-accent-primary: #60a5fa;
+
+  /* Button Colors */
+  --ds-btn-primary-bg: #3b82f6;
+  --ds-btn-primary-color: #ffffff;
+  --ds-btn-primary-hover: #2563eb;
 
   /* Border Colors */
   --ds-border-primary: rgba(255, 255, 255, 0.1);
   --ds-border-secondary: rgba(255, 255, 255, 0.05);
 
   /* Status Colors */
-  --ds-success: #00d084;
+  --ds-success: #10b981;
   --ds-warning: #f59e0b;
   --ds-error: #ef4444;
-  --ds-info: #3b82f6;
+  --ds-info: #60a5fa;
 }
 
 /* 기본 설정 */

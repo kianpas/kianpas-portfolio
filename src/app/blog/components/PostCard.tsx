@@ -11,9 +11,9 @@ const PostCard = ({ post }: PostCardProps) => {
   const { id, title, date, tags, summary, readingTime, category } = post;
 
   return (
-    <Card 
-      variant="elevated" 
-      className="group hover:border-blue-300/50 dark:hover:border-blue-600/50 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
+    <Card
+      variant="elevated"
+      className="group hover:border-blue-300/30 dark:hover:border-blue-600/30 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
     >
       <Link href={`/blog/post/${id}`} className="block">
         <div className="space-y-4">
@@ -46,7 +46,7 @@ const PostCard = ({ post }: PostCardProps) => {
                 </time>
               </div>
             </div>
-            
+
             {/* 읽기 시간 */}
             <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
               <svg

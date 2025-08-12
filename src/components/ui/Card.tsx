@@ -11,16 +11,16 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className = "", variant = "default", padding = "md", children, ...props }, ref) => {
     const baseStyles = `
-      rounded-xl backdrop-blur-sm transition-all duration-200
+      rounded-xl transition-all duration-200
     `;
 
     const variants = {
       default: `
-        bg-[rgba(255,255,255,0.02)] border border-[var(--ds-border-primary)]
+        bg-white/60 dark:bg-gray-800/60 border border-[var(--ds-border-primary)]
       `,
       elevated: `
-        bg-[rgba(255,255,255,0.05)] border border-[var(--ds-border-primary)]
-        shadow-[rgba(0,0,0,0.1)_0px_10px_15px_-3px,rgba(0,0,0,0.05)_0px_4px_6px_-2px]
+        bg-white/70 dark:bg-gray-800/70 border border-[var(--ds-border-primary)]
+        shadow-sm
       `,
       outlined: `
         bg-transparent border-2 border-[var(--ds-border-primary)]
