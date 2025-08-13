@@ -1,10 +1,4 @@
-import {
-  FaEnvelope,
-  FaGithub,
-  FaCalendar,
-  FaServer,
-  FaBriefcase,
-} from "react-icons/fa6";
+import { FaEnvelope, FaGithub, FaBriefcase } from "react-icons/fa6";
 import { FaCheckCircle } from "react-icons/fa";
 
 import { siteMetadata, skillsData, experienceData } from "@/data/metadata";
@@ -35,78 +29,44 @@ const AboutPage = async () => {
           <div className="space-y-12">
             {/* 프로필 카드 */}
             <Card variant="elevated">
-              <div className="grid md:grid-cols-3 gap-8 items-center">
+              <div className="flex flex-col items-center text-center space-y-6">
                 {/* 프로필 이미지 */}
-                <div className="text-center flex flex-col items-center justify-center">
-                  <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4">
-                    {siteMetadata.author[0]}
-                  </div>
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                  {siteMetadata.author[0]}
+                </div>
+
+                {/* 기본 정보 */}
+                <div className="space-y-2">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                     {siteMetadata.author}
                   </h2>
-                  <Badge variant="info" size="md" className="mb-2">
+                  <Badge variant="info" size="md">
                     {siteMetadata.occupation}
                   </Badge>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">
-                    {siteMetadata.company}
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">
+                    @ {siteMetadata.company}
                   </p>
                 </div>
 
-                {/* 통계 정보 */}
-                <div className="flex flex-col items-center justify-center space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center">
-                    정보
-                  </h3>
-                  <div className="space-y-3 w-full max-w-xs">
-                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <FaCalendar className="text-blue-500" size={16} />
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
-                          경력
-                        </span>
-                      </div>
-                      <span className="font-semibold text-gray-900 dark:text-gray-100">
-                        3+ 년
-                      </span>
-                    </div>
+                {/* 연락처 아이콘 */}
+                <div className="flex items-center gap-4 pt-2">
+                  <Link
+                    href={`mailto:${siteMetadata.email}`}
+                    className="w-10 h-10 bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200"
+                    title="이메일 보내기"
+                  >
+                    <FaEnvelope size={16} />
+                  </Link>
 
-                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <FaServer className="text-blue-500" size={16} />
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
-                          관심사
-                        </span>
-                      </div>
-                      <span className="font-semibold text-gray-900 dark:text-gray-100">
-                        풀스택
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 연락처 및 링크 */}
-                <div className="flex flex-col items-center justify-center text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                    연락처
-                  </h3>
-                  <div className="space-y-3">
-                    <Link
-                      href={`mailto:${siteMetadata.email}`}
-                      className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                    >
-                      <FaEnvelope size={16} />
-                      <span className="text-sm">이메일</span>
-                    </Link>
-                    <Link
-                      href={siteMetadata.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                    >
-                      <FaGithub size={16} />
-                      <span className="text-sm">GitHub</span>
-                    </Link>
-                  </div>
+                  <Link
+                    href={siteMetadata.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
+                    title="GitHub 프로필"
+                  >
+                    <FaGithub size={16} />
+                  </Link>
                 </div>
               </div>
             </Card>

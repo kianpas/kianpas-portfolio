@@ -1,10 +1,8 @@
-# 디자인 문서
+# Tailwind 디자인 개선 - 디자인 문서
 
 ## 개요
 
-이 디자인 문서는 개선된 Tailwind CSS 구현을 사용하여 포트폴리오 웹사이트의 시각적 디자인 시스템을 포괄적으로 향상시키는 방법을 설명합니다. 목표는 기존 기능을 유지하면서 더 나은 색상 구성, 타이포그래피, 간격, 상호작용 요소를 통해 사용자 경험을 크게 개선하는 현대적이고 일관성 있으며 접근 가능한 디자인을 만드는 것입니다.
-
-이 디자인은 기존 Next.js 아키텍처와 Tailwind CSS 기반을 바탕으로 구축되며, 한국인 개발자 포트폴리오의 정체성을 유지하면서 모든 요구사항을 해결하는 정교한 디자인 시스템으로 현재 구성을 확장합니다.
+포트폴리오 웹사이트의 시각적 디자인 시스템을 포괄적으로 향상시키는 Tailwind CSS 기반 디자인 개선 프로젝트입니다. 기존 기능을 유지하면서 색상, 타이포그래피, 간격, 상호작용 요소를 개선하여 현대적이고 일관성 있는 사용자 경험을 제공합니다.
 
 ## 아키텍처
 
@@ -164,52 +162,9 @@ interface TypographyTokens {
 - 명확한 피드백을 제공하는 호버 상태
 - 적절한 경우 외부 링크 표시기
 
-## Data Models
+## 데이터 모델
 
-### Design Configuration Model
-
-**Tailwind Config Extension**
-
-```typescript
-interface TailwindConfigExtension {
-  colors: {
-    primary: ColorScale;
-    secondary: ColorScale;
-    neutral: ColorScale;
-    success: ColorScale;
-    warning: ColorScale;
-    error: ColorScale;
-    info: ColorScale;
-  };
-  spacing: {
-    xs: string;
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-    "2xl": string;
-    "3xl": string;
-  };
-  borderRadius: {
-    xs: string;
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-    "2xl": string;
-  };
-  boxShadow: {
-    xs: string;
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-    "2xl": string;
-  };
-}
-```
-
-**Component Variant System**
+### 컴포넌트 변형 시스템
 
 ```typescript
 interface ComponentVariants {
@@ -219,96 +174,46 @@ interface ComponentVariants {
 }
 ```
 
-## Error Handling
+## 오류 처리
 
-### Design System Fallbacks
+### 디자인 시스템 폴백
 
-**Color Fallbacks**
+**색상 폴백**
+- 지원되지 않는 CSS 커스텀 속성에 대한 폴백 색상 구현
+- 구형 브라우저에서의 우아한 성능 저하
+- 커스텀 색상 로드 실패 시에도 가독성 보장
 
-- Implement fallback colors for unsupported custom properties
-- Graceful degradation for older browsers
-- Ensure readability even when custom colors fail to load
+**타이포그래피 폴백**
+- Geist 폰트에 대한 시스템 폰트 폴백
+- 레이아웃 시프트 방지를 위한 적절한 폰트 로딩 전략
 
-**Typography Fallbacks**
+**반응형 디자인 오류 처리**
+- 모바일 우선 접근법으로 모든 디바이스에서 기본 기능 보장
+- 긴 콘텐츠에 대한 적절한 텍스트 자르기 및 말줄임표 처리
 
-- System font fallbacks for Geist fonts
-- Proper font loading strategies to prevent layout shift
-- Fallback sizing for custom typography tokens
+## 테스트 전략
 
-**Interactive State Fallbacks**
+### 시각적 회귀 테스트
+- 다양한 화면 크기에서 모든 컴포넌트 변형 테스트
+- 접근성 표준을 충족하는 색상 대비율 검증
+- 타이포그래피 스케일링 및 간격 일관성 검증
+- 상호작용 상태(호버, 포커스, 활성, 비활성) 테스트
 
-- Ensure interactive elements remain functional without CSS transitions
-- Provide alternative feedback mechanisms for hover states on touch devices
-- Maintain accessibility even when advanced styling fails
+### 크로스 브라우저 테스트
+- 최신 브라우저(Chrome, Firefox, Safari, Edge)에서 디자인 시스템 테스트
+- 구형 브라우저에서의 폴백 동작 검증
+- 다양한 시스템에서 다크 모드 구현 테스트
 
-### Responsive Design Error Handling
+### 접근성 테스트
+- 키보드 네비게이션 정상 작동 확인
+- 스크린 리더 호환성 테스트
+- 색상 대비율 검증
+- 포커스 표시기의 가시성 및 적절성 확인
 
-**Breakpoint Fallbacks**
-
-- Mobile-first approach ensures basic functionality on all devices
-- Progressive enhancement for larger screens
-- Graceful degradation of complex layouts
-
-**Content Overflow Handling**
-
-- Proper text truncation and ellipsis for long content
-- Image aspect ratio maintenance across different screen sizes
-- Flexible grid systems that adapt to content length
-
-## Testing Strategy
-
-### Visual Regression Testing
-
-**Component Testing**
-
-- Test all component variants across different screen sizes
-- Verify color contrast ratios meet accessibility standards
-- Validate typography scaling and spacing consistency
-- Test interactive states (hover, focus, active, disabled)
-
-**Cross-Browser Testing**
-
-- Test design system across modern browsers (Chrome, Firefox, Safari, Edge)
-- Verify fallback behavior in older browsers
-- Test dark mode implementation across different systems
-
-**Accessibility Testing**
-
-- Verify keyboard navigation works properly
-- Test screen reader compatibility
-- Validate color contrast ratios
-- Ensure focus indicators are visible and appropriate
-
-### Performance Testing
-
-**CSS Performance**
-
-- Measure CSS bundle size impact
-- Test rendering performance with new styles
-- Verify no layout shift issues with enhanced typography
-- Monitor paint and composite performance
-
-**Responsive Performance**
-
-- Test loading performance across different screen sizes
-- Verify image optimization works with new aspect ratios
-- Test smooth transitions and animations performance
-
-### User Experience Testing
-
-**Usability Testing**
-
-- Test improved visual hierarchy effectiveness
-- Verify enhanced interactive feedback is intuitive
-- Validate improved spacing enhances readability
-- Test dark mode experience quality
-
-**Content Testing**
-
-- Verify Korean text renders properly with new typography
-- Test code syntax highlighting with enhanced color scheme
-- Validate markdown content styling improvements
-- Test tag and category display enhancements
+### 성능 테스트
+- CSS 번들 크기 영향 측정
+- 새로운 스타일의 렌더링 성능 테스트
+- 향상된 타이포그래피로 인한 레이아웃 시프트 문제 없음 확인
 
 ## 구현 접근법
 
@@ -332,30 +237,54 @@ interface ComponentVariants {
 - 성능 및 접근성 최적화
 - 개선된 애니메이션과 같은 고급 기능 구현
 
-### Design Decisions and Rationales
+## 디자인 결정 및 근거
 
-**Color System Choice**
+### 색상 시스템 선택
+- 현재 아키텍처와의 일관성을 유지하기 위해 기존 CSS 커스텀 속성 접근법 확장
+- 유지보수성과 테마 전환 개선을 위한 의미론적 색상 명명 선택
+- 다양한 사용 사례에 유연성을 제공하는 포괄적인 색상 스케일 구현
 
-- Extended the existing CSS custom property approach to maintain consistency with current architecture
-- Chose semantic color naming to improve maintainability and theme switching
-- Implemented comprehensive color scales to provide flexibility for different use cases
+### 타이포그래피 개선
+- 브랜드 일관성 유지를 위해 기존 Geist 폰트 선택을 기반으로 구축
+- 더 나은 시각적 계층 구조를 위한 모듈형 스케일 접근법 구현
+- 가독성 향상을 위한 적절한 행간 및 자간 추가
 
-**Typography Enhancement**
+### 컴포넌트 아키텍처
+- 중단적 변경을 최소화하기 위해 기존 컴포넌트 구조 유지
+- 완전한 재작성보다는 Tailwind 클래스 조합을 통한 스타일링 개선
+- 사용자 경험을 점진적으로 개선하는 점진적 향상에 중점
 
-- Built upon existing Geist font choice to maintain brand consistency
-- Implemented modular scale approach for better visual hierarchy
-- Added proper line height and letter spacing for improved readability
+### 반응형 전략
+- 현재 구현과 일관된 모바일 우선 접근법 지속
+- 기본 레이아웃 패턴을 변경하지 않으면서 브레이크포인트 활용 개선
+- 더 나은 모바일 경험을 위한 터치 상호작용 디자인 개선
 
-**Component Architecture**
+이 디자인은 기존 아키텍처를 유지하면서 모든 요구사항을 구현하고 향상된 디자인 시스템으로의 원활한 전환을 보장하는 포괄적인 기반을 제공합니다.
 
-- Maintained existing component structure to minimize breaking changes
-- Enhanced styling through Tailwind class composition rather than complete rewrites
-- Focused on progressive enhancement to improve user experience gradually
+## 구현 가이드라인
 
-**Responsive Strategy**
+### 핵심 패턴
 
-- Continued mobile-first approach consistent with current implementation
-- Enhanced breakpoint utilization without changing fundamental layout patterns
-- Improved touch interaction design for better mobile experience
+**공통 배경 장식**
+```jsx
+<div className="absolute inset-0 -z-10">
+  <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
+  <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl"></div>
+</div>
+```
 
-This design provides a comprehensive foundation for implementing all requirements while maintaining the existing architecture and ensuring a smooth transition to the enhanced design system.
+**컨테이너 구조**
+- 상세 페이지: `max-w-4xl mx-auto px-4 sm:px-6 py-12`
+- 목록 페이지: `max-w-7xl mx-auto px-4 sm:px-6 py-12`
+
+**필수 UI 컴포넌트**
+- Button: `@/components/ui/Button` (variant: primary/secondary, size: sm/md/lg)
+- Badge: `@/components/ui/Badge` (variant: default/info/success, size: sm/md)
+- Card: `@/components/ui/Card` (variant: default/elevated/outlined)
+
+### 특별 고려사항
+
+**프로젝트 상세 페이지 개선**
+- 블로그 페이지와 동일한 배경 장식 및 레이아웃 구조 적용
+- 기존 버튼을 Button 컴포넌트로, 태그를 Badge 컴포넌트로 교체
+- 일관된 타이포그래피 및 간격 시스템 적용

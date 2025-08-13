@@ -2,6 +2,7 @@ import { getAllProjectIds, getProjectData } from "@/services/projects";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { Badge, Button } from "@/components/ui";
 
 type ProjectPageProps = {
   params: Promise<{ id: string }>;
@@ -19,121 +20,137 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <div className="min-h-screen">
-      <main className="max-w-4xl mx-auto px-6 py-16">
+      {/* 배경 장식 */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         {/* 브레드크럼 */}
-        <nav className="flex items-center gap-2 mb-14 text-sm text-[var(--ds-text-tertiary)]">
+        <nav className="flex items-center gap-2 mb-12 text-sm text-gray-600 dark:text-gray-400 max-w-4xl mx-auto">
           <Link
             href="/project"
-            className="hover:text-[var(--ds-text-primary)] transition-colors"
+            className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
           >
             Projects
           </Link>
           <span>/</span>
-          <span className="text-[var(--ds-text-primary)] truncate">
+          <span className="text-gray-900 dark:text-gray-100 truncate">
             {title}
           </span>
         </nav>
 
-        {/* 프로젝트 헤더 */}
-        <article className="fade-in">
-          <h1 className="text-4xl md:text-5xl font-semibold leading-tight text-[var(--ds-text-primary)] mb-14 max-w-4xl">
+        {/* 헤더: 제목과 메타정보 - 전체 너비 */}
+        <header className="mb-12 text-center max-w-4xl mx-auto">
+          {/* 제목 */}
+          <h1
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tighter 
+                       text-gray-900 dark:text-gray-100 mb-6 
+                       bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 
+                       dark:from-gray-100 dark:via-gray-200 dark:to-gray-100 
+                       bg-clip-text text-transparent"
+          >
             {title}
           </h1>
 
-          {/* 프로젝트 링크와 태그 */}
-          <div className="flex flex-wrap items-center gap-6 mb-14">
-            {projectUrl && (
-              <>
+          {/* 프로젝트 링크 */}
+          {projectUrl && (
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-6">
+              <Button variant="primary" size="lg">
                 <Link
                   href={projectUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--ds-btn-primary-bg)] text-[var(--ds-btn-primary-color)] font-medium rounded-lg hover:bg-[var(--ds-btn-primary-hover)] transition-colors"
+                  className="flex items-center gap-2"
                 >
                   <FaGithub size={16} />
                   GitHub에서 보기
                 </Link>
+              </Button>
+              <Button variant="secondary" size="lg">
                 <Link
                   href={projectUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 border border-[var(--ds-border-primary)] text-[var(--ds-text-primary)] font-medium rounded-lg hover:bg-[var(--ds-border-secondary)] transition-colors"
+                  className="flex items-center gap-2"
                 >
                   <FaExternalLinkAlt size={14} />
                   라이브 데모
                 </Link>
-              </>
-            )}
-          </div>
-
-          {/* 태그 */}
-          {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-3 mb-14">
-              {tags.map((tag, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1.5 text-sm bg-[var(--ds-border-primary)] text-[var(--ds-text-primary)] rounded-full"
-                >
-                  {tag}
-                </span>
-              ))}
+              </Button>
             </div>
           )}
 
-          {/* 프로젝트 이미지 */}
-          {/* <div className="aspect-video relative overflow-hidden rounded-xl mb-12 shadow-lg">
-            <Image
-              src={imageSrc}
-              alt={`${title} 프로젝트 이미지`}
-              fill
-              className="object-cover"
+          {/* 태그 */}
+          {tags && tags.length > 0 && (
+            <div className="flex flex-wrap justify-center gap-2">
+              {tags.map((tag, index) => (
+                <Badge
+                  key={index}
+                  variant="default"
+                  size="md"
+                  className="hover:scale-105 transition-transform duration-200"
+                >
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+          )}
+        </header>
+
+        {/* 메인 콘텐츠 - 중앙 배치 */}
+        <article className="max-w-4xl mx-auto fade-in">
+          {/* 본문 */}
+          <div className="relative">
+            <div
+              className="prose prose-lg dark:prose-invert max-w-none
+                        prose-headings:font-bold prose-headings:tracking-tight 
+                        prose-headings:text-gray-900 dark:prose-headings:text-gray-100
+                        prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
+                        prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4
+                        prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed
+                        prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:font-medium 
+                        prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-2
+                        prose-code:text-primary-700 dark:prose-code:text-primary-300 
+                        prose-code:bg-primary-50 dark:prose-code:bg-primary-900/30 
+                        prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:font-normal
+                        prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950 
+                        prose-pre:border prose-pre:border-gray-700 prose-pre:rounded-xl
+                        prose-img:rounded-xl prose-img:shadow-lg dark:prose-img:shadow-dark-lg
+                        prose-blockquote:border-l-4 prose-blockquote:border-primary-500 
+                        prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:bg-primary-50/50 
+                        dark:prose-blockquote:bg-primary-900/20 prose-blockquote:py-2 prose-blockquote:rounded-r-lg
+                        prose-strong:font-bold prose-strong:text-gray-900 dark:prose-strong:text-gray-100
+                        prose-ul:space-y-2 prose-ol:space-y-2"
+              dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
-          </div> */}
-
-          {/* 프로젝트 설명 */}
-          <div
-            className="prose prose-xl dark:prose-invert max-w-none
-                      prose-headings:font-semibold prose-headings:tracking-tight 
-                      prose-headings:text-[var(--ds-text-primary)]
-                      prose-h2:text-2xl prose-h2:mt-14 prose-h2:mb-6 prose-h2:scroll-mt-20
-                      prose-h3:text-xl prose-h3:mt-12 prose-h3:mb-4 prose-h3:scroll-mt-20
-                      prose-h4:text-lg prose-h4:mt-10 prose-h4:mb-3 prose-h4:scroll-mt-20
-                      prose-p:text-2xl prose-p:leading-8 prose-p:text-[var(--ds-text-primary)] prose-p:mb-8
-                      prose-a:text-[var(--ds-accent-primary)] prose-a:font-medium 
-                      prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-2
-                      prose-code:text-[var(--ds-accent-primary)] 
-                      prose-code:bg-[var(--ds-border-secondary)] 
-                      prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:font-normal prose-code:text-base
-                      prose-pre:bg-gray-950 prose-pre:border prose-pre:border-[var(--ds-border-primary)] prose-pre:rounded-xl prose-pre:text-base
-                      prose-img:rounded-xl prose-img:shadow-lg prose-img:my-12
-                      prose-blockquote:border-l-4 prose-blockquote:border-[var(--ds-accent-primary)] 
-                      prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:bg-[var(--ds-border-secondary)] 
-                      prose-blockquote:py-6 prose-blockquote:rounded-r-lg prose-blockquote:text-[var(--ds-text-primary)] prose-blockquote:text-xl prose-blockquote:my-8
-                      prose-strong:font-semibold prose-strong:text-[var(--ds-text-primary)]
-                      prose-ul:space-y-3 prose-ol:space-y-3 prose-li:text-[var(--ds-text-primary)] prose-li:text-xl prose-li:leading-8"
-            dangerouslySetInnerHTML={{ __html: contentHtml }}
-          />
-        </article>
-
-        {/* 하단 네비게이션 */}
-        <nav className="mt-20 pt-12 border-t border-[var(--ds-border-primary)]">
-          <div className="text-center">
-            <Link
-              href="/project"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--ds-btn-primary-bg)] text-[var(--ds-btn-primary-color)] font-medium rounded-lg hover:bg-[var(--ds-btn-primary-hover)] transition-colors"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              모든 프로젝트 보기
-            </Link>
           </div>
-        </nav>
-      </main>
+
+          {/* 하단 네비게이션 */}
+          <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+            {/* 프로젝트로 돌아가기 버튼 */}
+            <div className="text-center">
+              <Button variant="primary" size="lg">
+                <Link href="/project" className="flex items-center gap-2">
+                  <svg
+                    className="w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  모든 프로젝트 보기
+                </Link>
+              </Button>
+            </div>
+          </footer>
+        </article>
+      </div>
     </div>
   );
 }
