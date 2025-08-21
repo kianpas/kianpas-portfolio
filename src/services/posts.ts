@@ -1,3 +1,4 @@
+import { cache } from "react";
 //마크다운 라이브러리
 import fs from "fs";
 import path from "path";
@@ -15,7 +16,7 @@ import { calculateReadingTime } from "@/utils/readingTime";
 const postsDirectory = path.join(process.cwd(), "src", "posts");
 
 // 모든 포스트의 메타데이터를 날짜순으로 정렬하여 가져오는 함수
-export const getSortedPostsData = () => {
+export const getSortedPostsData = cache(() => {
   // posts 디렉토리의 파일 이름을 모두 읽어옵니다.
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.map((fileName) => {
@@ -57,7 +58,7 @@ export const getSortedPostsData = () => {
       return -1;
     }
   });
-};
+});
 
 // 모든 태그 목록을 가져오는 함수
 export const getAllCategories = () => {

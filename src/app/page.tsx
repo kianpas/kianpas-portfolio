@@ -2,10 +2,17 @@ import Link from "next/link";
 import { getSortedPostsData } from "@/services/posts";
 import { formatReadingTime } from "@/utils/readingTime";
 import { Button, Badge } from "@/components/ui";
+import { Post } from "@/types/post";
 
 const Home = async () => {
-  // 최근 포스트 3개 가져오기
-  const recentPosts = getSortedPostsData().slice(0, 3);
+  let recentPosts: Post[] = [];
+  try {
+    // 최근 포스트 3개 가져오기
+    recentPosts = getSortedPostsData().slice(0, 3);
+  } catch (error) {
+    console.error("Error fetching recent posts:", error);
+    // 에러가 발생해도 페이지는 렌더링되도록 recentPosts를 빈 배열로 유지합니다.
+  }
 
   return (
     <div className="min-h-screen">
