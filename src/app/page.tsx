@@ -95,12 +95,9 @@ const Home = async () => {
               <div className="flex flex-wrap justify-center gap-3">
                 {["Java", "React", "Next.js", "TypeScript", "TailwindCSS"].map(
                   (tech) => (
-                    <span
-                      key={tech}
-                      className="px-4 py-2 bg-white/70 dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-colors"
-                    >
+                    <Badge key={tech} variant="default" size="md">
                       {tech}
-                    </span>
+                    </Badge>
                   )
                 )}
               </div>
