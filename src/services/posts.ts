@@ -6,6 +6,7 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import remarkRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
 
 import rehypeStringify from "rehype-stringify";
 import { calculateReadingTime } from "@/utils/readingTime";
@@ -68,10 +69,16 @@ export const getAllCategories = () => {
 };
 
 // 특정 카테고리의 포스트 목록을 가져오는 함수
-export const getPostsByCategory = (categoryName: string, page: number = 1, postsPerPage: number = 10) => {
+export const getPostsByCategory = (
+  categoryName: string,
+  page: number = 1,
+  postsPerPage: number = 10
+) => {
   const allPosts = getSortedPostsData();
-  const filteredPosts = allPosts.filter((post) => post.category === categoryName);
-  
+  const filteredPosts = allPosts.filter(
+    (post) => post.category === categoryName
+  );
+
   const totalPosts = filteredPosts.length;
   const totalPages = Math.ceil(totalPosts / postsPerPage);
   const startIndex = (page - 1) * postsPerPage;
@@ -190,9 +197,10 @@ export const getPostData = async (id: string) => {
 
   // remark를 사용하여 Markdown을 HTML 문자열로 변환
   const processedContent = await remark()
-    .use(remarkRehype) // markdown을 HTML AST로 변환
+    .use(remarkGfm)
+    .use(remarkRehype, { allowDangerousHtml: true }) // markdown을 HTML AST로 변환
     .use(rehypeSlug) // 헤딩에 자동으로 ID 추가 (스크롤 위치 참조용)
-    .use(rehypeStringify) // HTML 문자열로 변환
+    .use(rehypeStringify, { allowDangerousHtml: true }) // HTML 문자열로 변환
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
