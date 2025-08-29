@@ -9,7 +9,7 @@ type ProjectCardProps = {
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
   const {
-    id,
+    slug,
     title,
     description,
     projectUrl,
@@ -44,7 +44,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         {/* 헤더: 제목과 링크 */}
         <div className="flex items-start justify-between gap-3">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 flex-1">
-            <Link href={`/project/${id}`} className="block">
+            <Link href={`/project/${slug}`} className="block">
               {title}
             </Link>
           </h2>
@@ -61,8 +61,8 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
                 <FaGithub className="h-5 w-5" />
               </Link>
             )}
-            <Link 
-              href={`/project/${id}`}
+            <Link
+              href={`/project/${slug}`}
               className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
               title="프로젝트 상세보기"
             >

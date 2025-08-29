@@ -1,16 +1,16 @@
-import { getAllProjectIds, getProjectData } from "@/services/projects";
+import { getAllProjectSlugs, getProjectData } from "@/services/projects";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { Badge, Button } from "@/components/ui";
 
 type ProjectPageProps = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 };
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { id } = await params;
-  const project = await getProjectData(id);
+  const { slug } = await params;
+  const project = await getProjectData(slug);
 
   if (!project) {
     notFound();
@@ -156,8 +156,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 }
 
 export async function generateStaticParams() {
-  const projects = getAllProjectIds();
+  const projects = getAllProjectSlugs();
   return projects.map((project) => ({
-    id: project.params.id,
+    slug: project.params.slug,
   }));
 }

@@ -21,8 +21,8 @@ export const getSortedPostsData = cache(() => {
   // posts 디렉토리의 파일 이름을 모두 읽어옵니다.
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.map((fileName) => {
-    // '.md' 확장자를 제거하여 파일 이름을 ID로 사용합니다.
-    const id = fileName.replace(/\.md$/, "");
+    // '.md' 확장자를 제거하여 파일 이름을 slug로 사용합니다.
+    const slug = fileName.replace(/\.md$/, "");
 
     // 파일 전체 경로를 만듭니다.
     const fullPath = path.join(postsDirectory, fileName);
@@ -37,7 +37,7 @@ export const getSortedPostsData = cache(() => {
 
     // 데이터와 ID를 합쳐서 반환합니다.
     return {
-      id,
+      slug,
       content: matterResult.content, // content 추가
       readingTime, // 읽기 시간 추가
       ...(matterResult.data as {
@@ -175,21 +175,19 @@ export const getPaginatedPosts = (
   };
 };
 
-// 모든 포스트의 ID(파일 이름) 목록을 가져오는 함수 (generateStaticParams를 위해)
-export const getAllPostIds = () => {
+// 모든 포스트의 slug(파일 이름) 목록을 가져오는 함수 (generateStaticParams를 위해)
+export const getAllPostSlugs = () => {
   const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames.map((fileName) => {
-    return {
-      params: {
-        id: fileName.replace(/\.md$/, ""),
-      },
-    };
-  });
+  return fileNames.map((fileName) => ({
+    params: {
+      slug: fileName.replace(/\.md$/, ""),
+    },
+  }));
 };
 
 // 특정 ID(slug)를 가진 포스트의 전체 데이터를 가져오는 함수
-export const getPostData = async (id: string) => {
-  const fullPath = path.join(postsDirectory, `${id}.md`);
+export const getPostData = async (slug: string) => {
+  const fullPath = path.join(postsDirectory, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // Frontmatter 파싱
@@ -209,7 +207,7 @@ export const getPostData = async (id: string) => {
 
   // 모든 포스트를 날짜순으로 정렬
   const sortedPosts = getSortedPostsData(); // 이 함수는 모든 포스트 메타데이터를 정렬해서 반환한다고 가정
-  const currentPostIndex = sortedPosts.findIndex((post) => post.id === id);
+  const currentPostIndex = sortedPosts.findIndex((post) => post.slug === slug);
 
   const prevPost =
     currentPostIndex > 0 ? sortedPosts[currentPostIndex - 1] : null;
@@ -221,7 +219,7 @@ export const getPostData = async (id: string) => {
   // postData 객체에 필요한 모든 정보를 담아 반환,
   // prevPost 로 이전 데이터, nextPost로 다음 데이터
   const postData = {
-    id,
+    slug,
     contentHtml,
     readingTime,
     ...(matterResult.data as {

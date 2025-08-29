@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPostData, getAllPostIds } from "@/services/posts";
+import { getPostData, getAllPostSlugs } from "@/services/posts";
 import Link from "next/link";
 import ReadingProgress from "@/components/ReadingProgress";
 import ImageOptimizer from "@/components/ImageOptimizer";
@@ -7,17 +7,17 @@ import { formatReadingTime } from "@/utils/readingTime";
 import { Badge, Button } from "@/components/ui";
 
 type PageProps = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-  const paths = getAllPostIds();
-  return paths.map((path) => ({ id: path.params.id }));
+  const paths = getAllPostSlugs();
+  return paths.map((path) => ({ slug: path.params.slug }));
 }
 
 const SinglePostPage = async ({ params }: PageProps) => {
-  const { id } = await params;
-  const { postData, prevPost, nextPost } = await getPostData(id);
+  const { slug } = await params;
+  const { postData, prevPost, nextPost } = await getPostData(slug);
 
   if (!postData) {
     notFound();
@@ -174,7 +174,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {prevPost ? (
                 <Link
-                  href={`/blog/post/${prevPost.id}`}
+                  href={`/blog/post/${prevPost.slug}`}
                   className="group flex items-center gap-4 p-6 rounded-xl border border-gray-200 dark:border-gray-700 
                          hover:border-primary-300 dark:hover:border-primary-600 
                          hover:bg-primary-50 dark:hover:bg-primary-900/20 
@@ -215,7 +215,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
 
               {nextPost ? (
                 <Link
-                  href={`/blog/post/${nextPost.id}`}
+                  href={`/blog/post/${nextPost.slug}`}
                   className="group flex items-center gap-4 p-5 rounded-xl border border-gray-200 dark:border-gray-700 
                          hover:border-primary-300 dark:hover:border-primary-600 
                          hover:bg-primary-50 dark:hover:bg-primary-900/20 
