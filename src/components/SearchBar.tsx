@@ -45,10 +45,10 @@ const SearchBar = ({ placeholder = "검색어를 입력하세요...", className 
   }, [query]);
 
   // 결과 클릭 시 이동
-  const goToPost = (postId: string) => {
+  const goToPost = (slug: string) => {
     setIsOpen(false);
     setQuery("");
-    router.push(`/blog/post/${postId}`);
+    router.push(`/blog/post/${slug}`);
   };
 
   return (
@@ -86,8 +86,8 @@ const SearchBar = ({ placeholder = "검색어를 입력하세요...", className 
           {results.length > 0 ? (
             results.map((post) => (
               <button
-                key={post.id}
-                onClick={() => goToPost(post.id)}
+                key={post.slug}
+                onClick={() => goToPost(post.slug)}
                 className="w-full p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700 last:border-b-0"
               >
                 <h4 className="font-medium text-gray-900 dark:text-gray-100">{post.title}</h4>

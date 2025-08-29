@@ -8,14 +8,14 @@ type PostCardProps = {
 };
 
 const PostCard = ({ post }: PostCardProps) => {
-  const { id, title, date, tags, summary, readingTime, category } = post;
+  const { slug, title, date, tags, summary, readingTime, category } = post;
 
   return (
     <Card
       variant="elevated"
       className="group hover:border-blue-300/30 dark:hover:border-blue-600/30 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
     >
-      <Link href={`/blog/post/${id}`} className="block">
+      <Link href={`/blog/post/${slug}`} className="block">
         <div className="space-y-4">
           {/* 메타데이터 */}
           <div className="flex items-center justify-between text-sm">

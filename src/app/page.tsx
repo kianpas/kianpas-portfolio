@@ -37,7 +37,7 @@ const Home = async () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {recentPosts.map((post) => (
               <article
-                key={post.id}
+                key={post.slug}
                 className="group bg-white/90 dark:bg-gray-800/90 rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-300/30 dark:hover:border-blue-600/30 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
               >
                 <div className="space-y-4">
@@ -66,7 +66,7 @@ const Home = async () => {
 
                   {/* 제목 */}
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 line-clamp-2">
-                    <Link href={`/blog/post/${post.id}`} className="block">
+                    <Link href={`/blog/post/${post.slug}`} className="block">
                       {post.title}
                     </Link>
                   </h3>
@@ -108,7 +108,7 @@ const Home = async () => {
 
                   {/* 읽기 버튼 */}
                   <Link
-                    href={`/blog/post/${post.id}`}
+                    href={`/blog/post/${post.slug}`}
                     className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm group-hover:gap-3 transition-all duration-200"
                   >
                     읽어보기

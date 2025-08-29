@@ -10,13 +10,13 @@ const projectsDirectory = path.join(process.cwd(), "src", "projects");
 export const getSortedProjectsData = (page: number = 1, limit: number = 6) => {
   const fileNames = fs.readdirSync(projectsDirectory);
   const allProjectsData = fileNames.map((fileName) => {
-    const id = fileName.replace(/\.md$/, "");
+    const slug = fileName.replace(/\.md$/, "");
     const fullPath = path.join(projectsDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const matterResult = matter(fileContents);
 
     return {
-      id,
+      slug,
       ...(matterResult.data as {
         title: string;
         description: string;
@@ -52,19 +52,17 @@ export const getSortedProjectsData = (page: number = 1, limit: number = 6) => {
   };
 };
 
-export const getAllProjectIds = () => {
+export const getAllProjectSlugs = () => {
   const fileNames = fs.readdirSync(projectsDirectory);
-  return fileNames.map((fileName) => {
-    return {
-      params: {
-        id: fileName.replace(/\.md$/, ""),
-      },
-    };
-  });
+  return fileNames.map((fileName) => ({
+    params: {
+      slug: fileName.replace(/\.md$/, ""),
+    },
+  }));
 };
 
-export const getProjectData = async (id: string) => {
-  const fullPath = path.join(projectsDirectory, `${id}.md`);
+export const getProjectData = async (slug: string) => {
+  const fullPath = path.join(projectsDirectory, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   const matterResult = matter(fileContents);
@@ -75,7 +73,7 @@ export const getProjectData = async (id: string) => {
   const contentHtml = processedContent.toString();
 
   const projectData: Project & { contentHtml: string } = {
-    id,
+    slug,
     contentHtml,
     title: matterResult.data.title,
     description: matterResult.data.description,

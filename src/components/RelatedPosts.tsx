@@ -20,7 +20,7 @@ const RelatedPosts = ({
     const currentCategory = currentPost.category;
     
     // 현재 글 제외
-    const otherPosts = allPosts.filter(post => post.id !== currentPost.id);
+    const otherPosts = allPosts.filter(post => post.slug !== currentPost.slug);
     
     // 점수 기반 관련도 계산
     const scoredPosts = otherPosts.map(post => {
@@ -69,11 +69,11 @@ const RelatedPosts = ({
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {relatedPosts.map((post) => (
           <article
-            key={post.id}
+            key={post.slug}
             className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 
                        hover:shadow-md transition-shadow duration-200 overflow-hidden"
           >
-            <Link href={`/blog/post/${post.id}`} className="block p-6 space-y-4">
+            <Link href={`/blog/post/${post.slug}`} className="block p-6 space-y-4">
               {/* 카테고리 */}
               <div className="flex items-center justify-between">
                 <span className="px-2 py-1 text-xs font-medium rounded-full 

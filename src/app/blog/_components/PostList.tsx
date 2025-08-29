@@ -41,7 +41,7 @@ const PostList = ({ initialPosts, name, totalPage }: PostListProps) => {
       {/* 포스트 목록 - 카드 간격 추가 */}
       <div className="space-y-6 mb-16">
         {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
+          <PostCard key={post.slug} post={post} />
         ))}
       </div>
       
