@@ -25,18 +25,13 @@ const SinglePostPage = async ({ params }: PageProps) => {
 
   return (
     <div className="min-h-screen">
-      {/* 배경 장식 */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl"></div>
-      </div>
-
+  
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <ReadingProgress />
         <ImageOptimizer />
 
         {/* 헤더: 제목과 메타정보 - 전체 너비 */}
-        <header className="mb-12 text-center max-w-4xl mx-auto">
+        <header className="mb-8 md:mb-10 text-center max-w-4xl mx-auto">
           {/* 카테고리 배지 */}
           {postData.category && (
             <div className="mb-6">
@@ -54,7 +49,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
 
           {/* 제목 */}
           <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tighter 
+            className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tighter 
                        text-gray-900 dark:text-gray-100 mb-6 
                        bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 
                        dark:from-gray-100 dark:via-gray-200 dark:to-gray-100 
@@ -65,7 +60,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
 
           {/* 메타 정보 */}
           <div
-            className="flex flex-wrap items-center justify-center gap-6 mb-6 
+            className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-6 
                         text-gray-600 dark:text-gray-400"
           >
             <div className="flex items-center gap-2">
@@ -151,19 +146,19 @@ const SinglePostPage = async ({ params }: PageProps) => {
             </div>
 
             <div
-              className="prose prose-lg dark:prose-invert max-w-none
+              className="prose prose-lg md:prose-base prose-neutral dark:prose-invert max-w-none leading-7
                         prose-headings:font-bold prose-headings:tracking-tight 
                         prose-headings:text-gray-900 dark:prose-headings:text-gray-100
-                        prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
-                        prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4
+                        prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-4
+                        prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3
                         prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed
                         prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:font-medium 
                         prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-2
                         prose-code:text-primary-700 dark:prose-code:text-primary-300 
                         prose-code:bg-primary-50 dark:prose-code:bg-primary-900/30 
-                        prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:font-normal
+                        prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-normal
                         prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950 
-                        prose-pre:border prose-pre:border-gray-700 prose-pre:rounded-xl
+                        prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-gray-700 prose-pre:rounded-xl
                         prose-img:rounded-xl prose-img:shadow-lg dark:prose-img:shadow-dark-lg
                         prose-blockquote:border-l-4 prose-blockquote:border-primary-500 
                         prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:bg-primary-50/50 
@@ -175,7 +170,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
           </div>
 
           {/* 이전/다음 글 네비게이션 */}
-          <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+          <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {prevPost ? (
                 <Link
@@ -221,7 +216,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
               {nextPost ? (
                 <Link
                   href={`/blog/post/${nextPost.id}`}
-                  className="group flex items-center gap-4 p-6 rounded-xl border border-gray-200 dark:border-gray-700 
+                  className="group flex items-center gap-4 p-5 rounded-xl border border-gray-200 dark:border-gray-700 
                          hover:border-primary-300 dark:hover:border-primary-600 
                          hover:bg-primary-50 dark:hover:bg-primary-900/20 
                          transition-all duration-300 hover:shadow-md dark:hover:shadow-dark-md text-right"
