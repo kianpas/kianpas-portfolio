@@ -20,15 +20,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <div className="min-h-screen">
-      {/* 배경 장식 */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl"></div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         {/* 브레드크럼 */}
-        <nav className="flex items-center gap-2 mb-12 text-sm text-gray-600 dark:text-gray-400 max-w-4xl mx-auto">
+        {/* <nav className="flex items-center gap-2 mb-12 text-sm text-gray-600 dark:text-gray-400 max-w-4xl mx-auto">
           <Link
             href="/project"
             className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
@@ -39,13 +33,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <span className="text-gray-900 dark:text-gray-100 truncate">
             {title}
           </span>
-        </nav>
+        </nav> */}
 
         {/* 헤더: 제목과 메타정보 - 전체 너비 */}
         <header className="mb-12 text-center max-w-4xl mx-auto">
           {/* 제목 */}
           <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tighter 
+            className="text-3xl md:text-4xl lg:text-6xl font-extrabold leading-tight tracking-tighter 
                        text-gray-900 dark:text-gray-100 mb-6 
                        bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 
                        dark:from-gray-100 dark:via-gray-200 dark:to-gray-100 
@@ -89,7 +83,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <Badge
                   key={index}
                   variant="default"
-                  size="md"
+                  size="sm"
                   className="hover:scale-105 transition-transform duration-200"
                 >
                   {tag}
@@ -104,11 +98,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {/* 본문 */}
           <div className="relative">
             <div
-              className="prose prose-lg dark:prose-invert max-w-none
+              className="prose prose-lg md:prose-base prose-neutral dark:prose-invert max-w-none leading-7
                         prose-headings:font-bold prose-headings:tracking-tight 
                         prose-headings:text-gray-900 dark:prose-headings:text-gray-100
-                        prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
-                        prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4
+                        prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-4
+                        prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3
                         prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed
                         prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:font-medium 
                         prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-2
