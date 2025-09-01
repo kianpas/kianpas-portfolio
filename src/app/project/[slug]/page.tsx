@@ -1,12 +1,19 @@
 import { getAllProjectSlugs, getProjectData } from "@/services/projects";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { FaGithub, FaArrowUpRightFromSquare, FaChevronLeft  } from "react-icons/fa6";
 import { Badge, Button } from "@/components/ui";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+export async function generateStaticParams() {
+  const projects = getAllProjectSlugs();
+  return projects.map((project) => ({
+    slug: project.params.slug,
+  }));
+}
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
@@ -21,22 +28,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-        {/* 브레드크럼 */}
-        {/* <nav className="flex items-center gap-2 mb-12 text-sm text-gray-600 dark:text-gray-400 max-w-4xl mx-auto">
-          <Link
-            href="/project"
-            className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-          >
-            Projects
-          </Link>
-          <span>/</span>
-          <span className="text-gray-900 dark:text-gray-100 truncate">
-            {title}
-          </span>
-        </nav> */}
-
         {/* 헤더: 제목과 메타정보 - 전체 너비 */}
-        <header className="mb-12 text-center max-w-4xl mx-auto">
+        <header className="mb-8 md:mb-10 text-center max-w-4xl mx-auto">
           {/* 제목 */}
           <h1
             className="text-3xl md:text-4xl lg:text-6xl font-extrabold leading-tight tracking-tighter 
@@ -69,7 +62,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
                 >
-                  <FaExternalLinkAlt size={14} />
+                  <FaArrowUpRightFromSquare  size={14} />
                   라이브 데모
                 </Link>
               </Button>
@@ -80,12 +73,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {tags && tags.length > 0 && (
             <div className="flex flex-wrap justify-center gap-2">
               {tags.map((tag, index) => (
-                <Badge
-                  key={index}
-                  variant="default"
-                  size="sm"
-                  className="hover:scale-105 transition-transform duration-200"
-                >
+                <Badge key={index} variant="default" size="sm">
                   {tag}
                 </Badge>
               ))}
@@ -127,17 +115,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="text-center">
               <Button variant="primary" size="lg">
                 <Link href="/project" className="flex items-center gap-2">
-                  <svg
-                    className="w-4 h-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                 <FaChevronLeft className="w-4 h-4" aria-hidden />
                   모든 프로젝트 보기
                 </Link>
               </Button>
@@ -147,11 +125,4 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </div>
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  const projects = getAllProjectSlugs();
-  return projects.map((project) => ({
-    slug: project.params.slug,
-  }));
 }

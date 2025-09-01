@@ -5,6 +5,12 @@ import ReadingProgress from "@/components/ReadingProgress";
 import ImageOptimizer from "@/components/ImageOptimizer";
 import { formatReadingTime } from "@/utils/readingTime";
 import { Badge, Button } from "@/components/ui";
+import {
+  FaCalendar,
+  FaClock,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa6";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -25,7 +31,6 @@ const SinglePostPage = async ({ params }: PageProps) => {
 
   return (
     <div className="min-h-screen">
-  
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <ReadingProgress />
         <ImageOptimizer />
@@ -76,34 +81,14 @@ const SinglePostPage = async ({ params }: PageProps) => {
             </div>
 
             <div className="flex items-center gap-2">
-              <svg
-                className="w-4 h-4 text-primary-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <FaCalendar className="w-4 h-4 text-primary-500" aria-hidden />
               <time dateTime={postData.date} className="font-medium">
                 {postData.date}
               </time>
             </div>
 
             <div className="flex items-center gap-2">
-              <svg
-                className="w-4 h-4 text-primary-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <FaClock className="w-4 h-4 text-primary-500" aria-hidden />
               <span className="font-medium">
                 {formatReadingTime(postData.readingTime)}
               </span>
@@ -113,17 +98,11 @@ const SinglePostPage = async ({ params }: PageProps) => {
           {/* 태그 */}
           {postData.tags && postData.tags.length > 0 && (
             <div className="flex flex-wrap justify-center gap-2">
-              {postData.tags.map((tag) => (
-                <Link
-                  key={tag}
-                  href={`/blog/tag/${tag}`}
-                  className="px-3 py-1.5 text-sm font-medium rounded-full 
-                           bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300
-                           hover:bg-primary-100 dark:hover:bg-primary-900 
-                           hover:text-primary-700 dark:hover:text-primary-300 
-                           transition-all duration-200 hover:scale-105"
-                >
-                  #{tag}
+              {postData.tags.map((tag, index) => (
+                <Link key={tag} href={`/blog/tag/${tag}`}>
+                  <Badge key={index} variant="default" size="sm">
+                    #{tag}
+                  </Badge>
                 </Link>
               ))}
             </div>
@@ -134,7 +113,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
         <article className="max-w-4xl mx-auto fade-in">
           {/* 본문 */}
           <div className="relative">
-            {/* 읽기 진행률 표시 (선택적) */}
+            {/* 읽기 진행률 표시 */}
             <div className="sticky top-4 z-10 mb-8">
               <div className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div
@@ -186,18 +165,10 @@ const SinglePostPage = async ({ params }: PageProps) => {
                                 flex items-center justify-center group-hover:bg-primary-200 
                                 dark:group-hover:bg-primary-800 transition-colors"
                     >
-                      <svg
-                        className="w-5 h-5 text-primary-600 dark:text-primary-400 transform 
-                                  group-hover:-translate-x-1 transition-transform"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <FaChevronLeft
+                        className="w-5 h-5 text-primary-600 dark:text-primary-400 transform group-hover:-translate-x-1 transition-transform"
+                        aria-hidden
+                      />
                     </div>
                   </div>
                   <div className="flex-1 min-w-0">
@@ -235,18 +206,10 @@ const SinglePostPage = async ({ params }: PageProps) => {
                                 flex items-center justify-center group-hover:bg-primary-200 
                                 dark:group-hover:bg-primary-800 transition-colors"
                     >
-                      <svg
-                        className="w-5 h-5 text-primary-600 dark:text-primary-400 transform 
-                                  group-hover:translate-x-1 transition-transform"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <FaChevronRight
+                        className="w-5 h-5 text-primary-600 dark:text-primary-400 transform group-hover:translate-x-1 transition-transform"
+                        aria-hidden
+                      />
                     </div>
                   </div>
                 </Link>
@@ -259,17 +222,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
             <div className="mt-12 text-center">
               <Button variant="primary" size="lg">
                 <Link href="/blog" className="flex items-center gap-2">
-                  <svg
-                    className="w-4 h-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <FaChevronLeft className="w-4 h-4" aria-hidden />
                   블로그로 돌아가기
                 </Link>
               </Button>

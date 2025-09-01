@@ -3,13 +3,17 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Post } from "@/types/post";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 interface SearchBarProps {
   placeholder?: string;
   className?: string;
 }
 
-const SearchBar = ({ placeholder = "검색어를 입력하세요...", className = "" }: SearchBarProps) => {
+const SearchBar = ({
+  placeholder = "검색어를 입력하세요...",
+  className = "",
+}: SearchBarProps) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Post[]>([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -64,14 +68,15 @@ const SearchBar = ({ placeholder = "검색어를 입력하세요...", className 
                      bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100
                      border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400"
         />
-        
+
         {/* 검색 아이콘 */}
         <div className="absolute left-3 top-2.5">
-          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+          <FaMagnifyingGlass
+            className="w-5 h-5 text-gray-400 dark:text-gray-400"
+            aria-hidden="true"
+          />
         </div>
-        
+
         {/* 로딩 스피너 */}
         {loading && (
           <div className="absolute right-3 top-2.5">
@@ -90,9 +95,13 @@ const SearchBar = ({ placeholder = "검색어를 입력하세요...", className 
                 onClick={() => goToPost(post.slug)}
                 className="w-full p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700 last:border-b-0"
               >
-                <h4 className="font-medium text-gray-900 dark:text-gray-100">{post.title}</h4>
+                <h4 className="font-medium text-gray-900 dark:text-gray-100">
+                  {post.title}
+                </h4>
                 {post.summary && (
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{post.summary}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    {post.summary}
+                  </p>
                 )}
                 <div className="flex gap-2 text-xs text-gray-500 dark:text-gray-400 mt-2">
                   <span>{post.category}</span>

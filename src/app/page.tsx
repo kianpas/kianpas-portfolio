@@ -4,6 +4,7 @@ import { formatReadingTime } from "@/utils/readingTime";
 import { Button, Badge } from "@/components/ui";
 import { Post } from "@/types/post";
 import HeroSection from "@/app/_components/HeroSection";
+import { FaClock, FaChevronRight } from "react-icons/fa6";
 
 const Home = async () => {
   let recentPosts: Post[] = [];
@@ -47,19 +48,7 @@ const Home = async () => {
                       {post.category}
                     </Badge>
                     <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
+                      <FaClock className="w-4 h-4" aria-hidden />
                       {formatReadingTime(post.readingTime)}
                     </div>
                   </div>
@@ -112,19 +101,7 @@ const Home = async () => {
                     className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm group-hover:gap-3 transition-all duration-200"
                   >
                     읽어보기
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
+                    <FaChevronRight className="w-4 h-4" aria-hidden />
                   </Link>
                 </div>
               </article>
@@ -136,19 +113,7 @@ const Home = async () => {
             <Button variant="primary" size="lg">
               <Link href="/blog" className="flex items-center gap-2">
                 더 많은 글 보기
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+                <FaChevronRight className="w-4 h-4" aria-hidden />
               </Link>
             </Button>
           </div>

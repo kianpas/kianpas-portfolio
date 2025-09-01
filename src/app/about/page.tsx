@@ -287,7 +287,6 @@ const AboutPage = async () => {
             <div className="text-center">
               <p className="text-gray-600 dark:text-gray-400">
                 이곳에 기록된 경험이 다른 개발자들에게 도움이 되기를 바랍니다.
-                🚀
               </p>
             </div>
           </div>

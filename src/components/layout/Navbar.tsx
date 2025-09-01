@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
+import { FaBars, FaXmark } from "react-icons/fa6";
 
 // 테마 토글을 동적 로딩으로 최적화
 const ThemeToggle = dynamic(() => import("./ThemeToggle"), {
@@ -103,29 +104,11 @@ const Navbar = () => {
             className="text-gray-600 dark:text-gray-300 focus:outline-none p-2 z-50 relative"
           >
             <span className="sr-only">메인 메뉴 열기</span>
-            <svg
-              className="h-6 w-6"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {isOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+            {isOpen ? (
+              <FaXmark className="h-6 w-6" aria-hidden />
+            ) : (
+              <FaBars className="h-6 w-6" aria-hidden />
+            )}
           </button>
         </div>
       </div>

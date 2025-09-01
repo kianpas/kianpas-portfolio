@@ -1,27 +1,12 @@
 import Link from "next/link";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
-const ArrowIcon = ({ direction }: { direction: "left" | "right" }) => (
-  <svg
-    className="size-5"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-    aria-hidden="true"
-  >
-    {direction === "left" ? (
-      <path
-        fillRule="evenodd"
-        d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
-        clipRule="evenodd"
-      />
-    ) : (
-      <path
-        fillRule="evenodd"
-        d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-        clipRule="evenodd"
-      />
-    )}
-  </svg>
-);
+const ArrowIcon = ({ direction }: { direction: "left" | "right" }) =>
+  direction === "left" ? (
+    <FaChevronLeft className="size-5" aria-hidden />
+  ) : (
+    <FaChevronRight className="size-5" aria-hidden />
+  );
 
 const PostPagination = ({
   currentPage,
@@ -64,7 +49,6 @@ const PostPagination = ({
       }
 
       pages.push(totalPages); //마지막 페이지 무조건 표시
-
     }
     return pages;
   };

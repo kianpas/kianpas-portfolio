@@ -2,6 +2,7 @@ import { Post } from "@/types/post";
 import Link from "next/link";
 import { formatReadingTime } from "@/utils/readingTime";
 import { Card, Badge } from "@/components/ui";
+import { FaCalendar, FaClock, FaChevronRight } from "react-icons/fa6";
 
 type PostCardProps = {
   post: Post;
@@ -26,17 +27,7 @@ const PostCard = ({ post }: PostCardProps) => {
                 </Badge>
               )}
               <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
-                <svg
-                  className="w-4 h-4"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <FaCalendar className="w-4 h-4" aria-hidden />
                 <time dateTime={date} className="font-medium">
                   {new Date(date).toLocaleDateString("ko-KR", {
                     year: "numeric",
@@ -49,19 +40,7 @@ const PostCard = ({ post }: PostCardProps) => {
 
             {/* 읽기 시간 */}
             <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+              <FaClock className="w-4 h-4" aria-hidden />
               <span>{formatReadingTime(readingTime)}</span>
             </div>
           </div>
@@ -102,19 +81,7 @@ const PostCard = ({ post }: PostCardProps) => {
             {/* 읽기 버튼 */}
             <div className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm group-hover:gap-3 transition-all duration-200">
               읽어보기
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+              <FaChevronRight className="w-4 h-4" aria-hidden />
             </div>
           </div>
         </div>
