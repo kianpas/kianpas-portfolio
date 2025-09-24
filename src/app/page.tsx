@@ -3,7 +3,7 @@ import { Post } from "@/types/post";
 import HeroSection from "@/app/_components/HeroSection";
 import HomePostTeaser from "@/app/_components/HomePostTeaser";
 
-const Home = async () => {
+const Home = () => {
   let recentPosts: Post[] = [];
   try {
     // 최근 포스트 3개 가져오기
