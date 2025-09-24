@@ -58,10 +58,10 @@ const PostCard = ({ post }: PostCardProps) => {
           )}
 
           {/* 태그와 읽기 버튼 */}
-          <div className="flex items-center justify-between pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
             {/* 태그 */}
             {tags && tags.length > 0 && (
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2 w-full md:w-auto">
                 {tags.slice(0, 3).map((tag) => (
                   <span
                     key={tag}
@@ -79,7 +79,7 @@ const PostCard = ({ post }: PostCardProps) => {
             )}
 
             {/* 읽기 버튼 */}
-            <div className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm group-hover:gap-3 transition-all duration-200">
+            <div className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm group-hover:gap-3 transition-all duration-200 shrink-0 self-end md:self-auto">
               읽어보기
               <FaChevronRight className="w-4 h-4" aria-hidden />
             </div>

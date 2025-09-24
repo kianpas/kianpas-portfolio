@@ -116,26 +116,24 @@ const Navbar = () => {
       {/* Mobile Menu (Full-Screen Overlay) */}
       <div
         id="mobile-menu"
-        className={`md:hidden fixed inset-0 bg-white dark:bg-gray-900 z-40 transform transition-all duration-300 ease-in-out ${
+        className={`md:hidden fixed inset-0 bg-white dark:bg-gray-900 z-60 overflow-y-auto transition-all duration-300 ease-in-out ${
           isOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-4 pointer-events-none"
         }`}
       >
-        <div className="flex flex-col items-center justify-center h-full">
-          <div className="px-4 pb-4 space-y-6">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className={getLinkClassName(item.href, true)}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </div>
+        <nav className="flex min-h-full flex-col items-center justify-center gap-8 px-6 pb-12 pt-24 text-center">
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setIsOpen(false)}
+              className={getLinkClassName(item.href, true)}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </header>
   );
