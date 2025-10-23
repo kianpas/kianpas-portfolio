@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Post } from "@/types/post";
-import PostCard from "@/app/blog/_components/PostCard";
+import PostCard from "@/app/blog/components/PostCard";
 import { Button } from "@/components/ui";
 
 interface PostListProps {

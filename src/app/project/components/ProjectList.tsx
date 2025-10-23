@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Project } from "@/types/project";
-import ProjectCard from "@/app/project/_components/ProjectCard";
+import ProjectCard from "@/app/project/components/ProjectCard";
 import { Button } from "@/components/ui";
 
 interface ProjectListProps {

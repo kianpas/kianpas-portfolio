@@ -1,5 +1,5 @@
 import { getProjectsByType } from "@/services/projects";
-import ProjectList from "@/app/project/_components/ProjectList";
+import ProjectList from "@/app/project/components/ProjectList";
 
 const ProjectPage = () => {
   const professionalProjects = getProjectsByType("professional", 1, 6);

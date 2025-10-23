@@ -1,7 +1,7 @@
 import { getPaginatedPosts, getSortedPostsData } from "@/services/posts";
 import { notFound } from "next/navigation";
-import PostCard from "@/app/blog/_components/PostCard";
-import PostPagination from "@/app/blog/_components/PostPagination";
+import PostCard from "@/app/blog/components/PostCard";
+import PostPagination from "@/app/blog/components/PostPagination";
 import SearchBar from "@/components/SearchBar";
 import { Card } from "@/components/ui";
 
