@@ -19,15 +19,15 @@ const PostCard = ({ post }: PostCardProps) => {
       <Link href={`/blog/post/${slug}`} className="block">
         <div className="space-y-4">
           {/* 메타데이터 */}
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm">
+            <div className="flex items-center gap-2 min-w-0 flex-1">
               {category && (
                 <Badge variant="info" size="sm">
                   {category}
                 </Badge>
               )}
-              <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
-                <FaCalendar className="w-4 h-4" aria-hidden />
+              <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400 whitespace-nowrap shrink-0">
+                <FaCalendar className="w-4 h-4 max-[375px]:w-3 max-[375px]:h-3" aria-hidden />
                 <time dateTime={date} className="font-medium">
                   {new Date(date).toLocaleDateString("ko-KR", {
                     year: "numeric",
@@ -39,8 +39,8 @@ const PostCard = ({ post }: PostCardProps) => {
             </div>
 
             {/* 읽기 시간 */}
-            <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
-              <FaClock className="w-4 h-4" aria-hidden />
+            <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400 whitespace-nowrap shrink-0">
+              <FaClock className="w-4 h-4 max-[375px]:w-3 max-[375px]:h-3" aria-hidden />
               <span>{formatReadingTime(readingTime)}</span>
             </div>
           </div>

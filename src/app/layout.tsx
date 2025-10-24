@@ -1,8 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport  } from "next";
 import localFont from "next/font/local";
 import Navbar from "@/components/layout/Navbar";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  // 필요 시: maximumScale, minimumScale, userScalable 등
+};
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
