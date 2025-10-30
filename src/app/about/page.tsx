@@ -8,12 +8,7 @@ import { Card, Badge, Button } from "@/components/ui";
 const AboutPage = async () => {
   return (
     <div className="min-h-screen">
-      {/* 배경 장식 */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 hidden sm:block bg-[radial-gradient(60%_60%_at_20%_20%,rgba(59,130,246,0.12)_0%,transparent_60%),radial-gradient(70%_70%_at_80%_80%,rgba(168,85,247,0.10)_0%,transparent_60%)]"
-      ></div>
-
+    
       <div className="px-6 py-20">
         <div className="max-w-6xl mx-auto">
           {/* 헤더 */}
