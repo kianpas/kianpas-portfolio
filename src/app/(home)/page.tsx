@@ -1,7 +1,7 @@
 import { getSortedPostsData } from "@/services/posts";
 import { Post } from "@/types/post";
-import HeroSection from "@/app/components/HeroSection";
-import HomePostTeaser from "@/app/components/HomePostTeaser";
+import HeroSection from "@/app/(home)/_components/HeroSection";
+import HomePostTeaser from "@/app/(home)/_components/HomePostTeaser";
 
 const Home = () => {
   let recentPosts: Post[] = [];
