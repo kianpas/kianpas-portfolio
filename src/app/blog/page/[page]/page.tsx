@@ -1,7 +1,7 @@
 import { getPaginatedPosts, getSortedPostsData } from "@/services/posts";
 import { notFound } from "next/navigation";
-import PostCard from "@/app/blog/components/PostCard";
-import PostPagination from "@/app/blog/components/PostPagination";
+import PostCard from "@/app/blog/_components/PostCard";
+import PostPagination from "@/app/blog/_components/PostPagination";
 import SearchBar from "@/components/SearchBar";
 import { Card } from "@/components/ui";
 
@@ -88,7 +88,7 @@ const BlogPage = async ({ params }: PageProps) => {
 
             {/* 검색바 */}
             <div className="max-w-md mx-auto">
-              <SearchBar placeholder="글 제목, 내용, 태그로 검색..." />
+              <SearchBar placeholder="글 제목으로 검색..." />
             </div>
           </div>
 

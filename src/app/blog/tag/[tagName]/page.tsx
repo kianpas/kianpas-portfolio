@@ -1,5 +1,5 @@
 import { getPostsByTag } from "@/services/posts";
-import PostList from "@/app/blog/components/PostList";
+import PostList from "@/app/blog/_components/PostList";
 import { Badge } from "@/components/ui";
 
 type PageProps = {

@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSortedProjectsData } from "@/services/projects";
 
 export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  // const page = parseInt(searchParams.get("page") || "1", 10);
+  const page = Number(searchParams.get("page") ?? 1);
   try {
-    const { searchParams } = new URL(req.url);
-    const page = parseInt(searchParams.get("page") || "1", 10);
 
     const { projects, totalPages } = getSortedProjectsData(page);
 
@@ -12,8 +13,11 @@ export async function GET(req: NextRequest) {
       projects,
       hasMore: page < totalPages,
     });
-  } catch (e) {
-    console.error("API error", e);
-    return new NextResponse("Server Error", { status: 500 });
+  } catch (error) {
+    console.error("조회 중 오류:", error);
+    return NextResponse.json(
+      { error: "조회 중 오류가 발생했습니다." },
+      { status: 500 }
+    );
   }
 }
