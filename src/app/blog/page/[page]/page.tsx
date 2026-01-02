@@ -41,14 +41,10 @@ const BlogPage = async ({ params }: PageProps) => {
     POSTS_PER_PAGE
   );
 
-  console.log("totalPages, currentPage => ", totalPages, currentPage);
-
   if (posts.length === 0 && pageNumber > 1) {
     // 성공했지만 데이터가 없음
     return (
       <div className="min-h-screen">
-       
-
         <div className="px-6 py-20">
           <div className="max-w-4xl mx-auto">
             {/* 헤더 */}
@@ -74,7 +70,7 @@ const BlogPage = async ({ params }: PageProps) => {
 
   return (
     <div className="min-h-screen">
-    
+
       <div className="px-6 py-20">
         <div className="max-w-4xl mx-auto">
           {/* 헤더 */}
@@ -88,7 +84,7 @@ const BlogPage = async ({ params }: PageProps) => {
 
             {/* 검색바 */}
             <div className="max-w-md mx-auto">
-              <SearchBar placeholder="글 제목으로 검색..." />
+              <SearchBar placeholder="글 제목, 내용, 태그로 검색..." />
             </div>
           </div>
 
