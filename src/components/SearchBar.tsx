@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Post } from "@/types/post";
 import { FaMagnifyingGlass } from "react-icons/fa6";
@@ -20,6 +20,7 @@ const SearchBar = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const router = useRouter();
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   // 검색 실행
   useEffect(() => {
@@ -64,6 +65,31 @@ const SearchBar = ({
     return () => clearTimeout(timer);
   }, [query]);
 
+  useEffect(() => {                                                                                                                            
+    if (!isOpen) return;                                                                                                                       
+                                                                                                                                               
+    const handlePointerDown = (event: PointerEvent) => {                                                                                       
+      if (!containerRef.current) return;                                                                                                       
+      if (!containerRef.current.contains(event.target as Node)) {                                                                              
+        setIsOpen(false);                                                                                                                      
+      }                                                                                                                                        
+    };                                                                                                                                         
+                                                                                                                                               
+    const handleKeyDown = (event: KeyboardEvent) => {                                                                                          
+      if (event.key === "Escape") {                                                                                                            
+        setIsOpen(false);                                                                                                                      
+      }                                                                                                                                        
+    };     
+                                                                                                                                             
+    document.addEventListener("pointerdown", handlePointerDown);                                                                               
+    document.addEventListener("keydown", handleKeyDown);                                                                                       
+                                                                                                                                               
+    return () => {                                                                                                                             
+      document.removeEventListener("pointerdown", handlePointerDown);                                                                          
+      document.removeEventListener("keydown", handleKeyDown);                                                                                  
+    };                                                                                                                                         
+  }, [isOpen]);  
+
   // 결과 클릭 시 이동
   const goToPost = (slug: string) => {
     setIsOpen(false);
@@ -72,7 +98,7 @@ const SearchBar = ({
   };
 
   return (
-    <div className={`relative ${className}`}>
+    <div ref={containerRef} className={`relative ${className}`}>
       {/* 검색 입력창 */}
       <div className="relative">
         <input
