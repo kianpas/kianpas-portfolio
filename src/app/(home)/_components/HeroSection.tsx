@@ -1,6 +1,7 @@
 import { Button, Badge } from "@/components/ui";
 import Link from "next/link";
 import { FaChevronRight, FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { featuredSkills } from "@/data/metadata";
 
 const HeroSection = () => {
   return (
@@ -51,13 +52,11 @@ const HeroSection = () => {
               주로 사용하는 기술
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              {["Java", "React", "Next.js", "TypeScript", "TailwindCSS"].map(
-                (tech) => (
-                  <Badge key={tech} variant="default" size="md">
-                    {tech}
-                  </Badge>
-                )
-              )}
+              {featuredSkills.map((tech) => (
+                <Badge key={tech} variant="default" size="md">
+                  {tech}
+                </Badge>
+              ))}
             </div>
           </div>
         </div>

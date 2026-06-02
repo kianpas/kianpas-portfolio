@@ -12,6 +12,9 @@ export const skillsData = {
   tools: ['Git', 'Docker', 'AWS', 'IntelliJ IDEA']
 };
 
+// 홈 Hero에서 강조하는 대표 기술 (skillsData에서 추린 단일 출처)
+export const featuredSkills = ['Java', 'React', 'Next.js', 'TypeScript', 'Tailwind CSS'];
+
 export const experienceData = [
   {
     company: 'IT 솔루션 회사 B',

@@ -1,10 +1,10 @@
 ---
 title: 'Gemini CLI 활용 경험'
 date: '2025-07-04'
-author: 'kianpas'
+author: "이운산"
 summary: '이 포스트에서는 Gemini CLI를 사용하여 개발 환경 적용 경험을 공유.'
 tags: ['Gemini CLI', 'AI', '개발도구', '생산성', 'Next.js']
-category: "tool"
+category: "tools"
 ---
 
 ## Gemini CLI, 개발 과정에 활용

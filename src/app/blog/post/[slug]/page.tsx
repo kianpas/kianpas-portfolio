@@ -73,10 +73,10 @@ const SinglePostPage = async ({ params }: PageProps) => {
                 className="w-8 h-8 bg-gradient-to-r from-primary-500 to-secondary-500 
                             rounded-full flex items-center justify-center text-white text-sm font-bold"
               >
-                {(postData.author || "K")[0].toUpperCase()}
+                {(postData.author || "이운산")[0].toUpperCase()}
               </div>
               <span className="font-medium">
-                {postData.author || "Kianpas"}
+                {postData.author || "이운산"}
               </span>
             </div>
 

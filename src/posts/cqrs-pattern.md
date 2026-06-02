@@ -1,7 +1,7 @@
 ---
 title: "CQRS 패턴을 실무에 적용하면서 배운 것들"
 date: "2025-07-22"
-author: "kianpas"
+author: "이운산"
 summary: "복잡한 주문 시스템을 개발하면서 CQRS 패턴을 도입했던 경험과 그 과정에서 배운 것들을 공유합니다."
 tags: ["CQRS", "Spring", "Java", "Architecture"]
 category: "backend"

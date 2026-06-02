@@ -1,7 +1,7 @@
 ---
 title: "Kiro AI IDE 사용 후기: Vibe와 Spec 기능"
 date: "2025-07-17"
-author: "kianpas"
+author: "이운산"
 summary: "Kiro AI IDE의 Vibe와 Spec 기능을 실제 프로젝트에 적용해본 경험과 느낀 점을 정리."
 tags: ["Kiro", "AI", "개발도구", "생산성"]
 category: "tools"

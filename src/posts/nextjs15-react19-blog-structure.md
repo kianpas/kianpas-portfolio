@@ -1,7 +1,7 @@
 ---
 title: "Next.js 15 & React 19 기반 블로그 구조 및 기술 스택 정리"
 date: "2025-08-05"
-author: "kianpas"
+author: "이운산"
 summary: "Next.js App Router 기반으로 블로그를 설계한 이유와 구조"
 tags: ["Next.js", "React", "Blog", "MDX", "TailwindCSS", "Vercel"]
 category: "frontend"

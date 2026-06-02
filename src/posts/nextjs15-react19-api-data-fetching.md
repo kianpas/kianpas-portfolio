@@ -1,8 +1,8 @@
 ---
 title: "Next.js 15 & React 19 API 구조 및 데이터 페칭 전략 가이드"
 date: "2025-08-28"
-author: "kianpas"
-summary: "Next.js 15 & React 19 API 구조 및 데이터 페칭 전략 가이드"
+author: "이운산"
+summary: "Next.js App Router에서 API 클라이언트를 어떻게 구조화하고, 서버·클라이언트 컴포넌트별로 데이터 페칭 전략을 나눴는지 정리한 가이드입니다."
 tags: ["Next.js", "React"]
 category: "frontend"
 ---

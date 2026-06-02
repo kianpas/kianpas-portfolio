@@ -1,8 +1,8 @@
 ---
 title: "Spring Security + Next.js 세션 기반 인증 구현 이슈 해결 과정"
 date: "2025-08-09"
-author: "kianpas"
-summary: "Spring Security + Next.js 세션 기반 인증 구현 이슈 해결 과정을 정리했습니다."
+author: "이운산"
+summary: "Spring Security와 Next.js를 세션 쿠키로 연동할 때 인증 객체가 null로 반환되던 문제를, CORS·쿠키 설정과 인증 흐름을 짚어가며 해결한 과정입니다."
 tags: ["Next.js", "Spring", "Java", "Login"]
 category: "backend"
 ---

@@ -1,7 +1,7 @@
 ---
 title: '실무에서 자주 마주치는 Spring과 MyBatis 트러블슈팅'
 date: '2025-07-16'
-author: 'kianpas'
+author: "이운산"
 summary: 'MyBatis의 foreach 처리, AES 암호화 쿼리, 다중 리스트 파라미터 처리 등 실무에서 자주 겪은 문제와 해결 방법을 정리했습니다.'
 tags: ['Spring', 'MyBatis', 'SQL', 'AES', 'foreach']
 category: 'backend'

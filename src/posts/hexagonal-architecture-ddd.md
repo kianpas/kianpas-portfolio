@@ -1,7 +1,7 @@
 ---
 title: "헥사고날 아키텍처: 도메인 중심 설계로 유연한 시스템 구축하기"
 date: "2025-07-20"
-author: "kianpas"
+author: "이운산"
 summary: "헥사고날 아키텍처의 핵심 개념과 장단점, 그리고 실제 프로젝트에 적용 시 고려해야 할 점들을 정리했습니다."
 tags: ["Architecture", "Hexagonal", "DDD", "Clean Architecture", "Spring"]
 category: "backend"
