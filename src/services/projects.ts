@@ -2,8 +2,7 @@ import { Project } from "@/types/project";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { remark } from "remark";
-import html from "remark-html";
+import { renderMarkdown } from "@/utils/markdown";
 
 const projectsDirectory = path.join(process.cwd(), "src", "projects");
 
@@ -67,10 +66,7 @@ export const getProjectData = async (slug: string) => {
 
   const matterResult = matter(fileContents);
 
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
+  const contentHtml = await renderMarkdown(matterResult.content);
 
   const projectData: Project & { contentHtml: string } = {
     slug,

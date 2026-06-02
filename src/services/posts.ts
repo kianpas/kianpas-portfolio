@@ -3,13 +3,8 @@ import { cache } from "react";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { remark } from "remark";
-import remarkRehype from "remark-rehype";
-import rehypeSlug from "rehype-slug";
-import remarkGfm from "remark-gfm";
-
-import rehypeStringify from "rehype-stringify";
 import { calculateReadingTime } from "@/utils/readingTime";
+import { renderMarkdown } from "@/utils/markdown";
 
 // const POSTS_PER_PAGE = 10; // 페이지당 포스트 수를 상수로 정의 (기존에 없다면 추가)
 
@@ -193,14 +188,8 @@ export const getPostData = async (slug: string) => {
   // Frontmatter 파싱
   const matterResult = matter(fileContents);
 
-  // remark를 사용하여 Markdown을 HTML 문자열로 변환
-  const processedContent = await remark()
-    .use(remarkGfm)
-    .use(remarkRehype, { allowDangerousHtml: true }) // markdown을 HTML AST로 변환
-    .use(rehypeSlug) // 헤딩에 자동으로 ID 추가 (스크롤 위치 참조용)
-    .use(rehypeStringify, { allowDangerousHtml: true }) // HTML 문자열로 변환
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
+  // 공통 파이프라인으로 Markdown을 HTML 문자열로 변환
+  const contentHtml = await renderMarkdown(matterResult.content);
 
   // 읽는 시간 계산 (통일된 방식 사용)
   const readingTime = calculateReadingTime(matterResult.content);
