@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import { FaBars, FaXmark } from "react-icons/fa6";
+import { useMounted } from "@/hooks/useMounted";
 
 // 테마 토글을 동적 로딩으로 최적화
 const ThemeToggle = dynamic(() => import("./ThemeToggle"), {
@@ -23,12 +24,8 @@ const Navbar = () => {
   ];
 
   const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const pathname = usePathname();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (isOpen) {

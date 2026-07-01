@@ -1,17 +1,12 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { FiSun, FiMoon, FiMonitor } from "react-icons/fi";
+import { useMounted } from "@/hooks/useMounted";
 
 const ThemeToggle = () => {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const { theme, setTheme } = useTheme();
-
-  // 하이드레이션 이후에만 렌더링 (Next.js 15 권장 패턴)
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   if (!mounted) {
     return (

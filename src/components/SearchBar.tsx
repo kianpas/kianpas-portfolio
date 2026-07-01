@@ -24,11 +24,7 @@ const SearchBar = ({
 
   // 검색 실행
   useEffect(() => {
-    if (query.length < 2) {
-      setResults([]);
-      setIsOpen(false);
-      return;
-    }
+    if (query.length < 2) return;
 
     const search = async () => {
       setLoading(true);
@@ -104,7 +100,15 @@ const SearchBar = ({
         <input
           type="text"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            setQuery(value);
+            // 검색어가 짧아지면 결과를 즉시 닫고 비운다
+            if (value.length < 2) {
+              setResults([]);
+              setIsOpen(false);
+            }
+          }}
           placeholder={placeholder}
           className="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500
                      bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100
