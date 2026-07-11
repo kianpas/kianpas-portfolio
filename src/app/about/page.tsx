@@ -1,281 +1,147 @@
-import { FaEnvelope, FaGithub, FaBriefcase } from "react-icons/fa6";
-import { FaCheckCircle } from "react-icons/fa";
+import Link from "next/link";
+import { FaGithub } from "react-icons/fa6";
 
 import { siteMetadata, skillsData, experienceData } from "@/data/metadata";
-import Link from "next/link";
-import { Card, Badge } from "@/components/ui";
 
-const AboutPage = async () => {
+const skillGroups = [
+  { label: "Backend", items: skillsData.backend },
+  { label: "Frontend", items: skillsData.frontend },
+  { label: "Tools", items: skillsData.tools },
+];
+
+const AboutPage = () => {
   return (
     <div className="min-h-screen">
-    
-      <div className="px-6 py-20">
-        <div className="max-w-6xl mx-auto">
-          {/* 헤더 */}
-          <div className="mb-16 border-b border-gray-200 pb-6 dark:border-gray-700">
-            <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400">Profile</p>
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-950 dark:text-white mb-3">
-              About Me
-            </h1>
-            <p className="text-base text-gray-600 dark:text-gray-300 max-w-2xl">
-              백엔드에서 풀스택으로 성장하는 개발자의 이야기
-            </p>
+      <div className="mx-auto max-w-5xl px-2 py-14 sm:px-6 sm:py-20">
+        {/* 헤더 */}
+        <header className="border-b border-gray-200 pb-8 dark:border-gray-700 sm:pb-10">
+          <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400">
+            Profile
+          </p>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-4xl">
+            About
+          </h1>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-gray-600 dark:text-gray-300 sm:text-lg">
+            Java와 Spring 기반 서비스를 만들고 운영해온 5년차 {siteMetadata.occupation}{" "}
+            {siteMetadata.author}입니다.
+          </p>
+          <div className="mt-6">
+            <Link
+              href={siteMetadata.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 font-mono text-xs text-gray-500 transition-colors hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400"
+            >
+              <FaGithub className="h-4 w-4" aria-hidden />
+              github.com/kianpas
+            </Link>
           </div>
+        </header>
 
-          <div className="space-y-12">
-            {/* 프로필 카드 */}
-            <Card variant="elevated">
-              <div className="flex flex-col items-center text-center space-y-6">
-                {/* 프로필 이미지 */}
-                <div className="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                  {siteMetadata.author[0]}
-                </div>
-
-                {/* 기본 정보 */}
-                <div className="space-y-2">
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {siteMetadata.author}
-                  </h2>
-                  <span className="inline-flex rounded-full bg-orange-100 px-3 py-1.5 text-sm font-medium text-orange-700 dark:bg-orange-950/40 dark:text-orange-300">{siteMetadata.occupation}</span>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm">
-                    @ {siteMetadata.company}
-                  </p>
-                </div>
-
-                {/* 연락처 아이콘 */}
-                <div className="flex items-center gap-4 pt-2">
-                  <Link
-                    href={`mailto:${siteMetadata.email}`}
-                    className="w-10 h-10 bg-gray-100 dark:bg-gray-800 hover:bg-orange-100 dark:hover:bg-orange-950/30 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-200"
-                    title="이메일 보내기"
-                  >
-                    <FaEnvelope size={16} />
-                  </Link>
-
-                  <Link
-                    href={siteMetadata.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
-                    title="GitHub 프로필"
-                  >
-                    <FaGithub size={16} />
-                  </Link>
-                </div>
-              </div>
-            </Card>
-            {/* 소개 */}
-            <Card variant="elevated">
-              <div className="space-y-4">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                  안녕하세요! 👋
-                </h3>
-
-                <div className="prose prose-gray dark:prose-invert max-w-none">
-                  <p>
-                    견고하고 확장성 있는 시스템을 만드는 것을 좋아하는 백엔드
-                    개발자 {siteMetadata.author}입니다.
-                  </p>
-
-                  <p>
-                    주로 Java와 Spring Framework를 사용하여 서버 개발에
-                    집중해왔습니다. 효율적인 데이터 모델 설계와 깔끔한 비즈니스
-                    로직 구현을 통해 안정적인 서비스를 만드는 것에 관심이
-                    많습니다.
-                  </p>
-
-                  <p>
-                    최근에는 사용자와 직접 상호작용하는 프론트엔드 영역에 큰
-                    매력을 느끼고 있습니다. React와 Next.js를 통해 서버와
-                    클라이언트가 어떻게 유기적으로 소통하며 사용자 경험을
-                    극대화하는지 탐구하고 있습니다.
-                  </p>
-
-                  <p>
-                    이 블로그는 백엔드 기술 경험과 풀스택 개발자로 성장하기 위한
-                    프론트엔드 학습 과정을 기록하는 공간입니다.
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            {/* 경력 */}
-            <Card variant="elevated">
-              <div className="space-y-6">
-                <div className="flex items-center gap-2">
-                  <FaBriefcase className="text-orange-500" size={20} />
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                    경력(테스트용 임시)
-                  </h3>
-                </div>
-
-                <div className="space-y-6">
-                  {experienceData.map((exp, index) => (
-                    <div key={index} className="relative">
-                      {/* 타임라인 라인 (마지막 항목 제외) */}
-                      {index < experienceData.length - 1 && (
-                        <div className="absolute left-6 top-12 w-0.5 h-full bg-gray-200 dark:bg-gray-700"></div>
-                      )}
-
-                      <div className="flex gap-4">
-                        {/* 타임라인 점 */}
-                        <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-orange-950/30 rounded-full flex items-center justify-center mt-1">
-                          <FaBriefcase
-                            className="text-orange-600 dark:text-orange-400"
-                            size={16}
-                          />
-                        </div>
-
-                        {/* 경력 내용 */}
-                        <div className="flex-1 space-y-3">
-                          <div>
-                            <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                              {exp.position}
-                            </h4>
-                            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                              <span className="font-medium">{exp.company}</span>
-                              <span>•</span>
-                              <span className="text-sm">{exp.period}</span>
-                            </div>
-                          </div>
-
-                          <p className="text-gray-600 dark:text-gray-300">
-                            {exp.description}
-                          </p>
-
-                          {/* 주요 성과 */}
-                          <div className="space-y-2">
-                            <h5 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                              주요 성과
-                            </h5>
-                            <ul className="space-y-1">
-                              {exp.achievements.map((achievement, achIndex) => (
-                                <li
-                                  key={achIndex}
-                                  className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400"
-                                >
-                                  <FaCheckCircle
-                                    className="text-green-500 mt-0.5 flex-shrink-0"
-                                    size={12}
-                                  />
-                                  <span>{achievement}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          {/* 사용 기술 */}
-                          <div className="flex flex-wrap gap-1">
-                            {exp.technologies.map((tech) => (
-                              <Badge key={tech} variant="default" size="sm">
-                                {tech}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Card>
-
-            {/* 기술 스택과 GitHub을 나란히 배치 */}
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* 기술 스택 */}
-              <Card variant="elevated">
-                <div className="space-y-6">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                    기술 스택
-                  </h3>
-
-                  <div className="space-y-6">
-                    <div>
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="font-mono text-xs font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">Backend</span>
-                        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          주력 기술
-                        </h4>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {skillsData.backend.map((tech) => (
-                          <Badge key={tech} variant="default" size="sm">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="font-mono text-xs font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">Frontend</span>
-                        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          학습 중
-                        </h4>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {skillsData.frontend.map((tech) => (
-                          <Badge key={tech} variant="default" size="sm">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="font-mono text-xs font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">Tools</span>
-                        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          도구 및 기타
-                        </h4>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {skillsData.tools.map((tech) => (
-                          <Badge key={tech} variant="default" size="sm">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-
-              {/* GitHub 섹션 */}
-              <Card variant="elevated" className="flex flex-col justify-center">
-                <div className="text-center space-y-6">
-                  <div>
-                    <FaGithub
-                      className="mx-auto text-gray-400 dark:text-gray-600 mb-4"
-                      size={48}
-                    />
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                      GitHub
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400">
-                      프로젝트와 코드를 확인해보세요
-                    </p>
-                  </div>
-                    <Link
-                      href={siteMetadata.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-orange-600"
-                    >
-                      <FaGithub size={16} />
-                      방문하기
-                    </Link>
-                </div>
-              </Card>
-            </div>
-
-            {/* 마무리 메시지 */}
-            <div className="text-center">
-              <p className="text-gray-600 dark:text-gray-400">
-                이곳에 기록된 경험이 다른 개발자들에게 도움이 되기를 바랍니다.
+        <div className="divide-y divide-gray-200 dark:divide-gray-700">
+          {/* 소개 */}
+          <section
+            aria-labelledby="about-intro"
+            className="grid gap-6 py-10 md:grid-cols-[11rem_1fr] md:gap-12 sm:py-14"
+          >
+            <h2
+              id="about-intro"
+              className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400"
+            >
+              Intro
+            </h2>
+            <div className="max-w-2xl space-y-5 text-base leading-7 text-gray-700 dark:text-gray-300">
+              <p>
+                서비스의 바탕을 다지는 일을 주로 해왔습니다. 데이터 모델 설계,
+                배치 처리, 레거시 개선처럼 겉으로 드러나지 않지만 안정적인
+                운영을 좌우하는 작업에 관심이 많습니다.
+              </p>
+              <p>
+                필요하면 화면까지 직접 만듭니다. 이 블로그도 Next.js와 React로
+                직접 설계하고 운영하면서, 서버와 클라이언트의 경계에서 생기는
+                문제들을 다루고 있습니다.
+              </p>
+              <p>
+                이 블로그는 실무에서 만난 문제와 해결 과정을 기록하는
+                공간입니다. 기록이 다른 개발자에게도 참고가 되기를 바랍니다.
               </p>
             </div>
-          </div>
+          </section>
+
+          {/* 경력 */}
+          <section
+            aria-labelledby="about-experience"
+            className="grid gap-6 py-10 md:grid-cols-[11rem_1fr] md:gap-12 sm:py-14"
+          >
+            <h2
+              id="about-experience"
+              className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400"
+            >
+              Experience
+            </h2>
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              {experienceData.map((exp) => (
+                <article key={`${exp.company}-${exp.period}`} className="py-6 first:pt-0 last:pb-0">
+                  <p className="font-mono text-xs text-gray-500 dark:text-gray-400">
+                    {exp.period}
+                  </p>
+                  <h3 className="mt-2 text-lg font-bold leading-snug text-gray-900 dark:text-white">
+                    {exp.position}
+                    <span className="font-medium text-gray-500 dark:text-gray-400">
+                      {" "}
+                      · {exp.company}
+                    </span>
+                  </h3>
+                  <p className="mt-3 max-w-2xl leading-7 text-gray-600 dark:text-gray-300">
+                    {exp.description}
+                  </p>
+                  <ul className="mt-4 max-w-2xl space-y-2 text-sm leading-6 text-gray-600 dark:text-gray-400">
+                    {exp.achievements.map((achievement) => (
+                      <li key={achievement} className="flex gap-3">
+                        <span aria-hidden className="text-gray-300 dark:text-gray-600">
+                          —
+                        </span>
+                        <span>{achievement}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs text-gray-500 dark:text-gray-400">
+                    {exp.technologies.map((tech) => (
+                      <span key={tech}>#{tech}</span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 기술 스택 */}
+          <section
+            aria-labelledby="about-stack"
+            className="grid gap-6 py-10 md:grid-cols-[11rem_1fr] md:gap-12 sm:py-14"
+          >
+            <h2
+              id="about-stack"
+              className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400"
+            >
+              Stack
+            </h2>
+            <dl className="max-w-2xl space-y-4">
+              {skillGroups.map((group) => (
+                <div
+                  key={group.label}
+                  className="grid gap-1 sm:grid-cols-[7rem_1fr] sm:gap-6"
+                >
+                  <dt className="font-mono text-xs font-semibold uppercase tracking-widest leading-6 text-gray-500 dark:text-gray-400">
+                    {group.label}
+                  </dt>
+                  <dd className="leading-6 text-gray-700 dark:text-gray-300">
+                    {group.items.join(", ")}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
         </div>
       </div>
     </div>

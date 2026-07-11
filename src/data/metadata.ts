@@ -1,8 +1,6 @@
 export const siteMetadata = {
   author: '이운산',
-  occupation: '개발자',
-  company: '어딘가 멋진 회사',
-  email: 'your-email@example.com',
+  occupation: '백엔드 개발자',
   github: 'https://github.com/kianpas',
 };
 
@@ -15,17 +13,18 @@ export const skillsData = {
 // 홈 Hero에서 강조하는 대표 기술 (skillsData에서 추린 단일 출처)
 export const featuredSkills = ['Java', 'React', 'Next.js', 'TypeScript', 'Tailwind CSS'];
 
+// TODO: 실제 경력으로 교체 (회사명·기간·성과는 자리표시용 틀)
 export const experienceData = [
   {
-    company: 'IT 솔루션 회사 B',
-    position: '개발자',
-    period: '2021.12 - 2026.12',
-    description: '웹 애플리케이션 개발 및 유지보수',
+    company: '회사명',
+    position: '백엔드 개발자',
+    period: '2021.12 - 현재',
+    description: 'Java/Spring 기반 웹 서비스 개발 및 운영',
     achievements: [
-      'JSP 기반 웹 애플리케이션 개발',
-      'MyBatis를 활용한 데이터베이스 연동',
-      '레거시 시스템 리팩토링 참여',
+      '핵심 도메인 서버 개발과 운영 담당',
+      '레거시 시스템 개선 및 리팩토링',
+      '배치·연동 시스템 설계와 구현',
     ],
-    technologies: ['Java', 'JSP', 'MyBatis', 'Oracle', 'JavaScript']
-  }
+    technologies: ['Java', 'Spring Boot', 'MyBatis', 'Oracle', 'JavaScript'],
+  },
 ];
