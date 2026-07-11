@@ -1,9 +1,7 @@
 import { getPaginatedPosts, getSortedPostsData } from "@/services/posts";
 import { notFound } from "next/navigation";
-import PostCard from "@/app/blog/_components/PostCard";
 import PostPagination from "@/app/blog/_components/PostPagination";
-import SearchBar from "@/components/SearchBar";
-import { Card } from "@/components/ui";
+import HomePostTeaser from "@/app/(home)/_components/HomePostTeaser";
 
 // 페이지당 보여줄 포스트 수
 const POSTS_PER_PAGE = 10;
@@ -46,22 +44,8 @@ const BlogPage = async ({ params }: PageProps) => {
     return (
       <div className="min-h-screen">
         <div className="px-6 py-20">
-          <div className="max-w-4xl mx-auto">
-            {/* 헤더 */}
-            <div className="text-center mb-16">
-              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                Posts
-              </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                개발과 기술에 대한 생각들을 정리하고 공유합니다
-              </p>
-            </div>
-
-            <Card variant="elevated" className="text-center py-16">
-              <p className="text-gray-500 dark:text-gray-400">
-                표시할 게시물이 없습니다.
-              </p>
-            </Card>
+          <div className="max-w-5xl mx-auto py-20 text-center text-gray-500 dark:text-gray-400">
+            표시할 게시물이 없습니다.
           </div>
         </div>
       </div>
@@ -71,37 +55,18 @@ const BlogPage = async ({ params }: PageProps) => {
   return (
     <div className="min-h-screen">
 
-      <div className="px-6 py-20">
-        <div className="max-w-4xl mx-auto">
-          {/* 헤더 */}
-          <div className="text-center mb-16">
-            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              Posts
-            </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-              개발과 기술에 대한 생각들을 정리하고 공유합니다
-            </p>
+      <div>
+        <HomePostTeaser
+          post={posts}
+          showSearch
+          emphasizeLatest={pageNumber === 1}
+        />
 
-            {/* 검색바 */}
-            <div className="max-w-md mx-auto">
-              <SearchBar placeholder="글 제목, 내용, 태그로 검색..." />
-            </div>
-          </div>
-
-          {/* 포스트 목록 */}
-          <div className="space-y-6 mb-16">
-            {posts.map((post) => (
-              <PostCard key={post.slug} post={post} />
-            ))}
-          </div>
-
-          {/* 페이지네이션 */}
-          {totalPages && (
-            <div className="flex justify-center">
+        {totalPages > 1 && (
+          <div className="mx-auto flex max-w-5xl justify-center px-6 pb-20">
               <PostPagination currentPage={currentPage} totalPages={totalPages} />
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

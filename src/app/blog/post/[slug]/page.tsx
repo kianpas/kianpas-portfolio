@@ -4,10 +4,7 @@ import Link from "next/link";
 import ReadingProgress from "@/components/ReadingProgress";
 import ImageOptimizer from "@/components/ImageOptimizer";
 import { formatReadingTime } from "@/utils/readingTime";
-import { Badge, Button } from "@/components/ui";
 import {
-  FaCalendar,
-  FaClock,
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa6";
@@ -31,99 +28,43 @@ const SinglePostPage = async ({ params }: PageProps) => {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
         <ReadingProgress />
         <ImageOptimizer />
 
-        {/* 헤더: 제목과 메타정보 - 전체 너비 */}
-        <header className="mb-8 md:mb-10 text-center max-w-4xl mx-auto">
-          {/* 카테고리 배지 */}
-          {postData.category && (
-            <div className="mb-6">
-              <Link href={`/blog/category/${postData.category}`}>
-                <Badge
-                  variant="info"
-                  size="md"
-                  className="hover:scale-105 transition-transform duration-200"
-                >
-                  {postData.category}
-                </Badge>
+        <header className="mx-auto mb-12 max-w-4xl border-b border-gray-200 pb-10 dark:border-gray-700 sm:mb-16 sm:pb-14">
+          <div className="mb-7 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400">
+            {postData.category && (
+              <Link
+                href={`/blog/category/${postData.category}`}
+                className="font-semibold text-orange-600 transition-colors hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300"
+              >
+                {postData.category}
               </Link>
-            </div>
-          )}
+            )}
+            <span aria-hidden>·</span>
+            <time dateTime={postData.date}>{postData.date}</time>
+            <span aria-hidden>·</span>
+            <span>{formatReadingTime(postData.readingTime)}</span>
+          </div>
 
-          {/* 제목 */}
-          <h1
-            className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tighter 
-                       text-gray-900 dark:text-gray-100 mb-6 
-                       bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 
-                       dark:from-gray-100 dark:via-gray-200 dark:to-gray-100 
-                       bg-clip-text text-transparent"
-          >
+          <h1 className="max-w-4xl text-3xl font-extrabold leading-[1.18] tracking-tight text-gray-950 dark:text-white sm:text-5xl lg:text-6xl">
             {postData.title}
           </h1>
 
-          {/* 메타 정보 */}
-          <div
-            className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-6 
-                        text-gray-600 dark:text-gray-400"
-          >
-            <div className="flex items-center gap-2">
-              <div
-                className="w-8 h-8 bg-gradient-to-r from-primary-500 to-secondary-500 
-                            rounded-full flex items-center justify-center text-white text-sm font-bold"
-              >
-                {(postData.author || "이운산")[0].toUpperCase()}
-              </div>
-              <span className="font-medium">
-                {postData.author || "이운산"}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <FaCalendar className="w-4 h-4 text-primary-500" aria-hidden />
-              <time dateTime={postData.date} className="font-medium">
-                {postData.date}
-              </time>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <FaClock className="w-4 h-4 text-primary-500" aria-hidden />
-              <span className="font-medium">
-                {formatReadingTime(postData.readingTime)}
-              </span>
-            </div>
-          </div>
-
-          {/* 태그 */}
           {postData.tags && postData.tags.length > 0 && (
-            <div className="flex flex-wrap justify-center gap-2">
-              {postData.tags.map((tag, index) => (
-                <Link key={tag} href={`/blog/tag/${tag}`}>
-                  <Badge key={index} variant="default" size="sm">
-                    #{tag}
-                  </Badge>
+            <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs text-gray-500 dark:text-gray-400">
+              {postData.tags.map((tag) => (
+                <Link key={tag} href={`/blog/tag/${tag}`} className="transition-colors hover:text-orange-600 dark:hover:text-orange-400">
+                  #{tag}
                 </Link>
               ))}
             </div>
           )}
         </header>
 
-        {/* 메인 콘텐츠 - 중앙 배치 */}
         <article className="max-w-4xl mx-auto fade-in">
-          {/* 본문 */}
           <div className="relative">
-            {/* 읽기 진행률 표시 */}
-            <div className="sticky top-4 z-10 mb-8">
-              <div className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full transition-all duration-300"
-                  style={{ width: "0%" }}
-                  id="reading-progress"
-                ></div>
-              </div>
-            </div>
-
             <div
               className="prose prose-lg md:prose-base prose-neutral dark:prose-invert max-w-none leading-7
                         prose-headings:font-bold prose-headings:tracking-tight 
@@ -131,51 +72,36 @@ const SinglePostPage = async ({ params }: PageProps) => {
                         prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-4
                         prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3
                         prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed
-                        prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:font-medium 
-                        prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-2
-                        prose-code:text-primary-700 dark:prose-code:text-primary-300 
-                        prose-code:bg-primary-50 dark:prose-code:bg-primary-900/30 
+                        prose-a:text-orange-600 dark:prose-a:text-orange-400 prose-a:font-medium
+                        prose-a:underline prose-a:decoration-orange-300 prose-a:underline-offset-4 hover:prose-a:decoration-orange-600
+                        prose-code:text-orange-700 dark:prose-code:text-orange-300
+                        prose-code:bg-orange-50 dark:prose-code:bg-orange-950/30
                         prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-normal
                         prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950 
                         prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-gray-700 prose-pre:rounded-xl
                         prose-img:rounded-xl prose-img:shadow-lg dark:prose-img:shadow-dark-lg
-                        prose-blockquote:border-l-4 prose-blockquote:border-primary-500 
-                        prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:bg-primary-50/50 
-                        dark:prose-blockquote:bg-primary-900/20 prose-blockquote:py-2 prose-blockquote:rounded-r-lg
+                        prose-blockquote:border-l-4 prose-blockquote:border-orange-500
+                        prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:bg-orange-50/60
+                        dark:prose-blockquote:bg-orange-950/20 prose-blockquote:py-2 prose-blockquote:rounded-r-lg
                         prose-strong:font-bold prose-strong:text-gray-900 dark:prose-strong:text-gray-100
                         prose-ul:space-y-2 prose-ol:space-y-2"
               dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
             />
           </div>
 
-          {/* 이전/다음 글 네비게이션 */}
-          <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <footer className="mt-16 border-t border-gray-200 pt-8 dark:border-gray-700">
+            <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-700 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
               {prevPost ? (
                 <Link
                   href={`/blog/post/${prevPost.slug}`}
-                  className="group flex items-center gap-4 p-6 rounded-xl border border-gray-200 dark:border-gray-700 
-                         hover:border-primary-300 dark:hover:border-primary-600 
-                         hover:bg-primary-50 dark:hover:bg-primary-900/20 
-                         transition-all duration-300 hover:shadow-md dark:hover:shadow-dark-md"
+                  className="group flex items-start gap-4 py-6 sm:pr-8"
                 >
-                  <div className="flex-shrink-0">
-                    <div
-                      className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 
-                                flex items-center justify-center group-hover:bg-primary-200 
-                                dark:group-hover:bg-primary-800 transition-colors"
-                    >
-                      <FaChevronLeft
-                        className="w-5 h-5 text-primary-600 dark:text-primary-400 transform group-hover:-translate-x-1 transition-transform"
-                        aria-hidden
-                      />
-                    </div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold tracking-wide mb-1">
+                  <FaChevronLeft className="mt-1 h-4 w-4 shrink-0 text-gray-400 transition-all group-hover:-translate-x-1 group-hover:text-orange-500" aria-hidden />
+                  <div className="min-w-0 flex-1">
+                    <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
                       Previous Post
                     </div>
-                    <div className="text-gray-900 dark:text-gray-100 font-semibold truncate">
+                    <div className="font-semibold leading-snug text-gray-900 transition-colors group-hover:text-orange-600 dark:text-gray-100 dark:group-hover:text-orange-400">
                       {prevPost.title}
                     </div>
                   </div>
@@ -187,46 +113,27 @@ const SinglePostPage = async ({ params }: PageProps) => {
               {nextPost ? (
                 <Link
                   href={`/blog/post/${nextPost.slug}`}
-                  className="group flex items-center gap-4 p-5 rounded-xl border border-gray-200 dark:border-gray-700 
-                         hover:border-primary-300 dark:hover:border-primary-600 
-                         hover:bg-primary-50 dark:hover:bg-primary-900/20 
-                         transition-all duration-300 hover:shadow-md dark:hover:shadow-dark-md text-right"
+                  className="group flex items-start gap-4 py-6 text-right sm:pl-8"
                 >
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold tracking-wide mb-1">
+                    <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
                       Next Post
                     </div>
-                    <div className="text-gray-900 dark:text-gray-100 font-semibold truncate">
+                    <div className="font-semibold leading-snug text-gray-900 transition-colors group-hover:text-orange-600 dark:text-gray-100 dark:group-hover:text-orange-400">
                       {nextPost.title}
                     </div>
                   </div>
-                  <div className="flex-shrink-0">
-                    <div
-                      className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 
-                                flex items-center justify-center group-hover:bg-primary-200 
-                                dark:group-hover:bg-primary-800 transition-colors"
-                    >
-                      <FaChevronRight
-                        className="w-5 h-5 text-primary-600 dark:text-primary-400 transform group-hover:translate-x-1 transition-transform"
-                        aria-hidden
-                      />
-                    </div>
-                  </div>
+                  <FaChevronRight className="mt-1 h-4 w-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-1 group-hover:text-orange-500" aria-hidden />
                 </Link>
               ) : (
                 <div />
               )}
             </div>
 
-            {/* 블로그로 돌아가기 버튼 */}
-            <div className="mt-12 text-center">
-              <Button variant="primary" size="lg">
-                <Link href="/blog" className="flex items-center gap-2">
-                  <FaChevronLeft className="w-4 h-4" aria-hidden />
-                  블로그로 돌아가기
-                </Link>
-              </Button>
-            </div>
+            <Link href="/blog/page/1" className="group mt-10 inline-flex items-center gap-2 text-sm font-semibold text-gray-600 transition-colors hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400">
+              <FaChevronLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" aria-hidden />
+              전체 글로 돌아가기
+            </Link>
           </footer>
         </article>
       </div>

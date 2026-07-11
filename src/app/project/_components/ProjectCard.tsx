@@ -38,12 +38,12 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <Card 
       variant="elevated" 
-      className="group hover:border-blue-300/30 dark:hover:border-blue-600/30 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 h-full"
+      className="group hover:border-orange-300/60 dark:hover:border-orange-700/60 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 h-full"
     >
       <div className="space-y-4 h-full flex flex-col">
         {/* 헤더: 제목과 링크 */}
         <div className="flex items-start justify-between gap-3">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 flex-1">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-200 flex-1">
             <Link href={`/project/${slug}`} className="block">
               {title}
             </Link>
@@ -63,7 +63,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             )}
             <Link
               href={`/project/${slug}`}
-              className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
+              className="text-gray-500 hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400 transition-colors"
               title="프로젝트 상세보기"
             >
               <FaExternalLinkAlt className="h-4 w-4" />

@@ -1,13 +1,15 @@
 import { getSortedPostsData } from "@/services/posts";
 import { Post } from "@/types/post";
-import HeroSection from "@/app/(home)/_components/HeroSection";
-import HomePostTeaser from "@/app/(home)/_components/HomePostTeaser";
+import { Project } from "@/types/project";
+import { getSortedProjectsData } from "@/services/projects";
+import HomeOverview from "@/app/(home)/_components/HomeOverview";
 
 const Home = () => {
   let recentPosts: Post[] = [];
+  let recentProjects: Project[] = [];
   try {
-    // 최근 포스트 3개 가져오기
-    recentPosts = getSortedPostsData().slice(0, 3);
+    recentPosts = getSortedPostsData().slice(0, 4);
+    recentProjects = getSortedProjectsData(1, 2).projects;
   } catch (error) {
     console.error("Error fetching recent posts:", error);
     // 에러가 발생해도 페이지는 렌더링되도록 recentPosts를 빈 배열로 유지합니다.
@@ -15,11 +17,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* 히어로 섹션 */}
-      <HeroSection />
-
-      {/* 최근 블로그 포스트 섹션 */}
-      <HomePostTeaser post={recentPosts} />
+      <HomeOverview posts={recentPosts} projects={recentProjects} />
     </div>
   );
 };

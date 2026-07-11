@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Project } from "@/types/project";
 import ProjectCard from "@/app/project/_components/ProjectCard";
-import { Button } from "@/components/ui";
 
 interface ProjectListProps {
   initialProjects: Project[];
@@ -45,15 +44,14 @@ const ProjectList = ({ initialProjects, totalPage }: ProjectListProps) => {
 
       {hasMore && (
         <div className="flex justify-center">
-          <Button
-            variant="primary"
-            size="lg"
+          <button
+            type="button"
             onClick={handleLoadMore}
             disabled={loading}
-            loading={loading}
+            className="rounded-lg bg-orange-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? "로딩 중..." : "더보기"}
-          </Button>
+          </button>
         </div>
       )}
     </>
