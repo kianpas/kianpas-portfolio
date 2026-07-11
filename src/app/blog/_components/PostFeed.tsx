@@ -15,8 +15,8 @@ const PostFeed = ({ post, showSearch = false, emphasizeLatest = true }: Props) =
   const previousPosts = emphasizeLatest ? post.slice(1) : post;
 
   return (
-    <section className="px-4 py-14 sm:px-6 sm:py-20">
-      <div className="mx-auto max-w-5xl">
+    <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
+      <div>
         <div className="mb-10 border-b border-gray-200 pb-5 dark:border-gray-700 sm:mb-14">
           <div>
             <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400">
