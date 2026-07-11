@@ -43,8 +43,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:border focus:border-gray-200 focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-gray-900 dark:focus:border-gray-700 dark:focus:bg-gray-900 dark:focus:text-gray-100"
+          >
+            본문으로 건너뛰기
+          </a>
           <Navbar />
-          <main className="mt-16">{children}</main>
+          <main id="main-content" className="mt-16">{children}</main>
         </ThemeProvider>
       </body>
     </html>
