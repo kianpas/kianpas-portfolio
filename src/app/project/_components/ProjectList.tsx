@@ -36,19 +36,19 @@ const ProjectList = ({ initialProjects, totalPage }: ProjectListProps) => {
   };
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      <div className="divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-700 dark:border-gray-700">
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
 
       {hasMore && (
-        <div className="flex justify-center">
+        <div className="mt-10 flex justify-center">
           <button
             type="button"
             onClick={handleLoadMore}
             disabled={loading}
-            className="rounded-lg bg-orange-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60"
+            className="text-sm font-semibold text-gray-600 transition-colors hover:text-orange-600 disabled:cursor-not-allowed disabled:opacity-60 dark:text-gray-400 dark:hover:text-orange-400"
           >
             {loading ? "로딩 중..." : "더보기"}
           </button>
