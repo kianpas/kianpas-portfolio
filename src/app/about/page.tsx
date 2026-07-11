@@ -3,7 +3,7 @@ import { FaCheckCircle } from "react-icons/fa";
 
 import { siteMetadata, skillsData, experienceData } from "@/data/metadata";
 import Link from "next/link";
-import { Card, Badge, Button } from "@/components/ui";
+import { Card, Badge } from "@/components/ui";
 
 const AboutPage = async () => {
   return (
@@ -12,11 +12,12 @@ const AboutPage = async () => {
       <div className="px-6 py-20">
         <div className="max-w-6xl mx-auto">
           {/* 헤더 */}
-          <div className="text-center mb-16">
-            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mb-16 border-b border-gray-200 pb-6 dark:border-gray-700">
+            <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400">Profile</p>
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-950 dark:text-white mb-3">
               About Me
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-base text-gray-600 dark:text-gray-300 max-w-2xl">
               백엔드에서 풀스택으로 성장하는 개발자의 이야기
             </p>
           </div>
@@ -26,7 +27,7 @@ const AboutPage = async () => {
             <Card variant="elevated">
               <div className="flex flex-col items-center text-center space-y-6">
                 {/* 프로필 이미지 */}
-                <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                <div className="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
                   {siteMetadata.author[0]}
                 </div>
 
@@ -35,9 +36,7 @@ const AboutPage = async () => {
                   <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                     {siteMetadata.author}
                   </h2>
-                  <Badge variant="info" size="md">
-                    {siteMetadata.occupation}
-                  </Badge>
+                  <span className="inline-flex rounded-full bg-orange-100 px-3 py-1.5 text-sm font-medium text-orange-700 dark:bg-orange-950/40 dark:text-orange-300">{siteMetadata.occupation}</span>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
                     @ {siteMetadata.company}
                   </p>
@@ -47,7 +46,7 @@ const AboutPage = async () => {
                 <div className="flex items-center gap-4 pt-2">
                   <Link
                     href={`mailto:${siteMetadata.email}`}
-                    className="w-10 h-10 bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200"
+                    className="w-10 h-10 bg-gray-100 dark:bg-gray-800 hover:bg-orange-100 dark:hover:bg-orange-950/30 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-200"
                     title="이메일 보내기"
                   >
                     <FaEnvelope size={16} />
@@ -104,7 +103,7 @@ const AboutPage = async () => {
             <Card variant="elevated">
               <div className="space-y-6">
                 <div className="flex items-center gap-2">
-                  <FaBriefcase className="text-blue-500" size={20} />
+                  <FaBriefcase className="text-orange-500" size={20} />
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                     경력(테스트용 임시)
                   </h3>
@@ -120,9 +119,9 @@ const AboutPage = async () => {
 
                       <div className="flex gap-4">
                         {/* 타임라인 점 */}
-                        <div className="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mt-1">
+                        <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-orange-950/30 rounded-full flex items-center justify-center mt-1">
                           <FaBriefcase
-                            className="text-blue-600 dark:text-blue-400"
+                            className="text-orange-600 dark:text-orange-400"
                             size={16}
                           />
                         </div>
@@ -193,9 +192,7 @@ const AboutPage = async () => {
                   <div className="space-y-6">
                     <div>
                       <div className="flex items-center gap-2 mb-3">
-                        <Badge variant="success" size="sm">
-                          Backend
-                        </Badge>
+                        <span className="font-mono text-xs font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">Backend</span>
                         <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
                           주력 기술
                         </h4>
@@ -211,9 +208,7 @@ const AboutPage = async () => {
 
                     <div>
                       <div className="flex items-center gap-2 mb-3">
-                        <Badge variant="warning" size="sm">
-                          Frontend
-                        </Badge>
+                        <span className="font-mono text-xs font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">Frontend</span>
                         <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
                           학습 중
                         </h4>
@@ -229,9 +224,7 @@ const AboutPage = async () => {
 
                     <div>
                       <div className="flex items-center gap-2 mb-3">
-                        <Badge variant="info" size="sm">
-                          Tools
-                        </Badge>
+                        <span className="font-mono text-xs font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">Tools</span>
                         <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
                           도구 및 기타
                         </h4>
@@ -263,17 +256,15 @@ const AboutPage = async () => {
                       프로젝트와 코드를 확인해보세요
                     </p>
                   </div>
-                  <Button variant="primary" size="lg">
                     <Link
                       href={siteMetadata.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2"
+                      className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-orange-600"
                     >
                       <FaGithub size={16} />
                       방문하기
                     </Link>
-                  </Button>
                 </div>
               </Card>
             </div>

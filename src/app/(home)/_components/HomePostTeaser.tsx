@@ -1,110 +1,120 @@
 import Link from "next/link";
-import { Badge, Button, Card } from "@/components/ui";
 import { Post } from "@/types/post";
 import { formatReadingTime } from "@/utils/readingTime";
-import { FaClock, FaChevronRight } from "react-icons/fa6";
+import { FaArrowRight } from "react-icons/fa6";
+import SearchBar from "@/components/SearchBar";
 
 type Props = {
   post: Post[];
+  showSearch?: boolean;
+  emphasizeLatest?: boolean;
 };
 
-const HomePostTeaser = ({ post }: Props) => {
+const HomePostTeaser = ({ post, showSearch = false, emphasizeLatest = true }: Props) => {
+  const latestPost = emphasizeLatest ? post[0] : undefined;
+  const previousPosts = emphasizeLatest ? post.slice(1) : post;
+
   return (
-    <section className="px-6 py-20">
-      <div className="max-w-6xl mx-auto">
-        {/* 섹션 헤더 */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            최근 글
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            개발과 기술에 대한 생각들을 정리하고 공유합니다
-          </p>
+    <section className="px-2 py-14 sm:px-6 sm:py-20">
+      <div className="mx-auto max-w-5xl">
+        <div className="mb-10 border-b border-gray-200 pb-5 dark:border-gray-700 sm:mb-14">
+          <div>
+            <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400">
+              Latest writing
+            </p>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-4xl">
+              최근 글
+            </h1>
+          </div>
         </div>
 
-        {/* 포스트 그리드 */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {post.map((post) => (
-            <Card
-              variant="elevated"
-              key={post.slug}
-              className="group hover:border-blue-300/30 dark:hover:border-blue-600/30 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+        {showSearch && (
+          <div className="mb-12 max-w-xl">
+            <SearchBar placeholder="제목, 내용, 태그로 검색" />
+          </div>
+        )}
+
+        {latestPost ? (
+          <div>
+            <Link
+              href={`/blog/post/${latestPost.slug}`}
+              className="group block border-b border-gray-200 pb-10 dark:border-gray-700 sm:pb-12"
             >
-              <div className="space-y-4 h-full flex flex-col">
-                {/* 메타데이터 */}
-                <div className="flex items-center justify-between text-sm">
-                  <Badge variant="info" size="sm">
-                    {post.category}
-                  </Badge>
-                  <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
-                    <FaClock className="w-4 h-4" aria-hidden />
-                    {formatReadingTime(post.readingTime)}
-                  </div>
-                </div>
-                {/* 제목 */}
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 line-clamp-2">
-                  <Link href={`/blog/post/${post.slug}`} className="block">
-                    {post.title}
-                  </Link>
-                </h3>
-
-                {/* 요약 */}
-                {post.summary && (
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
-                    {post.summary}
+              <article className="grid gap-6 md:grid-cols-[11rem_1fr] md:gap-12">
+                <div className="font-mono text-xs leading-6 text-gray-500 dark:text-gray-400">
+                  <p className="font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">
+                    {latestPost.category}
                   </p>
-                )}
-
-                {/* 날짜와 태그 */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
-                  <time className="text-xs text-gray-500 dark:text-gray-400">
-                    {new Date(post.date).toLocaleDateString("ko-KR", {
-                      month: "short",
-                      day: "numeric",
+                  <time dateTime={latestPost.date} className="mt-2 block">
+                    {new Date(latestPost.date).toLocaleDateString("ko-KR", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
                     })}
                   </time>
-
-                  {post.tags && post.tags.length > 0 && (
-                    <div className="flex gap-1">
-                      {post.tags.slice(0, 2).map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-md"
-                        >
-                          #{tag}
-                        </span>
+                  <p>{formatReadingTime(latestPost.readingTime)}</p>
+                </div>
+                <div>
+                  <h2 className="max-w-3xl text-2xl font-bold leading-tight tracking-tight text-gray-950 transition-colors group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 sm:text-4xl">
+                    {latestPost.title}
+                  </h2>
+                  {latestPost.summary && (
+                    <p className="mt-5 max-w-2xl text-base leading-7 text-gray-600 dark:text-gray-300 sm:text-lg">
+                      {latestPost.summary}
+                    </p>
+                  )}
+                  {latestPost.tags && latestPost.tags.length > 0 && (
+                    <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs text-gray-500 dark:text-gray-400">
+                      {latestPost.tags.slice(0, 4).map((tag) => (
+                        <span key={tag}>#{tag}</span>
                       ))}
-                      {post.tags.length > 2 && (
-                        <span className="text-xs text-gray-400">
-                          +{post.tags.length - 2}
-                        </span>
-                      )}
                     </div>
                   )}
                 </div>
-
-                {/* 읽기 버튼 */}
-                <Link
-                  href={`/blog/post/${post.slug}`}
-                  className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm group-hover:gap-3 transition-all duration-200"
-                >
-                  읽어보기
-                  <FaChevronRight className="w-4 h-4" aria-hidden />
-                </Link>
-              </div>
-            </Card>
-          ))}
-        </div>
-
-        {/* CTA 버튼 */}
-        <div className="text-center">
-          <Button variant="primary" size="lg">
-            <Link href="/blog" className="flex items-center gap-2">
-              더 많은 글 보기
-              <FaChevronRight className="w-4 h-4" aria-hidden />
+              </article>
             </Link>
-          </Button>
-        </div>
+
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              {previousPosts.map((currentPost) => (
+                <Link
+                  key={currentPost.slug}
+                  href={`/blog/post/${currentPost.slug}`}
+                  className="group grid gap-4 py-8 md:grid-cols-[11rem_1fr_auto] md:items-start md:gap-12"
+                >
+                  <div className="flex gap-3 font-mono text-xs text-gray-500 dark:text-gray-400 md:block">
+                    <time dateTime={currentPost.date}>
+                      {new Date(currentPost.date).toLocaleDateString("ko-KR", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}
+                    </time>
+                    <p className="md:mt-1">{formatReadingTime(currentPost.readingTime)}</p>
+                  </div>
+                  <article>
+                    <p className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">
+                      {currentPost.category}
+                    </p>
+                    <h2 className="text-xl font-bold leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 sm:text-2xl">
+                      {currentPost.title}
+                    </h2>
+                    {currentPost.summary && (
+                      <p className="mt-3 line-clamp-2 max-w-2xl leading-7 text-gray-600 dark:text-gray-300">
+                        {currentPost.summary}
+                      </p>
+                    )}
+                  </article>
+                  <FaArrowRight className="mt-2 hidden h-4 w-4 text-gray-300 transition-all group-hover:translate-x-1 group-hover:text-orange-500 dark:text-gray-600 md:block" aria-hidden />
+                </Link>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="py-20 text-center text-gray-500 dark:text-gray-400">
+            아직 작성된 글이 없습니다.
+          </p>
+        )}
+
       </div>
     </section>
   );
