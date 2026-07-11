@@ -14,14 +14,14 @@ const ThemeToggle = dynamic(() => import("./ThemeToggle"), {
   ),
 });
 
-const Navbar = () => {
-  const NAV_ITEMS = [
-    { label: "Home", href: "/" },
-    { label: "Blog", href: "/blog" },
-    { label: "Project", href: "/project" },
-    { label: "About", href: "/about" },
-  ];
+// 로고가 홈 링크를 겸하므로 메뉴에는 Home을 두지 않는다
+const NAV_ITEMS = [
+  { label: "Blog", href: "/blog" },
+  { label: "Project", href: "/project" },
+  { label: "About", href: "/about" },
+];
 
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
@@ -36,25 +36,8 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
-  const getLinkClassName = (href: string, isMobile: boolean = false) => {
-    //  pathname이 해당 href로 시작하면 활성화
-    const isActive =
-      href === "/" ? pathname === href : pathname.startsWith(href);
-
-    if (isMobile) {
-      return `block py-4 text-2xl text-center font-bold ${
-        isActive
-          ? "text-gray-900 dark:text-white"
-          : "text-gray-700 dark:text-gray-300"
-      }`;
-    }
-
-    return `font-bold transition-colors pb-1 ${
-      isActive
-        ? "text-gray-900 dark:text-gray-100"
-        : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
-    }`;
-  };
+  const isActive = (href: string) =>
+    href === "/" ? pathname === href : pathname.startsWith(href);
 
   return (
     <header className="fixed top-0 z-50 h-16 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/80">
@@ -69,12 +52,17 @@ const Navbar = () => {
         <div className="flex-1"></div>
 
         {/* Desktop */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex items-center gap-8">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
-              href={item.href === "/blog" ? "/blog/page/1" : item.href}
-              className={getLinkClassName(item.href)}
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={`border-b-2 pb-1 text-sm transition-colors ${
+                isActive(item.href)
+                  ? "border-orange-500 font-semibold text-gray-900 dark:text-gray-100"
+                  : "border-transparent font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+              }`}
             >
               {item.label}
             </Link>
@@ -87,14 +75,14 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center space-x-3">
+        <div className="md:hidden relative z-50 flex items-center space-x-3">
           <ThemeToggle />
           <button
             aria-label="메뉴 열기"
             aria-expanded={!!isOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-600 dark:text-gray-300 focus:outline-none p-2 z-50 relative"
+            className="text-gray-600 dark:text-gray-300 focus:outline-none p-2"
           >
             <span className="sr-only">메인 메뉴 열기</span>
             {isOpen ? (
@@ -116,12 +104,29 @@ const Navbar = () => {
         }`}
       >
         <nav className="flex min-h-full flex-col items-center justify-center gap-8 px-6 pb-12 pt-24 text-center">
+          <Link
+            href="/"
+            onClick={() => setIsOpen(false)}
+            aria-current={pathname === "/" ? "page" : undefined}
+            className={`block py-4 text-2xl ${
+              pathname === "/"
+                ? "font-bold text-gray-900 dark:text-white"
+                : "font-medium text-gray-600 dark:text-gray-300"
+            }`}
+          >
+            Home
+          </Link>
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setIsOpen(false)}
-              className={getLinkClassName(item.href, true)}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={`block py-4 text-2xl ${
+                isActive(item.href)
+                  ? "font-bold text-gray-900 dark:text-white"
+                  : "font-medium text-gray-600 dark:text-gray-300"
+              }`}
             >
               {item.label}
             </Link>
