@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight, FaGithub } from "react-icons/fa6";
 import { Post } from "@/types/post";
 import { Project } from "@/types/project";
+import { siteMetadata } from "@/data/metadata";
 
 type Props = {
   posts: Post[];
@@ -30,6 +31,25 @@ const HomeOverview = ({ posts, projects }: Props) => {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
+      <div className="mb-10 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 sm:mb-12">
+        <p className="text-sm leading-6 text-gray-600 dark:text-gray-400">
+          <span className="font-semibold text-gray-900 dark:text-white">
+            {siteMetadata.author}
+          </span>
+          <span aria-hidden> — </span>
+          개발하며 마주친 문제와 해결의 기록
+        </p>
+        <Link
+          href={siteMetadata.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 font-mono text-xs text-gray-500 transition-colors hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400"
+        >
+          <FaGithub className="h-4 w-4" aria-hidden />
+          github.com/kianpas
+        </Link>
+      </div>
+
       <section aria-labelledby="latest-heading">
         <div className="mb-8 flex items-end justify-between border-b border-gray-200 pb-5 dark:border-gray-700">
           <div>
