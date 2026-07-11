@@ -1,6 +1,5 @@
 import { getPostsByTag } from "@/services/posts";
 import PostList from "@/app/blog/_components/PostList";
-import { Badge } from "@/components/ui";
 
 type PageProps = {
   params: Promise<{ tagName: string }>;
@@ -8,39 +7,28 @@ type PageProps = {
 
 const TagPage = async ({ params }: PageProps) => {
   const { tagName } = await params;
-  console.log("tagName => ", tagName);
 
   const decodedTagName = decodeURIComponent(tagName);
   const { posts, totalPosts, totalPages } = getPostsByTag(decodedTagName, 1, 10);
 
   return (
     <div className="min-h-screen">
-      {/* 배경 장식 */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 hidden sm:block bg-[radial-gradient(60%_60%_at_20%_20%,rgba(59,130,246,0.12)_0%,transparent_60%),radial-gradient(70%_70%_at_80%_80%,rgba(168,85,247,0.10)_0%,transparent_60%)]"
-      ></div>
-
-      <div className="px-6 py-20">
-        <div className="max-w-4xl mx-auto">
-          {/* 헤더 */}
-          <div className="text-center mb-16">
-            <div className="mb-6">
-              <Badge variant="info" size="md">
-                #{decodedTagName}
-              </Badge>
-            </div>
-            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              태그: {decodedTagName}
-            </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              {totalPosts}개의 포스트를 찾았습니다
-            </p>
-          </div>
-
-          {/* 포스트 목록 */}
-          <PostList initialPosts={posts} name={decodedTagName} totalPage={totalPages} />
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
+        {/* 헤더 */}
+        <div className="mb-14 border-b border-gray-200 pb-5 dark:border-gray-700 sm:mb-16">
+          <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400">
+            Tag
+          </p>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-4xl">
+            #{decodedTagName}
+          </h1>
+          <p className="mt-3 text-base text-gray-600 dark:text-gray-300">
+            {totalPosts}개의 글
+          </p>
         </div>
+
+        {/* 포스트 목록 */}
+        <PostList initialPosts={posts} name={decodedTagName} totalPage={totalPages} />
       </div>
     </div>
   );

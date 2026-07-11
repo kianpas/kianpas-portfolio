@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import { FaBars, FaXmark } from "react-icons/fa6";
-import { useMounted } from "@/hooks/useMounted";
 
 // 테마 토글을 동적 로딩으로 최적화
 const ThemeToggle = dynamic(() => import("./ThemeToggle"), {
@@ -24,7 +23,6 @@ const Navbar = () => {
   ];
 
   const [isOpen, setIsOpen] = useState(false);
-  const mounted = useMounted();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -37,8 +35,6 @@ const Navbar = () => {
       document.body.style.overflow = "auto";
     };
   }, [isOpen]);
-
-  if (!mounted) return null;
 
   const getLinkClassName = (href: string, isMobile: boolean = false) => {
     //  pathname이 해당 href로 시작하면 활성화
@@ -61,8 +57,8 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-white/80 dark:bg-gray-900/80 shadow-sm fixed top-0 w-full z-50 h-16">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
+    <header className="fixed top-0 z-50 h-16 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/80">
+      <div className="mx-auto flex h-full max-w-5xl items-center justify-between px-4 sm:px-6">
         <div className="flex items-center">
           <Link href="/" className="text-xl font-semibold">
             BLOG
@@ -113,7 +109,7 @@ const Navbar = () => {
       {/* Mobile Menu (Full-Screen Overlay) */}
       <div
         id="mobile-menu"
-        className={`md:hidden fixed inset-0 bg-white dark:bg-gray-900 z-60 overflow-y-auto transition-all duration-300 ease-in-out ${
+        className={`md:hidden fixed inset-0 bg-white dark:bg-gray-900 overflow-y-auto transition-all duration-300 ease-in-out ${
           isOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-4 pointer-events-none"

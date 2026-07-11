@@ -12,7 +12,7 @@ const skillGroups = [
 const AboutPage = () => {
   return (
     <div className="min-h-screen">
-      <div className="mx-auto max-w-5xl px-2 py-14 sm:px-6 sm:py-20">
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
         {/* 헤더 */}
         <header className="border-b border-gray-200 pb-8 dark:border-gray-700 sm:pb-10">
           <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400">

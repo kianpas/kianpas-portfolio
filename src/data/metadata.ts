@@ -10,9 +10,6 @@ export const skillsData = {
   tools: ['Git', 'Docker', 'AWS', 'IntelliJ IDEA']
 };
 
-// 홈 Hero에서 강조하는 대표 기술 (skillsData에서 추린 단일 출처)
-export const featuredSkills = ['Java', 'React', 'Next.js', 'TypeScript', 'Tailwind CSS'];
-
 // TODO: 실제 경력으로 교체 (회사명·기간·성과는 자리표시용 틀)
 export const experienceData = [
   {

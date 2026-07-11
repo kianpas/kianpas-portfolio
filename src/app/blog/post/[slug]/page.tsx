@@ -66,7 +66,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
         <article className="max-w-4xl mx-auto fade-in">
           <div className="relative">
             <div
-              className="prose prose-lg md:prose-base prose-neutral dark:prose-invert max-w-none leading-7
+              className="prose prose-neutral md:prose-lg dark:prose-invert max-w-none leading-7
                         prose-headings:font-bold prose-headings:tracking-tight 
                         prose-headings:text-gray-900 dark:prose-headings:text-gray-100
                         prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-4

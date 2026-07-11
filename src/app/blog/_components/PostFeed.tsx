@@ -10,12 +10,12 @@ type Props = {
   emphasizeLatest?: boolean;
 };
 
-const HomePostTeaser = ({ post, showSearch = false, emphasizeLatest = true }: Props) => {
+const PostFeed = ({ post, showSearch = false, emphasizeLatest = true }: Props) => {
   const latestPost = emphasizeLatest ? post[0] : undefined;
   const previousPosts = emphasizeLatest ? post.slice(1) : post;
 
   return (
-    <section className="px-2 py-14 sm:px-6 sm:py-20">
+    <section className="px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10 border-b border-gray-200 pb-5 dark:border-gray-700 sm:mb-14">
           <div>
@@ -120,4 +120,4 @@ const HomePostTeaser = ({ post, showSearch = false, emphasizeLatest = true }: Pr
   );
 };
 
-export default HomePostTeaser;
+export default PostFeed;
