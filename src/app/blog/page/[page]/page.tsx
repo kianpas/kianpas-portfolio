@@ -1,7 +1,7 @@
 import { getPaginatedPosts, getSortedPostsData } from "@/services/posts";
 import { notFound } from "next/navigation";
 import PostPagination from "@/app/blog/_components/PostPagination";
-import HomePostTeaser from "@/app/(home)/_components/HomePostTeaser";
+import PostFeed from "@/app/blog/_components/PostFeed";
 
 // 페이지당 보여줄 포스트 수
 const POSTS_PER_PAGE = 10;
@@ -26,7 +26,6 @@ type PageProps = {
 const BlogPage = async ({ params }: PageProps) => {
   // URL의 동적 세그먼트([page])로부터 페이지 번호를 가져옵니다.
   const { page } = await params;
-  console.log("page => ", page);
   const pageNumber = parseInt(page, 10) || 1;
 
   // 페이지 번호가 숫자가 아니거나 1보다 작으면 404 페이지를 보여줍니다.
@@ -43,8 +42,8 @@ const BlogPage = async ({ params }: PageProps) => {
     // 성공했지만 데이터가 없음
     return (
       <div className="min-h-screen">
-        <div className="px-6 py-20">
-          <div className="max-w-5xl mx-auto py-20 text-center text-gray-500 dark:text-gray-400">
+        <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
+          <div className="py-20 text-center text-gray-500 dark:text-gray-400">
             표시할 게시물이 없습니다.
           </div>
         </div>
@@ -56,14 +55,14 @@ const BlogPage = async ({ params }: PageProps) => {
     <div className="min-h-screen">
 
       <div>
-        <HomePostTeaser
+        <PostFeed
           post={posts}
           showSearch
           emphasizeLatest={pageNumber === 1}
         />
 
         {totalPages > 1 && (
-          <div className="mx-auto flex max-w-5xl justify-center px-6 pb-20">
+          <div className="mx-auto flex max-w-5xl justify-center px-4 pb-20 sm:px-6">
               <PostPagination currentPage={currentPage} totalPages={totalPages} />
           </div>
         )}

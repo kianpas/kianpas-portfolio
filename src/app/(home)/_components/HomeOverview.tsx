@@ -29,7 +29,7 @@ const HomeOverview = ({ posts, projects }: Props) => {
   const [latestPost, ...otherPosts] = posts;
 
   return (
-    <div className="mx-auto max-w-5xl px-2 py-14 sm:px-6 sm:py-20">
+    <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
       <section aria-labelledby="latest-heading">
         <div className="mb-8 flex items-end justify-between border-b border-gray-200 pb-5 dark:border-gray-700">
           <div>

@@ -8,7 +8,7 @@ const ProjectPage = () => {
   return (
     <div className="min-h-screen">
     
-      <div className="mx-auto max-w-5xl px-2 py-14 sm:px-6 sm:py-20">
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
         {/* 헤더 */}
         <div className="mb-14 border-b border-gray-200 pb-5 dark:border-gray-700 sm:mb-16">
           <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400">
