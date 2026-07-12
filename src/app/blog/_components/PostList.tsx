@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { Post } from "@/types/post";
-import PostCard from "@/app/blog/_components/PostCard";
-import { Button } from "@/components/ui";
+import PostRow from "@/components/PostRow";
 
 interface PostListProps {
   initialPosts: Post[];
@@ -38,27 +37,22 @@ const PostList = ({ initialPosts, name, totalPage }: PostListProps) => {
 
   return (
     <>
-      {/* 포스트 목록 - 카드 간격 추가 */}
-      <div className="space-y-6 mb-16">
+      <div className="divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-700 dark:border-gray-700">
         {posts.map((post) => (
-          <PostCard key={post.slug} post={post} />
+          <PostRow key={post.slug} post={post} />
         ))}
       </div>
-      
-      {/* 더보기 버튼 */}
-      {1 < totalPage && (
-        <div className="flex justify-center">
-          {hasMore && (
-            <Button 
-              variant="primary" 
-              size="lg"
-              onClick={handleLoadMore}
-              disabled={loading}
-              loading={loading}
-            >
-              {loading ? "로딩 중..." : "더보기"}
-            </Button>
-          )}
+
+      {hasMore && (
+        <div className="mt-10 flex justify-center">
+          <button
+            type="button"
+            onClick={handleLoadMore}
+            disabled={loading}
+            className="text-sm font-semibold text-gray-600 transition-colors hover:text-orange-600 disabled:cursor-not-allowed disabled:opacity-60 dark:text-gray-400 dark:hover:text-orange-400"
+          >
+            {loading ? "로딩 중..." : "더보기"}
+          </button>
         </div>
       )}
     </>

@@ -3,18 +3,12 @@ import { FaArrowRight, FaGithub } from "react-icons/fa6";
 import { Post } from "@/types/post";
 import { Project } from "@/types/project";
 import { siteMetadata } from "@/data/metadata";
+import PostRow from "@/components/PostRow";
 
 type Props = {
   posts: Post[];
   projects: Project[];
 };
-
-const formatDate = (date: string) =>
-  new Date(date).toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
 
 const SectionLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <Link
@@ -60,30 +54,11 @@ const HomeOverview = ({ posts, projects }: Props) => {
               최근 기록
             </h1>
           </div>
-          <SectionLink href="/blog/page/1">전체 글</SectionLink>
+          <SectionLink href="/blog">전체 글</SectionLink>
         </div>
 
         {latestPost && (
-          <Link href={`/blog/post/${latestPost.slug}`} className="group block py-6 sm:py-10">
-            <article className="grid gap-5 md:grid-cols-[10rem_1fr] md:gap-12">
-              <div className="font-mono text-xs leading-6 text-gray-500 dark:text-gray-400">
-                <p className="font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">
-                  {latestPost.category}
-                </p>
-                <time dateTime={latestPost.date} className="mt-2 block">{formatDate(latestPost.date)}</time>
-              </div>
-              <div>
-                <h2 className="max-w-3xl text-2xl font-bold leading-tight tracking-tight text-gray-950 transition-colors group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 sm:text-4xl">
-                  {latestPost.title}
-                </h2>
-                {latestPost.summary && (
-                  <p className="mt-5 max-w-2xl text-base leading-7 text-gray-600 dark:text-gray-300 sm:text-lg">
-                    {latestPost.summary}
-                  </p>
-                )}
-              </div>
-            </article>
-          </Link>
+          <PostRow post={latestPost} variant="featured" className="py-6 sm:py-10" />
         )}
       </section>
 
@@ -91,17 +66,11 @@ const HomeOverview = ({ posts, projects }: Props) => {
         <div>
           <div className="mb-7 flex items-center justify-between">
             <h2 id="more-heading" className="text-xl font-bold text-gray-950 dark:text-white">이어 읽을 글</h2>
-            <SectionLink href="/blog/page/1">Posts</SectionLink>
+            <SectionLink href="/blog">Posts</SectionLink>
           </div>
           <div className="divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-700 dark:border-gray-700">
             {otherPosts.slice(0, 3).map((post) => (
-              <Link key={post.slug} href={`/blog/post/${post.slug}`} className="group block py-6">
-                <p className="mb-2 font-mono text-[11px] uppercase tracking-widest text-orange-600 dark:text-orange-400">{post.category}</p>
-                <h3 className="text-lg font-bold leading-snug text-gray-900 transition-colors group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 sm:text-xl">
-                  {post.title}
-                </h3>
-                <time dateTime={post.date} className="mt-3 block font-mono text-xs text-gray-500 dark:text-gray-400">{formatDate(post.date)}</time>
-              </Link>
+              <PostRow key={post.slug} post={post} variant="compact" className="py-6" />
             ))}
           </div>
         </div>
