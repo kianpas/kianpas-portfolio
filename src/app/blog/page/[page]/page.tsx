@@ -2,6 +2,7 @@ import { getPaginatedPosts, getSortedPostsData } from "@/services/posts";
 import { notFound } from "next/navigation";
 import PostPagination from "@/app/blog/_components/PostPagination";
 import PostFeed from "@/app/blog/_components/PostFeed";
+import PageContainer from "@/components/layout/PageContainer";
 
 // 페이지당 보여줄 포스트 수
 const POSTS_PER_PAGE = 10;
@@ -41,13 +42,11 @@ const BlogPage = async ({ params }: PageProps) => {
   if (posts.length === 0 && pageNumber > 1) {
     // 성공했지만 데이터가 없음
     return (
-      <div className="min-h-screen">
-        <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
-          <div className="py-20 text-center text-gray-500 dark:text-gray-400">
-            표시할 게시물이 없습니다.
-          </div>
+      <PageContainer>
+        <div className="py-20 text-center text-gray-500 dark:text-gray-400">
+          표시할 게시물이 없습니다.
         </div>
-      </div>
+      </PageContainer>
     );
   }
 

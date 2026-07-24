@@ -1,6 +1,7 @@
 import { Post } from "@/types/post";
 import PostRow from "@/components/PostRow";
 import SearchBar from "@/components/SearchBar";
+import PageHeader from "@/components/layout/PageHeader";
 
 type Props = {
   post: Post[];
@@ -15,16 +16,7 @@ const PostFeed = ({ post, showSearch = false, emphasizeLatest = true }: Props) =
   return (
     <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
       <div>
-        <div className="mb-10 border-b border-gray-200 pb-5 dark:border-gray-700 sm:mb-14">
-          <div>
-            <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400">
-              Latest writing
-            </p>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-4xl">
-              최근 글
-            </h1>
-          </div>
-        </div>
+        <PageHeader eyebrow="Latest writing" title="최근 글" className="mb-10 sm:mb-14" />
 
         {showSearch && (
           <div className="mb-12 max-w-xl">
