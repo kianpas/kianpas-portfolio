@@ -1,24 +1,15 @@
 import Link from "next/link";
-import { FaArrowRight, FaGithub } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa6";
 import { Post } from "@/types/post";
 import { Project } from "@/types/project";
 import { siteMetadata } from "@/data/metadata";
 import PostRow from "@/components/PostRow";
+import ArrowLink from "@/components/ArrowLink";
 
 type Props = {
   posts: Post[];
   projects: Project[];
 };
-
-const SectionLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <Link
-    href={href}
-    className="group inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400"
-  >
-    {children}
-    <FaArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" aria-hidden />
-  </Link>
-);
 
 const HomeOverview = ({ posts, projects }: Props) => {
   const [latestPost, ...otherPosts] = posts;
@@ -54,7 +45,7 @@ const HomeOverview = ({ posts, projects }: Props) => {
               최근 기록
             </h1>
           </div>
-          <SectionLink href="/blog">전체 글</SectionLink>
+          <ArrowLink href="/blog">전체 글</ArrowLink>
         </div>
 
         {latestPost && (
@@ -66,7 +57,7 @@ const HomeOverview = ({ posts, projects }: Props) => {
         <div>
           <div className="mb-7 flex items-center justify-between">
             <h2 id="more-heading" className="text-xl font-bold text-gray-950 dark:text-white">이어 읽을 글</h2>
-            <SectionLink href="/blog">Posts</SectionLink>
+            <ArrowLink href="/blog">Posts</ArrowLink>
           </div>
           <div className="divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-700 dark:border-gray-700">
             {otherPosts.slice(0, 3).map((post) => (
@@ -78,7 +69,7 @@ const HomeOverview = ({ posts, projects }: Props) => {
         <div>
           <div className="mb-7 flex items-center justify-between">
             <h2 className="text-xl font-bold text-gray-950 dark:text-white">프로젝트 기록</h2>
-            <SectionLink href="/project">Projects</SectionLink>
+            <ArrowLink href="/project">Projects</ArrowLink>
           </div>
           <div className="divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-700 dark:border-gray-700">
             {projects.map((project) => (

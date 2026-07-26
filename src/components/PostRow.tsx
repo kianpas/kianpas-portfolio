@@ -2,6 +2,8 @@ import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa6";
 import { Post } from "@/types/post";
 import { formatReadingTime } from "@/utils/readingTime";
+import { formatDate } from "@/utils/date";
+import TagList from "@/components/TagList";
 
 type PostRowVariant = "featured" | "row" | "compact";
 
@@ -15,13 +17,6 @@ type Props = {
   variant?: PostRowVariant;
   className?: string;
 };
-
-const formatDate = (date: string) =>
-  new Date(date).toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
 
 const PostRow = ({ post, variant = "row", className = "" }: Props) => {
   const href = `/blog/post/${post.slug}`;
@@ -48,13 +43,7 @@ const PostRow = ({ post, variant = "row", className = "" }: Props) => {
                 {post.summary}
               </p>
             )}
-            {post.tags && post.tags.length > 0 && (
-              <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs text-gray-500 dark:text-gray-400">
-                {post.tags.slice(0, 4).map((tag) => (
-                  <span key={tag}>#{tag}</span>
-                ))}
-              </div>
-            )}
+            <TagList tags={post.tags} limit={4} className="mt-6 gap-x-4" />
           </div>
         </article>
       </Link>

@@ -5,6 +5,8 @@ import ReadingProgress from "@/components/ReadingProgress";
 import ImageOptimizer from "@/components/ImageOptimizer";
 import ArticleBody from "@/components/ArticleBody";
 import PageContainer from "@/components/layout/PageContainer";
+import TagList from "@/components/TagList";
+import ArrowLink from "@/components/ArrowLink";
 import { formatReadingTime } from "@/utils/readingTime";
 import {
   FaChevronLeft,
@@ -53,15 +55,11 @@ const SinglePostPage = async ({ params }: PageProps) => {
             {postData.title}
           </h1>
 
-          {postData.tags && postData.tags.length > 0 && (
-            <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs text-gray-500 dark:text-gray-400">
-              {postData.tags.map((tag) => (
-                <Link key={tag} href={`/blog/tag/${tag}`} className="transition-colors hover:text-orange-600 dark:hover:text-orange-400">
-                  #{tag}
-                </Link>
-              ))}
-            </div>
-          )}
+          <TagList
+            tags={postData.tags}
+            href={(tag) => `/blog/tag/${tag}`}
+            className="mt-8 gap-x-5"
+          />
         </header>
 
         <article className="max-w-4xl mx-auto fade-in">
@@ -110,10 +108,15 @@ const SinglePostPage = async ({ params }: PageProps) => {
               )}
             </div>
 
-            <Link href="/blog" className="group mt-10 inline-flex items-center gap-2 text-sm font-semibold text-gray-600 transition-colors hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400">
-              <FaChevronLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" aria-hidden />
-              전체 글로 돌아가기
-            </Link>
+            <div className="mt-10">
+              <ArrowLink
+                href="/blog"
+                direction="back"
+                className="font-semibold text-gray-600 hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400"
+              >
+                전체 글로 돌아가기
+              </ArrowLink>
+            </div>
           </footer>
         </article>
     </PageContainer>

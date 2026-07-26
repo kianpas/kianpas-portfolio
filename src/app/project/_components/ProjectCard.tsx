@@ -1,22 +1,16 @@
 import { Project } from "@/types/project";
 import Link from "next/link";
+import TagList from "@/components/TagList";
+import { formatProjectPeriod } from "@/utils/date";
 
 type ProjectCardProps = {
   project: Project;
 };
 
-const formatDate = (dateStr: string) => {
-  if (!dateStr) return "";
-  const [year, month] = dateStr.split("-");
-  return `${year}.${month}`;
-};
-
 const ProjectCard = ({ project }: ProjectCardProps) => {
   const { slug, title, description, tags, startDate, endDate } = project;
 
-  const dateRange = startDate
-    ? `${formatDate(startDate)} - ${endDate ? formatDate(endDate) : "진행 중"}`
-    : "";
+  const dateRange = formatProjectPeriod(startDate, endDate);
 
   return (
     <Link href={`/project/${slug}`} className="group block py-8">
@@ -31,13 +25,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           <p className="mt-3 max-w-2xl leading-7 text-gray-600 dark:text-gray-300">
             {description}
           </p>
-          {tags.length > 0 && (
-            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs text-gray-500 dark:text-gray-400">
-              {tags.slice(0, 6).map((tag) => (
-                <span key={tag}>#{tag}</span>
-              ))}
-            </div>
-          )}
+          <TagList tags={tags} limit={6} className="mt-4 gap-x-4" />
         </div>
       </article>
     </Link>
