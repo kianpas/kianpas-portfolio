@@ -1,113 +1,90 @@
 # AGENTS.md
 
-Guidance for AI agents working in this repository. Follow the mandatory rules
-first; everything below them is supporting context.
+이 저장소에서 작업하는 AI 에이전트를 위한 지침입니다. **필수 규칙**을 먼저 따르고,
+그 아래는 보조 맥락으로 참고하세요.
 
-## Project
+## 목표
 
-Developer blog + portfolio built with **Next.js 16 (App Router)** and
-**React 19**, written in TypeScript and styled with Tailwind CSS.
+개발자 블로그 + 포트폴리오. 엔지니어링 역량이 드러나되, 콘텐츠 가독성이 최우선이고
+장기적으로 유지보수 가능한 상태를 지향합니다.
 
-Goals: showcase engineering quality, keep content highly readable, and stay
-maintainable over the long term.
+## 필수 규칙
 
-## Mandatory rules
+1. **기존 라우트와 글 slug의 이름을 바꾸지 마세요.** 정규 URL은 그대로 유지되어야
+   합니다. `next.config.ts`의 `/blog` → `/blog/page/1` rewrite에 유의하세요.
+2. **마크다운 frontmatter 스키마(키·형식)를 바꾸지 마세요.** `gray-matter`가 파싱하며
+   콘텐츠는 `src/posts/*.md`에 있습니다.
+3. **기존 글을 수정하지 마세요.** 명시적으로 요청받은 경우만 예외입니다.
+4. **의존성을 함부로 추가하지 마세요.** 추가가 필요하면 이유를 분명히 밝히고,
+   Next.js / React 내장 기능을 우선 검토하세요.
+5. **광범위한 리팩터링을 임의로 하지 마세요.** 요청받은 범위 안에서만 변경합니다.
+6. **아래 검증 명령을 실행하고 실제 출력을 보고하기 전에는 작업이 끝났다고 하지 마세요.**
 
-1. **Do not rename existing routes or post slugs.** Canonical URLs must stay
-   stable. Note the `/blog` → `/blog/page/1` rewrite in `next.config.ts`.
-2. **Do not change the markdown frontmatter schema** (keys/format) parsed by
-   `gray-matter`. Content lives in `src/posts/*.md`.
-3. **Do not edit existing articles** unless explicitly asked.
-4. **Do not add dependencies** without a clear, stated justification. Prefer
-   built-in Next.js / React features.
-5. **No broad refactors** unless explicitly requested. Keep changes scoped.
-6. **Never claim work is done without running the verification commands below
-   and reporting their actual output.**
+## 검증
 
-## Verification
+패키지 매니저는 **npm**입니다 (`package-lock.json`). 작업 완료로 간주하기 전에 실행하고
+결과를 보고하세요:
 
-Package manager is **npm** (`package-lock.json`). Before considering work
-complete, run and report:
+- `npm run build` — 프로덕션 빌드 성공
+- `npx tsc --noEmit` — 타입 오류 없음 (별도 typecheck 스크립트는 없습니다)
+- `npm run lint` — ESLint 통과
 
-- `npm run build` — production build succeeds.
-- `npx tsc --noEmit` — no TypeScript errors. (There is no dedicated typecheck
-  script.)
-- `npm run lint` — ESLint passes. (Flat config in `eslint.config.mjs`,
-  ESLint 9 + `eslint-config-next`.)
+관련될 때 수동으로도 확인하세요:
 
-Also sanity-check manually when relevant:
+- 기존 라우트가 그대로 열리는지
+- 사이트맵 생성이 되는지 — 앱 라우트가 아니라 `postbuild` 훅(`next-sitemap`)으로 돕니다
+- 라이트/다크 모드 양쪽 (`next-themes`, `ThemeToggle` 참고)
+- 모바일과 데스크톱 레이아웃
 
-- Existing routes still resolve.
-- Sitemap generation still works — it runs via the `postbuild` hook
-  (`next-sitemap`), not an app route.
-- Light and dark mode both work (`next-themes`; see `ThemeToggle`).
-- Mobile and desktop layouts are preserved.
+이 저장소에는 **테스트 스위트가 없습니다.** 테스트를 실행했다고 말하지 마세요.
 
-There is **no test suite** in this repo — do not claim tests were run.
+## 아키텍처
 
-## Architecture
+- 기본은 React Server Component. 상호작용이 꼭 필요한 곳에만 Client Component(`"use client"`)를 씁니다.
+- 데이터가 허용하는 한 정적 렌더링(SSG)을 우선합니다.
+- 불필요한 클라이언트 상태와 하이드레이션을 피합니다.
+- 비즈니스 로직을 중복 구현하지 말고, 데이터·콘텐츠 접근은 기존 헬퍼(`src/services`,
+  `src/utils`, `src/data`)에 둡니다.
 
-- Prefer React Server Components by default; use Client Components only where
-  interactivity requires it (`"use client"`).
-- Prefer static rendering (SSG) wherever the data allows it.
-- Avoid unnecessary client-side state and hydration.
-- Don't duplicate business logic; keep data/content access in existing
-  helpers (`src/services`, `src/utils`, `src/data`).
+## UI / 디자인
 
-## Content
+방향: 콘텐츠 중심의 **에디토리얼 기술 블로그**. 글이 첫 화면에 오고, 개인 홍보용
+히어로 섹션은 두지 않습니다.
 
-- Markdown posts in `src/posts/`, parsed with `gray-matter`; rendered through
-  the `remark`/`rehype` pipeline already configured.
-- Preserve frontmatter keys, post formatting, and code-block formatting.
+- 카드가 아니라 **단일 컬럼 + 헤어라인 구분선**. 그림자와 hover lift는 쓰지 않습니다.
+- 위계는 여백과 타이포그래피로 만듭니다. 배경색 블록으로 나누지 않습니다.
+- 액센트 색은 오렌지 하나뿐입니다 (`orange-600` 라이트 / `orange-400` 다크).
+- 가독성과 빠른 로딩이 최우선입니다.
 
-## Code style
+피할 것: 무거운 애니메이션, 글래스모피즘, 과한 그라데이션, 가독성을 해치는 큰 히어로 이미지.
 
-- Small, reusable, clearly named components.
-- Composition over premature abstraction; readability over cleverness.
-- Avoid deep component nesting and over-engineering.
+> **UI를 건드리기 전에 `DESIGN.md`를 읽으세요.** 실제로 적용된 색·타이포·레이아웃 규격과
+> 아래 공통 컴포넌트가 정리되어 있습니다. 새 값을 발명하기 전에 `tailwind.config.ts`와
+> `globals.css`를 먼저 확인하세요.
 
-## UI / Design
+## 공통 컴포넌트
 
-Direction: a content-first **editorial tech blog**. Posts come first; there is
-no personal-promo hero section.
+새 마크업을 쓰기 전에 아래를 먼저 확인하세요. 중복 구현이 반복해서 발생한 지점입니다.
 
-- Single column with hairline dividers — not cards. No shadows, no hover lift.
-- Hierarchy comes from whitespace and typography, not background blocks.
-- One accent color only: orange (`orange-600` light / `orange-400` dark).
-- High readability and fast loading come first.
+- `layout/PageContainer` — 모든 페이지의 바깥 래퍼 (`max-w-5xl`, 표준 여백)
+- `layout/PageHeader` — 아이브로우 + 제목 + 설명 + 헤어라인
+- `ArticleBody` — 마크다운 본문 prose 블록 (글·프로젝트 공용)
+- `PostRow` — 글 목록 행 (`featured` / `row` / `compact`)
+- `TagList`, `ArrowLink`, `LoadMoreButton` + `hooks/useLoadMore`, `utils/date`
 
-Avoid: heavy animations, glassmorphism, excessive gradients, and large hero
-images that hurt readability.
+`components/ui`의 `Card`·`Badge`·`Button`·`Input`은 구세대 카드 UI의 잔재이며 현재는
+`/design-system` 데모 페이지에서만 씁니다. **새 화면에 쓰지 마세요.**
 
-> **Read `DESIGN.md` before touching UI.** It documents the shipped system —
-> colors, typography, layout rules, and the shared components listed below.
-> Confirm against `tailwind.config.ts` and `globals.css` rather than inventing
-> new values.
+## 판단이 서지 않을 때
 
-## Shared components
+추측하지 마세요. 기존 구현을 먼저 확인하고, 세운 가정을 밝히고, 코드만으로 정말
+결정할 수 없을 때에만 물어보세요.
 
-Check these before writing new markup — duplicating them is a common mistake:
+## 변경 보고 형식
 
-- `layout/PageContainer` — every page's outer wrapper (`max-w-5xl`, standard padding).
-- `layout/PageHeader` — eyebrow + title + description + hairline.
-- `ArticleBody` — the markdown prose block (posts and projects share it).
-- `PostRow` — post list rows (`featured` / `row` / `compact`).
-- `TagList`, `ArrowLink`, `LoadMoreButton` + `hooks/useLoadMore`, `utils/date`.
+변경을 제안하거나 수행할 때는 다음을 포함하세요:
 
-`components/ui` (`Card`, `Badge`, `Button`, `Input`) is legacy from the old
-card-based design and is only used by the `/design-system` demo page. Do not
-use it in new screens.
-
-## When unsure
-
-Do not guess. Inspect the existing implementation, state your assumptions, and
-ask only when a decision genuinely can't be made from the code.
-
-## Change output format
-
-When proposing or making changes, provide:
-
-- **Files changed** — list of paths.
-- **Why** — the reasoning.
-- **Verification** — which commands were run and their result.
-- **Trade-offs** — any downsides, if applicable.
+- **변경한 파일** — 경로 목록
+- **이유** — 그렇게 한 근거
+- **검증** — 실행한 명령과 실제 결과
+- **트레이드오프** — 있다면 감수한 단점
