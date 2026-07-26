@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FaGithub } from "react-icons/fa6";
 
 import { siteMetadata, skillsData, experienceData } from "@/data/metadata";
+import TagList from "@/components/TagList";
 
 const skillGroups = [
   { label: "Backend", items: skillsData.backend },
@@ -105,11 +106,7 @@ const AboutPage = () => {
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs text-gray-500 dark:text-gray-400">
-                    {exp.technologies.map((tech) => (
-                      <span key={tech}>#{tech}</span>
-                    ))}
-                  </div>
+                  <TagList tags={exp.technologies} className="mt-4 gap-x-4" />
                 </article>
               ))}
             </div>

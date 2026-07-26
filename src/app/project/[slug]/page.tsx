@@ -1,9 +1,11 @@
 import { getAllProjectSlugs, getProjectData } from "@/services/projects";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { FaGithub, FaArrowUpRightFromSquare, FaChevronLeft  } from "react-icons/fa6";
+import { FaGithub, FaArrowUpRightFromSquare } from "react-icons/fa6";
 import ArticleBody from "@/components/ArticleBody";
 import PageContainer from "@/components/layout/PageContainer";
+import TagList from "@/components/TagList";
+import ArrowLink from "@/components/ArrowLink";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -62,13 +64,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           )}
 
           {/* 태그 */}
-          {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs text-gray-500 dark:text-gray-400">
-              {tags.map((tag) => (
-                <span key={tag}>#{tag}</span>
-              ))}
-            </div>
-          )}
+          <TagList tags={tags} className="gap-x-5" />
         </header>
 
         {/* 메인 콘텐츠 - 중앙 배치 */}
@@ -80,13 +76,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           {/* 하단 네비게이션 */}
           <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
-            {/* 프로젝트로 돌아가기 버튼 */}
-            <div>
-                <Link href="/project" className="group inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400">
-                 <FaChevronLeft className="w-4 h-4" aria-hidden />
-                  모든 프로젝트 보기
-                </Link>
-            </div>
+            <ArrowLink
+              href="/project"
+              direction="back"
+              className="font-semibold text-gray-600 hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400"
+            >
+              모든 프로젝트 보기
+            </ArrowLink>
           </footer>
         </article>
     </PageContainer>
