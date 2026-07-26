@@ -68,17 +68,35 @@ There is **no test suite** in this repo — do not claim tests were run.
 
 ## UI / Design
 
-Design direction (author's intent):
+Direction: a content-first **editorial tech blog**. Posts come first; there is
+no personal-promo hero section.
 
-- Minimal, "retro-futurism" / engineering-dashboard feel.
+- Single column with hairline dividers — not cards. No shadows, no hover lift.
+- Hierarchy comes from whitespace and typography, not background blocks.
+- One accent color only: orange (`orange-600` light / `orange-400` dark).
 - High readability and fast loading come first.
-- Accent palette: orange with white / silver over a neutral grayscale base.
 
-Avoid: heavy animations, glassmorphism everywhere, excessive gradients, and
-large hero images that hurt readability.
+Avoid: heavy animations, glassmorphism, excessive gradients, and large hero
+images that hurt readability.
 
-> Before adding design tokens or colors, confirm against the existing
-> `tailwind.config.ts` and `globals.css` rather than inventing new values.
+> **Read `DESIGN.md` before touching UI.** It documents the shipped system —
+> colors, typography, layout rules, and the shared components listed below.
+> Confirm against `tailwind.config.ts` and `globals.css` rather than inventing
+> new values.
+
+## Shared components
+
+Check these before writing new markup — duplicating them is a common mistake:
+
+- `layout/PageContainer` — every page's outer wrapper (`max-w-5xl`, standard padding).
+- `layout/PageHeader` — eyebrow + title + description + hairline.
+- `ArticleBody` — the markdown prose block (posts and projects share it).
+- `PostRow` — post list rows (`featured` / `row` / `compact`).
+- `TagList`, `ArrowLink`, `LoadMoreButton` + `hooks/useLoadMore`, `utils/date`.
+
+`components/ui` (`Card`, `Badge`, `Button`, `Input`) is legacy from the old
+card-based design and is only used by the `/design-system` demo page. Do not
+use it in new screens.
 
 ## When unsure
 

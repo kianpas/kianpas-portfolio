@@ -1,43 +1,32 @@
-﻿# 작업 요청 템플릿
+# NOTES.md
 
-## 다른 컴퓨터에서 작업 시작할 때 사용하세요
+작업 메모. 규칙과 검증 절차는 `AGENTS.md`, 디자인 규격은 `DESIGN.md`를 보세요.
 
-### 1. 컨텍스트 제공
-```
-이 프로젝트는 Next.js 기반 포트폴리오 사이트입니다.
-현재 Linear 스타일의 심플한 디자인이 적용되어 있고,
-공통 컴포넌트 시스템이 구축되어 있습니다.
+## 현재 상태
 
-STYLE_GUIDE.md 파일을 참고해서 현재 디자인 원칙을 파악해주세요.
-```
+- 전 페이지가 에디토리얼 스타일로 통일됨 (홈 / 블로그 목록 / 태그 / 카테고리 /
+  글 상세 / 프로젝트 / About).
+- 공통 컴포넌트 정리 완료: `PageContainer`, `PageHeader`, `ArticleBody`,
+  `PostRow`, `TagList`, `ArrowLink`, `LoadMoreButton` + `useLoadMore`, `utils/date`.
+- Next 16 업그레이드 완료 (`next@^16.2.6`, Turbopack dev).
 
-### 2. 작업 요청 예시
-- [ ] 새로운 페이지 추가
-- [ ] 기존 페이지 개선
-- [ ] 컴포넌트 수정
-- [ ] 디자인 시스템 확장
-- [ ] 성능 최적화
-- [ ] 반응형 개선
+## 남은 작업
 
-### 3. 현재 프로젝트 상태
-- ✅ 메인 페이지: Linear 스타일 적용 완료
-- ✅ 블로그 상세: 심플한 디자인 적용
-- ✅ 프로젝트 상세: 블로그와 통일성 확보
-- ✅ About 페이지: 프로필 카드 개선 완료
-- ✅ 공통 컴포넌트: Card, Button, Badge 활용
+우선순위 순:
 
-### 4. 주의사항
-- CSS 변수 --ds-* 사용 유지
-- 큰 타이포그래피와 넉넉한 여백 유지
-- 카드보다는 심플한 레이아웃 선호
-- 모든 페이지 간 통일성 유지
+- [ ] 글 상세 `generateMetadata` — 현재 모든 페이지가 루트의 title/description을
+      공유해서, 글을 공유해도 제목·요약·OG 카드가 안 나옴.
+- [ ] RSS 피드 추가.
+- [ ] 푸터 추가 (현재 레이아웃이 `<main>`으로 끝남).
+- [ ] `components/ui` 처리 — `Card`/`Badge`/`Button`/`Input`이 이제
+      `/design-system`에서만 쓰임. 유지할지 삭제할지 결정 필요.
+- [ ] `/design-system` 페이지 처리 — 구세대(파란 액센트) 데모가 공개 배포에 노출 중.
+- [ ] `RelatedPosts.tsx` — 어디서도 import되지 않는 죽은 코드.
+- [ ] `globals.css`의 `--ds-*` 변수 정리 — 현재 화면에서 쓰지 않음.
+- [ ] Pretendard를 CDN `@import` 대신 `next/font/local`로 셀프호스팅.
+- [ ] 경력 데이터(`src/data/metadata.ts`)가 자리표시 상태 — 실데이터로 교체.
 
-### 5. Next 16 업그레이드 메모
-- [ ] Next 16으로 버전 올리고 `npm install`, `npm run build`
-- [ ] `next-sitemap`, Turbopack/dev 서버 동작 확인 (`npm run dev -- --no-turbo` 비교)
-- [ ] `next.config.ts` 실험 플래그/설정 확인
-- [ ] 컴포넌트 경로 통일 (`src/components` vs `src/app/components`)
-- [ ] 콘텐츠 경로 단일화 (`content/` 등)
-- [ ] posts/projects 서비스: 서버 전용 명시/주석
-- [ ] 홈 최근 글: 빈 상태/에러 UI 추가
-- [ ] markdown/MDX 파이프라인 단순화 (에디터 vs 렌더링 경로 구분)
+## 주의
+
+- 공개 배포(Vercel)이므로 이메일 등 개인정보를 사이트에 노출하지 않습니다.
+- 태그에 공백이 있는 항목(`Spring Boot` 등)은 `#태그` 표기에서 어색하게 보입니다.
