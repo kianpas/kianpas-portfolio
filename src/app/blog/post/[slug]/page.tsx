@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostData, getAllPostSlugs } from "@/services/posts";
+import { siteMetadata } from "@/data/metadata";
 import Link from "next/link";
 import ReadingProgress from "@/components/ReadingProgress";
 import ImageOptimizer from "@/components/ImageOptimizer";
@@ -20,6 +22,36 @@ type PageProps = {
 export async function generateStaticParams() {
   const paths = getAllPostSlugs();
   return paths.map((path) => ({ slug: path.params.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const { postData } = await getPostData(slug);
+
+  if (!postData) {
+    return { title: "찾을 수 없는 글" };
+  }
+
+  const url = `/blog/post/${slug}`;
+  const description = postData.summary ?? siteMetadata.description;
+
+  return {
+    title: postData.title,
+    description,
+    keywords: postData.tags,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title: postData.title,
+      description,
+      publishedTime: postData.date,
+      authors: [postData.author ?? siteMetadata.author],
+      tags: postData.tags,
+    },
+  };
 }
 
 const SinglePostPage = async ({ params }: PageProps) => {

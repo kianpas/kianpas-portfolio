@@ -1,7 +1,18 @@
+import type { Metadata } from "next";
 import { getProjectsByType } from "@/services/projects";
 import ProjectList from "@/app/project/_components/ProjectList";
 import PageContainer from "@/components/layout/PageContainer";
 import PageHeader from "@/components/layout/PageHeader";
+
+const title = "프로젝트";
+const description = "실무와 개인 프로젝트를 통해 쌓아온 경험들을 소개합니다.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: "/project" },
+  openGraph: { title, description, url: "/project" },
+};
 
 const ProjectPage = () => {
   const professionalProjects = getProjectsByType("professional", 1, 6);

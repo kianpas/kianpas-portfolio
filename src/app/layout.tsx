@@ -1,6 +1,7 @@
 import type { Metadata, Viewport  } from "next";
 import localFont from "next/font/local";
 import Navbar from "@/components/layout/Navbar";
+import { siteMetadata, siteUrl } from "@/data/metadata";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import "./globals.css";
 
@@ -23,8 +24,31 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Kianpas Portfolio",
-  description: "포트폴리오 겸 블로그",
+  // 상대 경로 OG 이미지를 절대 URL로 바꿀 기준. 없으면 OG 이미지가 해석되지 않는다.
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: `${siteMetadata.name} — ${siteMetadata.occupation} 블로그`,
+    // 하위 페이지에서 title 문자열만 주면 "글 제목 · kianpas" 형태가 된다.
+    template: `%s · ${siteMetadata.name}`,
+  },
+  description: siteMetadata.description,
+  authors: [{ name: siteMetadata.author, url: siteMetadata.github }],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "/",
+    siteName: siteMetadata.name,
+    title: `${siteMetadata.name} — ${siteMetadata.occupation} 블로그`,
+    description: siteMetadata.description,
+  },
+  // 카드 형태만 전역으로 지정한다. title/description/image는 각 페이지의 openGraph를
+  // 크롤러가 대체값으로 쓰므로 페이지마다 중복해서 적지 않는다.
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({

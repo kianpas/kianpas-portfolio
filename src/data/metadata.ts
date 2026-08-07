@@ -1,7 +1,18 @@
+/**
+ * 사이트의 정식 주소. next-sitemap(`next-sitemap.config.js`)과 같은 환경변수를 읽어
+ * 사이트맵과 메타데이터의 도메인이 어긋나지 않게 한다. 끝의 슬래시는 제거한다.
+ */
+export const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://kianpas-portfolio.vercel.app'
+).replace(/\/+$/, '');
+
 export const siteMetadata = {
   author: '이운산',
   occupation: '백엔드 개발자',
   github: 'https://github.com/kianpas',
+  /** 브라우저 탭·OG 카드에 쓰는 사이트 이름 */
+  name: 'kianpas',
+  description: '백엔드 개발하면서 배운 것들을 기록하는 블로그이자 포트폴리오입니다.',
 };
 
 export const skillsData = {

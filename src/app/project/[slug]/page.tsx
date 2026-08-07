@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { getAllProjectSlugs, getProjectData } from "@/services/projects";
+import { siteMetadata } from "@/data/metadata";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FaGithub, FaArrowUpRightFromSquare } from "react-icons/fa6";
@@ -16,6 +18,36 @@ export async function generateStaticParams() {
   return projects.map((project) => ({
     slug: project.params.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProjectData(slug);
+
+  if (!project) {
+    return { title: "찾을 수 없는 프로젝트" };
+  }
+
+  const url = `/project/${slug}`;
+  const description = project.description ?? siteMetadata.description;
+  // 프로젝트는 frontmatter의 imageUrl을 그대로 OG 이미지로 쓴다.
+  const images = project.imageUrl ? [{ url: project.imageUrl }] : undefined;
+
+  return {
+    title: project.title,
+    description,
+    keywords: project.tags,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title: project.title,
+      description,
+      images,
+    },
+  };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
