@@ -1,8 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa6";
 
 import { siteMetadata, skillsData, experienceData } from "@/data/metadata";
 import TagList from "@/components/TagList";
+
+const description = `Java와 Spring 기반 서비스를 만들고 운영해온 ${siteMetadata.occupation} ${siteMetadata.author}의 소개입니다.`;
+
+export const metadata: Metadata = {
+  title: "About",
+  description,
+  alternates: { canonical: "/about" },
+  openGraph: { title: "About", description, url: "/about" },
+};
 
 const skillGroups = [
   { label: "Backend", items: skillsData.backend },

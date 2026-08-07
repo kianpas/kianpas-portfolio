@@ -221,6 +221,7 @@ export const getPostData = async (slug: string) => {
       title: string;
       date: string;
       author?: string;
+      summary?: string;
       tags?: string[];
       category?: string;
     }),

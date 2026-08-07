@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getPaginatedPosts, getSortedPostsData } from "@/services/posts";
 import { notFound } from "next/navigation";
 import PostPagination from "@/app/blog/_components/PostPagination";
@@ -23,6 +24,26 @@ export async function generateStaticParams() {
 type PageProps = {
   params: Promise<{ page: string }>;
 };
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { page } = await params;
+  const pageNumber = parseInt(page, 10) || 1;
+
+  const title = pageNumber === 1 ? "블로그" : `블로그 (${pageNumber}페이지)`;
+
+  return {
+    title,
+    description: "백엔드 개발과 아키텍처를 공부하며 남긴 글들입니다.",
+    alternates: {
+      // next.config.ts의 rewrite 때문에 1페이지는 /blog와 /blog/page/1 두 주소로
+      // 같은 내용이 뜬다. 사용자에게 노출되는 /blog를 정본으로 지정한다.
+      canonical: pageNumber === 1 ? "/blog" : `/blog/page/${pageNumber}`,
+    },
+    openGraph: { title },
+  };
+}
 
 const BlogPage = async ({ params }: PageProps) => {
   // URL의 동적 세그먼트([page])로부터 페이지 번호를 가져옵니다.
