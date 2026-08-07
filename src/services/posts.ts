@@ -183,6 +183,12 @@ export const getAllPostSlugs = () => {
 // 특정 ID(slug)를 가진 포스트의 전체 데이터를 가져오는 함수
 export const getPostData = async (slug: string) => {
   const fullPath = path.join(postsDirectory, `${slug}.md`);
+
+  // 없는 slug로 들어오면 예외 대신 null을 돌려준다. (호출부에서 notFound() 처리)
+  if (!fs.existsSync(fullPath)) {
+    return { postData: null, prevPost: null, nextPost: null };
+  }
+
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // Frontmatter 파싱

@@ -16,6 +16,11 @@
 # next.js
 /.next/
 
+# next-sitemap 산출물 (postbuild에서 매번 생성됨)
+/public/sitemap.xml
+/public/sitemap-*.xml
+/public/robots.txt
+
 # production
 /build
 

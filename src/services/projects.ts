@@ -62,6 +62,12 @@ export const getAllProjectSlugs = () => {
 
 export const getProjectData = async (slug: string) => {
   const fullPath = path.join(projectsDirectory, `${slug}.md`);
+
+  // 없는 slug로 들어오면 예외 대신 null을 돌려준다. (호출부에서 notFound() 처리)
+  if (!fs.existsSync(fullPath)) {
+    return null;
+  }
+
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   const matterResult = matter(fileContents);
