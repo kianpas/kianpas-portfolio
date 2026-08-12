@@ -100,7 +100,7 @@ const Navbar = () => {
               aria-expanded={!!isOpen}
               aria-controls="mobile-menu"
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600 dark:text-gray-300 focus:outline-none p-2"
+              className="rounded-md p-2 text-gray-600 dark:text-gray-300"
             >
               {isOpen ? (
                 <FaXmark className="h-6 w-6" aria-hidden />
@@ -114,9 +114,12 @@ const Navbar = () => {
 
       {/* Mobile Menu (Full-Screen Overlay)
           backdrop-filter가 걸린 header 안에 두면 fixed 기준이 header가 되어
-          메뉴가 헤더 높이로 잘리므로 반드시 header 밖에 렌더링한다 */}
+          메뉴가 헤더 높이로 잘리므로 반드시 header 밖에 렌더링한다.
+          닫혀 있을 때는 inert로 탭 순서와 접근성 트리에서 제외한다 —
+          opacity-0 + pointer-events-none은 키보드 포커스를 막지 못한다 */}
       <div
         id="mobile-menu"
+        inert={!isOpen}
         className={`md:hidden fixed inset-0 z-40 bg-white dark:bg-gray-900 overflow-y-auto transition-all duration-300 ease-in-out ${
           isOpen
             ? "opacity-100 translate-y-0"
