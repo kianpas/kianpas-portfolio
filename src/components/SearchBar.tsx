@@ -110,7 +110,7 @@ const SearchBar = ({
             }
           }}
           placeholder={placeholder}
-          className="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500
+          className="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-orange-500
                      bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100
                      border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400"
         />
@@ -126,7 +126,7 @@ const SearchBar = ({
         {/* 로딩 스피너 */}
         {loading && (
           <div className="absolute right-3 top-2.5">
-            <div className="animate-spin w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+            <div className="animate-spin w-5 h-5 border-2 border-orange-500 border-t-transparent rounded-full"></div>
           </div>
         )}
       </div>
