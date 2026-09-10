@@ -1,7 +1,7 @@
 # 04. 배포 (Deployment)
 
 > kianpas-portfolio — 로컬 실행 / 빌드 / 배포 / sitemap
-> 작성 기준일: 2026-06-02
+> 작성 기준일: 2026-09-10
 
 ---
 
@@ -20,7 +20,7 @@ npm run dev        # next dev --turbopack, http://localhost:3000
 | `npm run start` | 빌드 결과 서버 실행 |
 | `npm run lint` | ESLint |
 
-> `package.json`의 `export` / `predeploy` 스크립트는 현재 구조와 맞지 않는 레거시다(`/api` 라우트가 있어 정적 export 불가). 정리 대상은 `docs/05` 참고.
+별도 typecheck 스크립트는 없으며 타입 검사는 `npx tsc --noEmit`으로 실행한다.
 
 ---
 
@@ -39,7 +39,9 @@ npm run dev        # next dev --turbopack, http://localhost:3000
 1. GitHub 저장소를 Vercel 프로젝트에 연결.
 2. 빌드 커맨드 `npm run build`, 출력은 Next.js 기본값(자동 감지).
 3. `main` 브랜치 push → 자동 빌드·배포.
-4. 환경 변수: 현재 필수 비밀값 없음(콘텐츠가 저장소 내 파일).
+4. 환경 변수: 현재 필수 비밀값은 없다. `NEXT_PUBLIC_SITE_URL`을 배포 주소로 설정하면
+   메타데이터와 sitemap이 같은 주소를 사용한다. 미설정 시
+   `https://kianpas-portfolio.vercel.app`을 기본값으로 사용한다.
 
 > 정적 호스팅(`output: 'export'`)으로 옮기려면 `/api` 라우트(검색·더보기)를 클라이언트/빌드타임 방식으로 대체해야 한다. 현재는 Vercel(서버 런타임 포함) 배포를 전제로 한다.
 
@@ -49,13 +51,17 @@ npm run dev        # next dev --turbopack, http://localhost:3000
 
 - `next-sitemap`이 `postbuild`에서 `public/sitemap.xml`, `sitemap-0.xml`, `robots.txt`를 생성한다.
 - 설정 파일: `next-sitemap.config.js`.
-- ⚠️ 페이지별 메타데이터(OpenGraph, canonical, per-page title)는 아직 미흡하다 → `docs/05` P1 항목.
+- 루트는 `metadataBase`와 title template을 제공하고, 주요 페이지는 페이지별 title,
+  description, OpenGraph, canonical을 제공한다.
+- `/blog`와 `/blog/page/1`은 canonical을 `/blog`로 통일한다.
+- `/design-system`은 `robots: noindex, nofollow`로 검색 색인을 막는다.
 
 ---
 
 ## 5. 배포 체크리스트
 
 - [ ] `npm run build` 로컬 통과(정적 생성 에러 없음)
+- [ ] `npx tsc --noEmit` 통과
 - [ ] `npm run lint` 통과
 - [ ] 새 콘텐츠의 목록/상세/태그/카테고리 노출 확인
 - [ ] sitemap에 새 URL 포함 확인

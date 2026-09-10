@@ -1,7 +1,7 @@
 # 02. 아키텍처 (Architecture)
 
 > kianpas-portfolio — 기술 스택 / 라우트 구조 / 컴포넌트 / 데이터 흐름 / 콘텐츠 파이프라인
-> 작성 기준일: 2026-06-02
+> 작성 기준일: 2026-09-10
 
 ---
 
@@ -10,13 +10,12 @@
 > 정확한 버전의 단일 출처는 `package.json`이다.
 
 - **Next.js 16 (App Router)** — Turbopack dev (`next dev --turbopack`). Pages Router 미사용.
-- **React 19** / **TypeScript** (strict)
+- **React 19** / **TypeScript** (`noEmit`, 현재 `strict: false`)
 - **Tailwind CSS 3** + `@tailwindcss/typography` (`prose`)
 - **콘텐츠**: Markdown 파일 + `gray-matter`(frontmatter) + `remark`/`rehype` 파이프라인
 - **테마**: `next-themes` (다크 모드)
 - **아이콘**: `react-icons`
 - **사이트맵**: `next-sitemap` (`postbuild`)
-- **에디터(번들 포함)**: `@uiw/react-md-editor`, `@uiw/react-markdown-preview` — 렌더링 경로와는 별개(`docs/05` 참고)
 
 ---
 
@@ -58,17 +57,17 @@
 kianpas-portfolio/
 ├─ src/
 │  ├─ app/                         # App Router
-│  │  ├─ layout.tsx                # 공통 레이아웃 (Navbar, ThemeProvider, FOUC 방지 스크립트)
+│  │  ├─ layout.tsx                # 공통 레이아웃 (Navbar, ThemeProvider, 메타데이터)
 │  │  ├─ (home)/                   # 홈 (route group)
 │  │  │  ├─ page.tsx
-│  │  │  └─ _components/           # HeroSection, HomePostTeaser
+│  │  │  └─ _components/           # HomeOverview
 │  │  ├─ about/page.tsx
 │  │  ├─ blog/
 │  │  │  ├─ page/[page]/page.tsx           # 목록 (페이지네이션)
 │  │  │  ├─ post/[slug]/page.tsx           # 상세
 │  │  │  ├─ category/[categoryName]/page.tsx
 │  │  │  ├─ tag/[tagName]/page.tsx
-│  │  │  └─ _components/                   # PostCard, PostList, PostPagination
+│  │  │  └─ _components/                   # PostFeed, PostList, PostPagination
 │  │  ├─ project/
 │  │  │  ├─ page.tsx
 │  │  │  ├─ [slug]/page.tsx
@@ -79,15 +78,17 @@ kianpas-portfolio/
 │  │     ├─ projects/route.ts              # 프로젝트 더보기
 │  │     └─ search/route.ts                # 글 검색
 │  ├─ components/
-│  │  ├─ ui/                       # Badge, Button, Card, Input (+ index.ts)
-│  │  ├─ layout/                   # Navbar, ThemeProvider, ThemeToggle
-│  │  ├─ SearchBar.tsx
-│  │  ├─ ReadingProgress.tsx
-│  │  ├─ RelatedPosts.tsx
-│  │  └─ ImageOptimizer.tsx
+│  │  ├─ layout/                   # Navbar, PageContainer, PageHeader, ThemeProvider, ThemeToggle
+│  │  ├─ ui/                       # /design-system 전용 레거시 컴포넌트
+│  │  ├─ ArticleBody.tsx           # 글·프로젝트 Markdown 본문
+│  │  ├─ PostRow.tsx               # featured / row / compact 글 행
+│  │  ├─ TagList.tsx, ArrowLink.tsx, LoadMoreButton.tsx
+│  │  ├─ SearchBar.tsx, ReadingProgress.tsx, ImageOptimizer.tsx
+│  │  └─ RelatedPosts.tsx          # 현재 미사용
+│  ├─ hooks/                       # useLoadMore.ts
 │  ├─ services/                    # posts.ts, projects.ts, github.ts (서버 전용: fs 사용)
 │  ├─ types/                       # post.ts, project.ts
-│  ├─ utils/                       # readingTime.ts
+│  ├─ utils/                       # markdown.ts, date.ts, readingTime.ts
 │  ├─ data/                        # metadata.ts (저자/스킬/경력)
 │  ├─ posts/*.md                   # 글 콘텐츠
 │  └─ projects/*.md                # 프로젝트 콘텐츠
@@ -96,7 +97,7 @@ kianpas-portfolio/
 ├─ next.config.ts                  # /blog → /blog/page/1 리라이트, 이미지 포맷
 ├─ next-sitemap.config.js
 ├─ tailwind.config.ts
-├─ DESIGN.md                       # 디자인 토큰 (Linear)
+├─ DESIGN.md                       # 에디토리얼 UI 규격
 └─ AGENTS.md                       # 작업 제약
 ```
 
@@ -106,7 +107,7 @@ kianpas-portfolio/
 
 | 화면 | 경로 | 렌더링 | 데이터 소스 |
 | --- | --- | --- | --- |
-| 홈 | `/` | 서버 | `getSortedPostsData()` 최근 3개 |
+| 홈 | `/` | 서버 | 최근 글 4개 + 최근 프로젝트 2개 |
 | About | `/about` | 서버 | `src/data/metadata.ts` |
 | 블로그 목록 | `/blog/page/[page]` | 서버 | `getPaginatedPosts(page)` |
 | (리라이트) | `/blog` → `/blog/page/1` | — | `next.config.ts` rewrites |
@@ -158,11 +159,15 @@ kianpas-portfolio/
 ```
 파일(.md)
   → gray-matter
-  → remark → remark-html
+  → 공통 renderMarkdown()
+      → remark-gfm
+      → remark-rehype
+      → rehype-slug
+      → rehype-stringify
   → dangerouslySetInnerHTML
 ```
 
-> ⚠️ 글과 프로젝트의 파이프라인이 **다르다**(프로젝트는 `remark-html`만 사용 → GFM·헤딩 id 없음). 통일 권장 사항은 `docs/05` 참고.
+글과 프로젝트 모두 `src/utils/markdown.ts`의 `renderMarkdown()`을 사용한다.
 
 ### 6.3 읽기 시간
 
@@ -173,8 +178,9 @@ kianpas-portfolio/
 ## 7. 스타일링
 
 - **Tailwind CSS** 유틸리티 + `prose`(타이포그래피 플러그인)로 Markdown 본문 스타일.
-- 디자인 토큰/원칙은 `DESIGN.md`(Linear 스타일)와 `globals.css`의 `--ds-*` 변수에 정의.
-- 공통 컴포넌트(`components/ui`)를 재사용하고, 큰 타이포그래피·넉넉한 여백·심플 레이아웃을 지향(`NOTES.md`).
+- 색·타이포·간격과 라이트/다크 모드 규격은 `DESIGN.md`와 `globals.css`를 기준으로 한다.
+- 실제 화면은 단일 컬럼, 헤어라인 구분선, 오렌지 액센트를 사용한다.
+- `components/ui`와 `--ds-*` 변수는 `/design-system`에 남아 있는 구세대 데모용이며 새 화면에 사용하지 않는다.
 
 ---
 
