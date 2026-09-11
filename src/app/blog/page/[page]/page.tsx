@@ -78,7 +78,6 @@ const BlogPage = async ({ params }: PageProps) => {
         <PostFeed
           post={posts}
           showSearch
-          emphasizeLatest={pageNumber === 1}
         />
 
         {totalPages > 1 && (
