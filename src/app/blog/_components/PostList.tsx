@@ -9,15 +9,16 @@ interface PostListProps {
   initialPosts: Post[];
   name: string;
   totalPage: number;
+  filterBy?: "tag" | "category";
 }
 
-const PostList = ({ initialPosts, name, totalPage }: PostListProps) => {
+const PostList = ({ initialPosts, name, totalPage, filterBy = "tag" }: PostListProps) => {
   const { items: posts, loading, hasMore, loadMore } = useLoadMore<Post>({
     initialItems: initialPosts,
     totalPage,
     fetchPage: async (page) => {
       const encodedName = encodeURIComponent(name);
-      const res = await fetch(`/api/posts?tag=${encodedName}&page=${page}`);
+      const res = await fetch(`/api/posts?${filterBy}=${encodedName}&page=${page}`);
       if (!res.ok) throw new Error("failed to load posts");
       const data = await res.json();
       return { items: data.posts, hasMore: data.hasMore };

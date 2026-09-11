@@ -62,7 +62,7 @@ const Navbar = () => {
         <div className="mx-auto flex h-full max-w-5xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center">
             <Link href="/" className="text-xl font-semibold">
-              BLOG
+              kianpas
             </Link>
           </div>
 
