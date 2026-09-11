@@ -2,7 +2,7 @@
 
 > kianpas-portfolio — 개인 포트폴리오 겸 기술 블로그
 > 본 문서는 설계 문서(`docs/01` ~ `docs/05`)의 기준 문서입니다. 문서들은 상호 참조됩니다.
-> 작성 기준일: 2026-06-02
+> 작성 기준일: 2026-09-10
 
 ---
 
@@ -25,7 +25,7 @@
 
 ### 2.1 구현된 기능
 
-1. **홈** — 소개(Hero) + 최근 글 3개 티저.
+1. **홈** — 간단한 작성자 바이라인 + 최근 글 4개(대표 1개·목록 3개) + 최근 프로젝트 2개.
 2. **블로그 목록** — 페이지네이션. `/blog` → `/blog/page/1` 리라이트.
 3. **블로그 상세** — Markdown → HTML 렌더링, 읽기 시간, 이전/다음 글, 카테고리/태그 배지.
 4. **카테고리별 / 태그별 글 목록** — `/blog/category/[categoryName]`, `/blog/tag/[tagName]`.
@@ -33,8 +33,10 @@
 6. **프로젝트 목록** — 실무/개인 구분, "더보기" 페이지네이션.
 7. **프로젝트 상세** — Markdown 렌더링, GitHub/데모 링크, 태그.
 8. **About** — 프로필/스킬/경력 (`src/data/metadata.ts` 기반).
-9. **다크 모드** — `next-themes` + 시스템 설정 연동, FOUC 방지 인라인 스크립트.
+9. **다크 모드** — `next-themes` + 시스템 설정 연동, 초기 로딩 중 테마 전환 효과 억제.
 10. **디자인 시스템 미리보기** — `/design-system`.
+11. **페이지별 메타데이터** — 페이지별 title/description, OpenGraph, canonical. `/blog`와
+    `/blog/page/1`의 canonical은 `/blog`로 통일하며 `/design-system`은 검색 색인을 막는다.
 
 ### 2.2 명시적으로 다루지 않는 것
 
@@ -63,7 +65,8 @@
 - **정적 우선 렌더링**: 상세 페이지는 `generateStaticParams`로 빌드 타임에 정적 생성한다(`AGENTS.md`의 "Static-first" 제약 유지).
 - **콘텐츠 경로 고정**: 콘텐츠 소스 디렉터리(`src/posts`, `src/projects`)와 라우트/slug는 함부로 바꾸지 않는다(`AGENTS.md`).
 - **이식성**: Vercel 배포를 기본으로 한다(`docs/04`).
-- **유지보수성**: 공통 UI 컴포넌트(`src/components/ui`)와 디자인 토큰을 재사용한다(`DESIGN.md`).
+- **유지보수성**: `PageContainer`, `PageHeader`, `ArticleBody`, `PostRow` 등 현재 공통
+  컴포넌트와 유틸을 재사용한다. `src/components/ui`는 `/design-system` 전용 레거시다.
 
 ---
 
@@ -73,5 +76,5 @@
 - `docs/03-content-guide.md` — Markdown / frontmatter 규약, 글·프로젝트 작성법
 - `docs/04-deployment.md` — 빌드·배포·sitemap
 - `docs/05-improvements.md` — 코드 리뷰 결과 및 개선 백로그
-- `DESIGN.md` — 디자인 시스템(Linear 스타일) 토큰
+- `DESIGN.md` — 에디토리얼 UI의 색·타이포·레이아웃 규격
 - `AGENTS.md` — 작업 시 지켜야 할 제약

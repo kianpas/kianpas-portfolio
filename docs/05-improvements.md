@@ -1,16 +1,17 @@
 # 05. 코드 리뷰 & 개선 백로그 (Review & Improvements)
 
 > kianpas-portfolio — 현재 코드베이스 리뷰 결과와 개선 항목
-> 작성 기준일: 2026-06-02
+> 작성 기준일: 2026-09-10
 > 우선순위: **P1**(권장, 효과 큼) / **P2**(있으면 좋음) / **P3**(소규모라 낮음)
 
 ---
 
 ## 요약
 
-전반적으로 소규모 프론트 전용 프로젝트로서 구조가 깔끔하고 정적 우선 전략이 잘 잡혀 있다.
-다만 **(1) 콘텐츠 파이프라인 이원화**, **(2) SEO 메타데이터 부재**, **(3) 검색 쿼리 인코딩 누락**이
-실사용에서 가장 먼저 손볼 만한 항목이다.
+전반적으로 소규모 프론트 전용 프로젝트로서 정적 우선 전략과 에디토리얼 UI 구조가
+잘 잡혀 있다. Markdown 파이프라인 통합, 페이지별 메타데이터, 레거시 빌드 스크립트 제거,
+검색창 액센트 통일은 완료됐다. 현재 코드 기준 우선 과제는 검색 쿼리 인코딩과 타입 정리,
+프로젝트 상세 데이터 보존이다. 운영성 작업 목록은 `NOTES.md`를 기준으로 한다.
 
 ---
 
@@ -26,13 +27,12 @@
 - **참고**: 작업 중 `blog/category/[categoryName]/page.tsx`의 깨진 import 경로
   (`@/app/blog/components/PostList` → `@/app/blog/_components/PostList`, 빌드 실패 원인)도 함께 수정.
 
-### 1.2 페이지별 SEO 메타데이터 부재
+### 1.2 페이지별 SEO 메타데이터 — ✅ 완료
 
-- **현상**: `app/layout.tsx`의 `metadata`가 최소(title/description)뿐이고 `metadataBase`가 없다. 상세 페이지에 `generateMetadata`가 없다.
-- **영향**: 글/프로젝트마다 동일한 타이틀, OpenGraph/트위터 카드·canonical 없음 → 공유/검색 노출 손해. 블로그 성격상 체감이 크다.
-- **제안**:
-  - `layout.tsx`에 `metadataBase`, 기본 OG 추가.
-  - `blog/post/[slug]`, `project/[slug]`에 `generateMetadata`로 글별 title/description/og:image 생성.
+- **조치**: 루트에 `metadataBase`, title template, 기본 OpenGraph/Twitter 설정을 추가하고
+  주요 페이지에 페이지별 metadata와 canonical을 추가했다.
+- **정규 URL**: `/blog`와 `/blog/page/1`은 `/blog`를 canonical로 사용한다.
+- **남은 과제**: 글 전용 OG 이미지는 한글 폰트 셀프호스팅과 함께 `NOTES.md`에서 관리한다.
 
 ### 1.3 검색 쿼리 인코딩 누락
 
@@ -47,11 +47,10 @@
 
 ## P2 — 권장
 
-### 2.1 죽은 빌드 스크립트 정리
+### 2.1 죽은 빌드 스크립트 정리 — ✅ 완료
 
-- **위치**: `package.json`의 `"export": "next export"`, `"predeploy": "npm run build && npm run export"`.
-- **영향**: `next export`는 최신 Next에서 제거됨(`output: 'export'`로 대체). 게다가 `/api` 라우트가 있어 정적 export 자체가 불가 → 실행 시 실패하는 죽은 스크립트.
-- **제안**: 두 스크립트 제거(또는 실제 정적 호스팅이 목표라면 `docs/04` 3장의 전환 작업을 먼저).
+- **조치**: 현재 `package.json`에는 실제 사용하는 `dev`, `build`, `postbuild`, `start`,
+  `lint` 스크립트만 남아 있다.
 
 ### 2.2 `getProjectData`가 일부 필드를 버림
 
@@ -65,10 +64,12 @@
 - **현상**: 타입이 `null`로 추론되어 `setError("문자열")`이 strict에서 타입 오류 소지. 현재 동작은 우연.
 - **제안**: `useState<string | null>(null)`.
 
-### 2.4 디자인 토큰 혼용
+### 2.4 프로덕션 화면 액센트 통일 — ✅ 완료
 
-- **현상**: 일부 컴포넌트는 `gray-*`/`blue-*` 임의 색상(예: `SearchBar`의 `focus:ring-blue-500`), 글 본문은 `primary-*`/`secondary-*`를 쓴다. `DESIGN.md`/`--ds-*` 토큰과 어긋난다.
-- **제안**: 색상은 디자인 토큰/시맨틱 클래스로 통일(`NOTES.md`의 "--ds-* 사용 유지"와 일치).
+- **조치**: 프로덕션 화면은 회색 계열과 오렌지 액센트로 정리했고 검색창의 파란
+  액센트도 오렌지로 변경했다.
+- **남은 과제**: `components/ui`, `/design-system`, `--ds-*` 변수는 구세대 데모로 남아
+  있다. 유지 또는 삭제 판단은 `NOTES.md`에서 관리한다.
 
 ---
 
@@ -82,9 +83,9 @@
 
 - `getGitHubStats`의 정상 경로는 events 배열을, catch는 `{ publicRepos, followers }`를 반환해 형태가 다르다. 사용처가 없으면 제거, 쓸 거면 반환 타입 정리.
 
-### 3.3 읽기 진행률 표시 중복 가능성
+### 3.3 읽기 진행률 표시 중복 — ✅ 해소
 
-- `blog/post/[slug]/page.tsx`에 `<ReadingProgress />` 컴포넌트와, 인라인 `id="reading-progress"` sticky 바가 함께 있다. 둘이 같은 역할인지 확인 후 하나로 정리.
+- 현재 글 상세는 `<ReadingProgress />` 컴포넌트 하나만 사용한다.
 
 ### 3.4 서버 전용 모듈 표시
 
@@ -97,8 +98,9 @@
 - 상세 페이지 `generateStaticParams` 기반 정적 생성.
 - `react`의 `cache`로 `getSortedPostsData` 요청 내 메모이즈.
 - 검색 디바운스(300ms) + 바깥 클릭/ESC 닫기 처리.
-- 다크 모드 FOUC 방지 인라인 스크립트.
-- 공통 UI 컴포넌트(`components/ui`)와 디자인 문서(`DESIGN.md`) 보유.
+- `next-themes` 기반 시스템 테마 연동과 초기 전환 효과 억제.
+- `PageContainer`, `PageHeader`, `ArticleBody`, `PostRow`, `TagList`, `ArrowLink`,
+  `LoadMoreButton`과 `useLoadMore` 등 현재 화면용 공통 요소가 분리되어 있다.
 
 ---
 
