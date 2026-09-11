@@ -26,7 +26,7 @@ const PostRow = ({ post, variant = "row", className = "" }: Props) => {
       <Link href={href} className={`group block ${className}`}>
         <article className="grid gap-6 md:grid-cols-[11rem_1fr] md:gap-12">
           <div className="font-mono text-xs leading-6 text-gray-500 dark:text-gray-400">
-            <p className="font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">
+            <p className="font-semibold uppercase tracking-normal text-orange-600 dark:text-orange-400">
               {post.category}
             </p>
             <time dateTime={post.date} className="mt-2 block">
@@ -53,7 +53,7 @@ const PostRow = ({ post, variant = "row", className = "" }: Props) => {
   if (variant === "compact") {
     return (
       <Link href={href} className={`group block ${className}`}>
-        <p className="mb-2 font-mono text-[11px] uppercase tracking-widest text-orange-600 dark:text-orange-400">
+        <p className="mb-2 font-mono text-xs uppercase tracking-normal text-orange-600 dark:text-orange-400">
           {post.category}
         </p>
         <h3 className="text-lg font-bold leading-snug text-gray-900 transition-colors group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 sm:text-xl">
@@ -79,7 +79,7 @@ const PostRow = ({ post, variant = "row", className = "" }: Props) => {
         <p className="md:mt-1">{formatReadingTime(post.readingTime)}</p>
       </div>
       <article>
-        <p className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">
+        <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-normal text-orange-600 dark:text-orange-400">
           {post.category}
         </p>
         <h2 className="text-xl font-bold leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 sm:text-2xl">
