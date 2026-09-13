@@ -72,7 +72,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
             {postData.category && (
               <Link
                 href={`/blog/category/${postData.category}`}
-                className="font-semibold text-orange-600 transition-colors hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300"
+                className="font-semibold text-orange-700 transition-colors hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300"
               >
                 {postData.category}
               </Link>
@@ -83,7 +83,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
             <span>{formatReadingTime(postData.readingTime)}</span>
           </div>
 
-          <h1 className="max-w-4xl text-3xl font-extrabold leading-[1.18] tracking-tight text-gray-950 dark:text-white sm:text-5xl lg:text-6xl">
+          <h1 className="max-w-4xl text-balance break-keep [overflow-wrap:anywhere] text-3xl font-bold leading-[1.4] tracking-tight text-gray-950 dark:text-white sm:text-5xl">
             {postData.title}
           </h1>
 
@@ -111,7 +111,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
                     <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
                       Previous Post
                     </div>
-                    <div className="font-semibold leading-snug text-gray-900 transition-colors group-hover:text-orange-600 dark:text-gray-100 dark:group-hover:text-orange-400">
+                    <div className="font-semibold leading-snug text-gray-900 transition-colors group-hover:text-orange-700 dark:text-gray-100 dark:group-hover:text-orange-400">
                       {prevPost.title}
                     </div>
                   </div>
@@ -129,7 +129,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
                     <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
                       Next Post
                     </div>
-                    <div className="font-semibold leading-snug text-gray-900 transition-colors group-hover:text-orange-600 dark:text-gray-100 dark:group-hover:text-orange-400">
+                    <div className="font-semibold leading-snug text-gray-900 transition-colors group-hover:text-orange-700 dark:text-gray-100 dark:group-hover:text-orange-400">
                       {nextPost.title}
                     </div>
                   </div>
@@ -144,7 +144,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
               <ArrowLink
                 href="/blog"
                 direction="back"
-                className="font-semibold text-gray-600 hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400"
+                className="font-semibold text-gray-600 hover:text-orange-700 dark:text-gray-400 dark:hover:text-orange-400"
               >
                 전체 글로 돌아가기
               </ArrowLink>

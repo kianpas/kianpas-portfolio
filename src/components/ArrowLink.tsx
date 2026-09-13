@@ -16,7 +16,7 @@ const ArrowLink = ({
   href,
   children,
   direction = "forward",
-  className = "font-medium text-gray-500 hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400",
+  className = "font-medium text-gray-500 hover:text-orange-700 dark:text-gray-400 dark:hover:text-orange-400",
 }: Props) => (
   <Link
     href={href}

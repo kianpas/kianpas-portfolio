@@ -2,7 +2,6 @@ import { Post } from "@/types/post";
 import PostRow from "@/components/PostRow";
 import SearchBar from "@/components/SearchBar";
 import PageHeader from "@/components/layout/PageHeader";
-import CategoryNav from "./CategoryNav";
 
 type Props = {
   post: Post[];
@@ -21,8 +20,6 @@ const PostFeed = ({ post, showSearch = false }: Props) => {
             <SearchBar placeholder="제목, 내용, 태그로 검색" />
           </div>
         )}
-
-        <CategoryNav />
 
         {post.length > 0 ? (
           <div>

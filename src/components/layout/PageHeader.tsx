@@ -23,7 +23,7 @@ const PageHeader = ({
   className = "mb-14 sm:mb-16",
 }: Props) => (
   <div className={`border-b border-gray-200 pb-5 dark:border-gray-700 ${className}`}>
-    <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400">
+    <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-700 dark:text-orange-400">
       {eyebrow}
     </p>
     <h1 className="text-3xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-4xl">

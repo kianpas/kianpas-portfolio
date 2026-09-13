@@ -26,7 +26,7 @@ const AboutPage = () => {
       <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
         {/* 헤더 */}
         <header className="border-b border-gray-200 pb-8 dark:border-gray-700 sm:pb-10">
-          <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400">
+          <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-700 dark:text-orange-400">
             Profile
           </p>
           <h1 className="text-3xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-4xl">
@@ -41,7 +41,7 @@ const AboutPage = () => {
               href={siteMetadata.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 font-mono text-xs text-gray-500 transition-colors hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400"
+              className="group inline-flex items-center gap-2 font-mono text-xs text-gray-500 transition-colors hover:text-orange-700 dark:text-gray-400 dark:hover:text-orange-400"
             >
               <FaGithub className="h-4 w-4" aria-hidden />
               github.com/kianpas
@@ -57,7 +57,7 @@ const AboutPage = () => {
           >
             <h2
               id="about-intro"
-              className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400"
+              className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-700 dark:text-orange-400"
             >
               Intro
             </h2>
@@ -86,7 +86,7 @@ const AboutPage = () => {
           >
             <h2
               id="about-experience"
-              className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400"
+              className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-700 dark:text-orange-400"
             >
               Experience
             </h2>
@@ -129,7 +129,7 @@ const AboutPage = () => {
           >
             <h2
               id="about-stack"
-              className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400"
+              className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-orange-700 dark:text-orange-400"
             >
               Stack
             </h2>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -24,6 +24,9 @@ const NAV_ITEMS = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   // 메뉴가 열려 있는 동안 배경 스크롤 잠금
   useEffect(() => {
@@ -37,8 +40,43 @@ const Navbar = () => {
   useEffect(() => {
     if (!isOpen) return;
 
+    const header = headerRef.current;
+    const menu = menuRef.current;
+    const trigger = triggerRef.current;
+    if (!header || !menu) return;
+
+    // 메뉴와 보이는 헤더를 제외한 배경은 키보드·보조기기 탐색에서 제외한다.
+    const background: { element: HTMLElement; inert: boolean }[] = [];
+    const isolateBackground = (parent: HTMLElement) => {
+      for (const child of Array.from(parent.children)) {
+        if (!(child instanceof HTMLElement) || child === header || child === menu) continue;
+        if (child.contains(header) || child.contains(menu)) {
+          isolateBackground(child);
+        } else {
+          background.push({ element: child, inert: child.inert });
+          child.inert = true;
+        }
+      }
+    };
+    isolateBackground(document.body);
+    menu.querySelector<HTMLAnchorElement>("a[href]")?.focus();
+
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setIsOpen(false);
+      if (event.key !== "Tab") return;
+      const focusable = [header, menu].flatMap((region) =>
+        Array.from(region.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'))
+          .filter((element) => element.getClientRects().length > 0)
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
     };
     const desktopQuery = window.matchMedia("(min-width: 768px)");
     const onBreakpointChange = () => {
@@ -50,6 +88,9 @@ const Navbar = () => {
     return () => {
       window.removeEventListener("keydown", onKeyDown);
       desktopQuery.removeEventListener("change", onBreakpointChange);
+      background.forEach(({ element, inert }) => { element.inert = inert; });
+      if (trigger?.getClientRects().length) trigger.focus();
+      else header.querySelector<HTMLAnchorElement>('a[href]')?.focus();
     };
   }, [isOpen]);
 
@@ -58,7 +99,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="fixed top-0 z-50 h-16 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/80">
+      <header ref={headerRef} className="fixed top-0 z-50 h-16 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/80">
         <div className="mx-auto flex h-full max-w-5xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center">
             <Link href="/" className="text-xl font-semibold">
@@ -96,6 +137,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center space-x-3">
             <ThemeToggle />
             <button
+              ref={triggerRef}
               aria-label={isOpen ? "메뉴 닫기" : "메뉴 열기"}
               aria-expanded={!!isOpen}
               aria-controls="mobile-menu"
@@ -119,8 +161,9 @@ const Navbar = () => {
           opacity-0 + pointer-events-none은 키보드 포커스를 막지 못한다 */}
       <div
         id="mobile-menu"
+        ref={menuRef}
         inert={!isOpen}
-        className={`md:hidden fixed inset-0 z-40 bg-white dark:bg-gray-900 overflow-y-auto transition-all duration-300 ease-in-out ${
+        className={`md:hidden fixed inset-0 z-40 bg-white dark:bg-gray-900 overflow-y-auto overscroll-contain transition-all duration-300 ease-in-out ${
           isOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-4 pointer-events-none"

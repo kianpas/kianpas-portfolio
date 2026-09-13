@@ -10,7 +10,7 @@ const LoadMoreButton = ({ onClick, loading }: Props) => (
       type="button"
       onClick={onClick}
       disabled={loading}
-      className="text-sm font-semibold text-gray-600 transition-colors hover:text-orange-600 disabled:cursor-not-allowed disabled:opacity-60 dark:text-gray-400 dark:hover:text-orange-400"
+      className="text-sm font-semibold text-gray-600 transition-colors hover:text-orange-700 disabled:cursor-not-allowed disabled:opacity-60 dark:text-gray-400 dark:hover:text-orange-400"
     >
       {loading ? "로딩 중..." : "더보기"}
     </button>
