@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Post } from "@/types/post";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
@@ -19,7 +19,6 @@ const SearchBar = ({
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const router = useRouter();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   // 검색 실행
@@ -87,10 +86,9 @@ const SearchBar = ({
   }, [isOpen]);  
 
   // 결과 클릭 시 이동
-  const goToPost = (slug: string) => {
+  const closeResults = () => {
     setIsOpen(false);
     setQuery("");
-    router.push(`/blog/post/${slug}`);
   };
 
   return (
@@ -140,10 +138,11 @@ const SearchBar = ({
             </div>) :
             results.length > 0 ? (
               results.map((post) => (
-                <button
+                <Link
                   key={post.slug}
-                  onClick={() => goToPost(post.slug)}
-                  className="w-full p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700 last:border-b-0"
+                  href={`/blog/post/${post.slug}`}
+                  onNavigate={closeResults}
+                  className="block w-full p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700 last:border-b-0"
                 >
                   <h4 className="font-medium text-gray-900 dark:text-gray-100">
                     {post.title}
@@ -158,7 +157,7 @@ const SearchBar = ({
                     <span>•</span>
                     <span>{post.date}</span>
                   </div>
-                </button>
+                </Link>
               ))
             ) : query.length >= 2 ? (
               <div className="p-4 text-center text-gray-500 dark:text-gray-400">

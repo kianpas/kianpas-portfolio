@@ -25,7 +25,7 @@ const TagList = ({ tags, limit, href, className = "gap-x-4" }: Props) => {
           <Link
             key={tag}
             href={href(tag)}
-            className="transition-colors hover:text-orange-600 dark:hover:text-orange-400"
+            className="transition-colors hover:text-orange-700 dark:hover:text-orange-400"
           >
             #{tag}
           </Link>

@@ -3,7 +3,6 @@ import { getPostsByCategory } from "@/services/posts";
 import PostList from "@/app/blog/_components/PostList";
 import PageContainer from "@/components/layout/PageContainer";
 import PageHeader from "@/components/layout/PageHeader";
-import CategoryNav from "@/app/blog/_components/CategoryNav";
 
 type PageProps = {
   params: Promise<{ categoryName: string }>;
@@ -42,7 +41,6 @@ const CategoryPage = async ({ params }: PageProps) => {
         title={decodedCategoryName}
         description={`${totalPosts}개의 글`}
       />
-      <CategoryNav activeCategory={decodedCategoryName} />
       <PostList key={decodedCategoryName} initialPosts={posts} name={decodedCategoryName} totalPage={totalPages} filterBy="category" />
     </PageContainer>
   );

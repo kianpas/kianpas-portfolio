@@ -66,7 +66,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <header className="mb-12 border-b border-gray-200 pb-10 dark:border-gray-700 sm:mb-16 sm:pb-14 max-w-4xl mx-auto">
           {/* 제목 */}
           <h1
-            className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-gray-950 dark:text-white mb-8"
+            className="text-balance break-keep [overflow-wrap:anywhere] text-3xl sm:text-5xl font-bold leading-[1.4] tracking-tight text-gray-950 dark:text-white mb-8"
           >
             {title}
           </h1>
@@ -78,7 +78,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   href={projectUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm font-semibold text-orange-600 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300"
+                  className="flex items-center gap-2 text-sm font-semibold text-orange-700 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300"
                 >
                   <FaGithub size={16} />
                   GitHub에서 보기
@@ -87,7 +87,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   href={projectUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400"
+                  className="flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-orange-700 dark:text-gray-400 dark:hover:text-orange-400"
                 >
                   <FaArrowUpRightFromSquare  size={14} />
                   라이브 데모
@@ -111,7 +111,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <ArrowLink
               href="/project"
               direction="back"
-              className="font-semibold text-gray-600 hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400"
+              className="font-semibold text-gray-600 hover:text-orange-700 dark:text-gray-400 dark:hover:text-orange-400"
             >
               모든 프로젝트 보기
             </ArrowLink>

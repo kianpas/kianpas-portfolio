@@ -26,7 +26,7 @@ const PostRow = ({ post, variant = "row", className = "" }: Props) => {
       <Link href={href} className={`group block ${className}`}>
         <article className="grid gap-6 md:grid-cols-[11rem_1fr] md:gap-12">
           <div className="font-mono text-xs leading-6 text-gray-500 dark:text-gray-400">
-            <p className="font-semibold uppercase tracking-normal text-orange-600 dark:text-orange-400">
+            <p className="font-medium uppercase tracking-normal text-gray-600 dark:text-gray-400">
               {post.category}
             </p>
             <time dateTime={post.date} className="mt-2 block">
@@ -35,15 +35,15 @@ const PostRow = ({ post, variant = "row", className = "" }: Props) => {
             <p>{formatReadingTime(post.readingTime)}</p>
           </div>
           <div>
-            <h2 className="max-w-3xl text-2xl font-bold leading-tight tracking-tight text-gray-950 transition-colors group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 sm:text-4xl">
+            <h2 className="max-w-3xl text-balance break-keep [overflow-wrap:anywhere] text-2xl font-semibold leading-[1.4] tracking-tight text-gray-950 transition-colors group-hover:text-orange-700 dark:text-white dark:group-hover:text-orange-400 sm:text-4xl sm:leading-tight">
               {post.title}
             </h2>
             {post.summary && (
-              <p className="mt-5 max-w-2xl text-base leading-7 text-gray-600 dark:text-gray-300 sm:text-lg">
+              <p className="mt-4 max-w-2xl text-base leading-7 text-gray-600 dark:text-gray-300 sm:text-lg">
                 {post.summary}
               </p>
             )}
-            <TagList tags={post.tags} limit={4} className="mt-6 gap-x-4" />
+            <TagList tags={post.tags} limit={4} className="mt-4 gap-x-4" />
           </div>
         </article>
       </Link>
@@ -53,10 +53,10 @@ const PostRow = ({ post, variant = "row", className = "" }: Props) => {
   if (variant === "compact") {
     return (
       <Link href={href} className={`group block ${className}`}>
-        <p className="mb-2 font-mono text-xs uppercase tracking-normal text-orange-600 dark:text-orange-400">
+        <p className="mb-2 font-mono text-xs leading-4 uppercase tracking-normal text-gray-600 dark:text-gray-400">
           {post.category}
         </p>
-        <h3 className="text-lg font-bold leading-snug text-gray-900 transition-colors group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 sm:text-xl">
+        <h3 className="text-lg font-bold leading-snug text-gray-900 transition-colors group-hover:text-orange-700 dark:text-white dark:group-hover:text-orange-400 sm:text-xl">
           {post.title}
         </h3>
         <time
@@ -79,10 +79,10 @@ const PostRow = ({ post, variant = "row", className = "" }: Props) => {
         <p className="md:mt-1">{formatReadingTime(post.readingTime)}</p>
       </div>
       <article>
-        <p className="mb-2 font-mono text-xs font-semibold uppercase tracking-normal text-orange-600 dark:text-orange-400">
+        <p className="mb-2 font-mono text-xs font-medium uppercase tracking-normal text-gray-600 dark:text-gray-400">
           {post.category}
         </p>
-        <h2 className="text-xl font-bold leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 sm:text-2xl">
+        <h2 className="text-xl font-bold leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-orange-700 dark:text-white dark:group-hover:text-orange-400 sm:text-2xl">
           {post.title}
         </h2>
         {post.summary && (

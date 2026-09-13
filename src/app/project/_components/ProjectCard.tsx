@@ -19,7 +19,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           {dateRange && <p>{dateRange}</p>}
         </div>
         <div>
-          <h3 className="text-xl font-bold leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 sm:text-2xl">
+          <h3 className="text-xl font-bold leading-snug tracking-tight text-gray-900 transition-colors group-hover:text-orange-700 dark:text-white dark:group-hover:text-orange-400 sm:text-2xl">
             {title}
           </h3>
           <p className="mt-3 max-w-2xl leading-7 text-gray-600 dark:text-gray-300">
