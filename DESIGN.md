@@ -36,7 +36,7 @@ Tailwind 기본 팔레트만 씁니다. 커스텀 색 토큰은 없습니다.
 - 본문 서체: **Pretendard** (`globals.css`에서 로드), 폴백 Geist Sans.
 - 모노 서체: **Geist Mono** (`--font-geist-mono`). 날짜·읽기 시간·태그·아이브로우에 씁니다.
 - 페이지 제목: `text-3xl sm:text-4xl font-bold tracking-tight`
-- 글·프로젝트 상세 제목: `text-3xl sm:text-5xl font-bold leading-[1.4] tracking-tight` + 단어 단위 균형 줄바꿈
+- 글 상세 제목: `text-3xl sm:text-4xl font-bold leading-[1.4] tracking-tight` + 단어 단위 균형 줄바꿈. 프로젝트 상세는 `sm:text-5xl` 유지.
 - 홈 최신 글 제목: `text-2xl sm:text-4xl font-semibold`. 페이지 제목과 구분하면서 과한 굵기는 줄입니다.
 - 아이브로우(섹션 라벨): `font-mono text-xs font-semibold uppercase tracking-[0.2em]` + 오렌지
 - 본문 마크다운: `ArticleBody` 컴포넌트가 담당. prose 클래스를 각 페이지에 복사하지 마세요.
@@ -61,6 +61,15 @@ Tailwind 기본 팔레트만 씁니다. 커스텀 색 토큰은 없습니다.
 
 ## 공통 컴포넌트
 
+글 상세는 Zenn의 목차·정보 위계를 참고하되 기존 오렌지 액센트와 헤어라인 스타일을 유지합니다.
+`h2`·`h3`가 2개 이상이면 `ArticleToc`을 표시합니다. `lg` 이상은 13rem 폭의 오른쪽
+sticky 목차, 그 미만은 본문 위 네이티브 `details`입니다. 항목은 생략하지 않고 줄바꿈하며,
+긴 데스크톱 목차는 화면 높이 안에서 스크롤합니다. 본문에는 `min-width: 0`을 적용하고
+표·코드의 가로 넘침은 해당 요소 안에서 처리합니다. 별도 클라이언트 상태나 스크롤 추적은 없습니다.
+
+글 상세 메타는 14px, 제목과 메타·태그 사이는 20px로 묶습니다. 본문 h2는 모바일 24px,
+데스크톱 30px, h3는 각각 20px·24px입니다. 제목 위 여백은 h2 48px, h3 32px입니다.
+
 새로 만들기 전에 이미 있는지 확인하세요.
 
 | 컴포넌트 | 용도 |
@@ -68,6 +77,7 @@ Tailwind 기본 팔레트만 씁니다. 커스텀 색 토큰은 없습니다.
 | `layout/PageContainer` | 모든 페이지의 바깥 래퍼 |
 | `layout/PageHeader` | 아이브로우 + 제목 + 설명 + 헤어라인 |
 | `ArticleBody` | 마크다운 본문 prose 블록 (글·프로젝트 공용) |
+| `ArticleToc` | 글 상세 h2·h3 목차 — 데스크톱 sticky / 모바일 접기 |
 | `PostRow` | 글 목록 행 — `featured` / `row` / `compact` |
 | `TagList` | `#태그` 나열 (`href` 주면 링크, 없으면 평문) |
 | `ArrowLink` | 화살표 텍스트 링크 (`forward` / `back`) |

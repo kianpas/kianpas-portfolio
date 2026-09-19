@@ -6,6 +6,7 @@ import Link from "next/link";
 import ReadingProgress from "@/components/ReadingProgress";
 import ImageOptimizer from "@/components/ImageOptimizer";
 import ArticleBody from "@/components/ArticleBody";
+import ArticleToc from "@/components/ArticleToc";
 import PageContainer from "@/components/layout/PageContainer";
 import TagList from "@/components/TagList";
 import ArrowLink from "@/components/ArrowLink";
@@ -67,8 +68,8 @@ const SinglePostPage = async ({ params }: PageProps) => {
         <ReadingProgress />
         <ImageOptimizer />
 
-        <header className="mx-auto mb-12 max-w-4xl border-b border-gray-200 pb-10 dark:border-gray-700 sm:mb-16 sm:pb-14">
-          <div className="mb-7 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400">
+        <header className="mx-auto mb-10 max-w-4xl border-b border-gray-200 pb-8 dark:border-gray-700 sm:mb-12 sm:pb-10">
+          <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
             {postData.category && (
               <Link
                 href={`/blog/category/${postData.category}`}
@@ -83,18 +84,20 @@ const SinglePostPage = async ({ params }: PageProps) => {
             <span>{formatReadingTime(postData.readingTime)}</span>
           </div>
 
-          <h1 className="max-w-4xl text-balance break-keep [overflow-wrap:anywhere] text-3xl font-bold leading-[1.4] tracking-tight text-gray-950 dark:text-white sm:text-5xl">
+          <h1 className="max-w-4xl text-balance break-keep [overflow-wrap:anywhere] text-3xl font-bold leading-[1.4] tracking-tight text-gray-950 dark:text-white sm:text-4xl">
             {postData.title}
           </h1>
 
           <TagList
             tags={postData.tags}
             href={(tag) => `/blog/tag/${tag}`}
-            className="mt-8 gap-x-5"
+            className="mt-5 gap-x-5"
           />
         </header>
 
-        <article className="max-w-4xl mx-auto fade-in">
+        <div className={postData.toc.length >= 2 ? "grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_13rem]" : "mx-auto max-w-4xl"}>
+        <article className="min-w-0">
+          <ArticleToc entries={postData.toc} />
           <div className="relative">
             <ArticleBody html={postData.contentHtml} />
           </div>
@@ -151,6 +154,10 @@ const SinglePostPage = async ({ params }: PageProps) => {
             </div>
           </footer>
         </article>
+        {postData.toc.length >= 2 && (
+          <aside className="hidden self-stretch lg:block"><ArticleToc entries={postData.toc} desktop /></aside>
+        )}
+        </div>
     </PageContainer>
   );
 };

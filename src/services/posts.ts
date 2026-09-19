@@ -4,7 +4,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { calculateReadingTime } from "@/utils/readingTime";
-import { renderMarkdown } from "@/utils/markdown";
+import { renderMarkdownWithToc } from "@/utils/markdown";
 
 // const POSTS_PER_PAGE = 10; // 페이지당 포스트 수를 상수로 정의 (기존에 없다면 추가)
 
@@ -195,7 +195,7 @@ export const getPostData = async (slug: string) => {
   const matterResult = matter(fileContents);
 
   // 공통 파이프라인으로 Markdown을 HTML 문자열로 변환
-  const contentHtml = await renderMarkdown(matterResult.content);
+  const { html: contentHtml, toc } = await renderMarkdownWithToc(matterResult.content);
 
   // 읽는 시간 계산 (통일된 방식 사용)
   const readingTime = calculateReadingTime(matterResult.content);
@@ -216,6 +216,7 @@ export const getPostData = async (slug: string) => {
   const postData = {
     slug,
     contentHtml,
+    toc,
     readingTime,
     ...(matterResult.data as {
       title: string;

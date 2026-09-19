@@ -12,8 +12,8 @@ const ArticleBody = ({ html, className = "" }: Props) => (
     className={`article-body prose prose-neutral md:prose-lg dark:prose-invert max-w-none leading-7
               prose-headings:font-bold prose-headings:tracking-tight prose-headings:scroll-mt-20
               prose-headings:text-gray-900 dark:prose-headings:text-gray-100
-              prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-4
-              prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3
+              prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-5
+              prose-h3:text-xl md:prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
               prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed
               prose-a:text-orange-700 dark:prose-a:text-orange-400 prose-a:font-medium
               prose-a:underline prose-a:decoration-orange-300 prose-a:underline-offset-4 hover:prose-a:decoration-orange-600

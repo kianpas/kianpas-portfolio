@@ -110,6 +110,16 @@ html.dark body {
 }
 
 /* 인라인 코드만 중립색으로 표시한다. */
+.article-body {
+  overflow-wrap: anywhere;
+}
+
+/* 넓은 표는 본문 전체를 밀어내지 않고 표 안에서 가로로 탐색한다. */
+.article-body table {
+  display: block;
+  overflow-x: auto;
+}
+
 .article-body :not(pre) > code {
   color: rgb(55 65 81);
   background-color: rgb(243 244 246);
