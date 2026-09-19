@@ -13,13 +13,42 @@ import rehypeStringify from "rehype-stringify";
  * - rehype-slug: 헤딩에 id 부여 (앵커/목차 이동용)
  * - rehype-stringify: HTML 문자열로 직렬화
  */
-export const renderMarkdown = async (content: string): Promise<string> => {
+export type TocEntry = { id: string; text: string; depth: number };
+
+type HtmlNode = {
+  type: string;
+  tagName?: string;
+  value?: string;
+  properties?: { id?: string; alt?: string };
+  children?: HtmlNode[];
+};
+
+export const renderMarkdownWithToc = async (content: string) => {
+  const toc: TocEntry[] = [];
+  const textContent = (node: HtmlNode): string =>
+    node.type === "text" ? node.value ?? "" :
+      node.tagName === "img" ? node.properties?.alt ?? "" :
+        (node.children ?? []).map(textContent).join("");
+  const collectHeadings = () => (tree: HtmlNode) => {
+    const visit = (node: HtmlNode) => {
+      if ((node.tagName === "h2" || node.tagName === "h3") && node.properties?.id) {
+        const text = textContent(node).trim();
+        if (text) toc.push({ id: node.properties.id, text, depth: Number(node.tagName[1]) });
+      }
+      node.children?.forEach(visit);
+    };
+    visit(tree);
+  };
   const processed = await remark()
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
+    .use(collectHeadings)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content);
 
-  return processed.toString();
+  return { html: processed.toString(), toc };
 };
+
+export const renderMarkdown = async (content: string): Promise<string> =>
+  (await renderMarkdownWithToc(content)).html;

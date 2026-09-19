@@ -167,7 +167,11 @@ kianpas-portfolio/
   → dangerouslySetInnerHTML
 ```
 
-글과 프로젝트 모두 `src/utils/markdown.ts`의 `renderMarkdown()`을 사용한다.
+글과 프로젝트는 `src/utils/markdown.ts`의 동일한 파이프라인을 사용한다.
+글은 `renderMarkdownWithToc()`에서 HTML과 h2·h3 목차를 함께 받아 `getPostData()`가 반환한다.
+목차는 `rehype-slug` 실행 뒤 HTML 트리에서 수집하므로 한글·중복 제목·인라인 코드도
+본문과 동일한 ID를 사용한다. 프로젝트는 HTML만 반환하는 `renderMarkdown()`을 유지한다.
+`ArticleToc`은 서버 컴포넌트이며, 프론트매터에 목차 필드를 추가하지 않는다.
 
 ### 6.3 읽기 시간
 
