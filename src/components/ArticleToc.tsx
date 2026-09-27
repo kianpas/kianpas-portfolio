@@ -24,7 +24,8 @@ export default function ArticleToc({ entries, desktop = false }: { entries: TocE
       <TocLinks entries={entries} />
     </nav>
   ) : (
-    <details className="mb-10 border-y border-gray-200 py-3 dark:border-gray-700 lg:hidden">
+    // 위쪽 선은 헤더의 border-b와 40px 간격을 두고 겹쳐 빈 띠처럼 보여서 아래쪽만 남긴다.
+    <details className="mb-10 border-b border-gray-200 pb-3 dark:border-gray-700 lg:hidden">
       <summary className="cursor-pointer py-2 text-sm font-semibold text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-gray-100">
         이 글의 목차 ({entries.length})
       </summary>
