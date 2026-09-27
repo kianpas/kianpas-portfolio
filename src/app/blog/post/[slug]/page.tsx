@@ -63,12 +63,17 @@ const SinglePostPage = async ({ params }: PageProps) => {
     notFound();
   }
 
+  // 목차 표시 조건은 ArticleToc의 기준과 같다.
+  const hasToc = postData.toc.length >= 2;
+
   return (
     <PageContainer>
         <ReadingProgress />
         <ImageOptimizer />
 
-        <header className="mx-auto mb-10 max-w-4xl border-b border-gray-200 pb-8 dark:border-gray-700 sm:mb-12 sm:pb-10">
+        {/* 목차가 있으면 본문 행이 목차 폭만큼 넓어지므로, 헤더도 같은 폭을 써야
+            제목과 본문 소제목의 좌측 정렬선이 맞는다. 제목 길이는 h1의 max-w-4xl이 잡는다. */}
+        <header className={`mb-10 border-b border-gray-200 pb-8 dark:border-gray-700 sm:mb-12 sm:pb-10 ${hasToc ? "" : "mx-auto max-w-4xl"}`}>
           <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
             {postData.category && (
               <Link
@@ -95,7 +100,7 @@ const SinglePostPage = async ({ params }: PageProps) => {
           />
         </header>
 
-        <div className={postData.toc.length >= 2 ? "grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_13rem]" : "mx-auto max-w-4xl"}>
+        <div className={hasToc ? "grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_13rem]" : "mx-auto max-w-4xl"}>
         <article className="min-w-0">
           <ArticleToc entries={postData.toc} />
           <div className="relative">
